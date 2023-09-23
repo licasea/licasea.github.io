@@ -1,30 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2023/09/23/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2023/09/23/numpy/</url>
-    <content><![CDATA[<p>ndarray</p>
-<h2 id="创建ndarray的方法"><a href="#创建ndarray的方法" class="headerlink" title="创建ndarray的方法"></a>创建ndarray的方法</h2><h3 id="array"><a href="#array" class="headerlink" title="array"></a>array</h3><p>通过数组</p>
+    <title>numpy学习记录</title>
+    <url>/2023/09/24/numpy%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<h2 id="创建ndarray的方法"><a href="#创建ndarray的方法" class="headerlink" title="创建ndarray的方法"></a>创建ndarray的方法</h2><h3 id="array"><a href="#array" class="headerlink" title="array"></a>array</h3><p>通过数组</p>
 <h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p>zeros,empty,ones</p>
 <p>…_like</p>
+<span id="more"></span>
 <h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><ul>
 <li><p>arange</p>
 <p>类似于range</p>
@@ -101,76 +83,178 @@
 <p>如果不满足这些条件，则例外情况为 抛出，指示数组具有不兼容的形状。</p>
 <p>赋值运算也会使用广播原则</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>test11</title>
-    <url>/2023/09/23/test11/</url>
-    <content><![CDATA[<p>这是一个小测试</p>
-<span id="more"></span>
-<p>以上标记为一个分界线，用于展示显示的缩略内容<br>测试是一个好东西</p>
-]]></content>
       <categories>
-        <category>默认</category>
+        <category>python</category>
       </categories>
       <tags>
         <tag>默认</tag>
+        <tag>python</tag>
+        <tag>机器学习</tag>
+        <tag>数据分析</tag>
       </tags>
   </entry>
   <entry>
-    <title>test136</title>
-    <url>/2023/09/23/test136/</url>
-    <content><![CDATA[<p>ccccccccccccccccccc</p>
+    <title>matplotlib学习记录</title>
+    <url>/2023/09/24/matplotlib%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<h2 id="图表的创建方法"><a href="#图表的创建方法" class="headerlink" title="图表的创建方法"></a>图表的创建方法</h2><p>创建新图形的最简单方法是使用 pyplot：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig = plt.figure()  <span class="comment"># an empty figure with no Axes</span></span><br><span class="line">fig, ax = plt.subplots()  <span class="comment"># a figure with a single Axes</span></span><br><span class="line"><span class="comment">#添加axes</span></span><br><span class="line"><span class="comment">#1</span></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = fig.add_subplot()</span><br><span class="line"><span class="comment">#2</span></span><br><span class="line">fig, axs = plt.subplots(<span class="number">2</span>, <span class="number">2</span>)  <span class="comment"># a figure with a 2x2 grid of Axes</span></span><br><span class="line"><span class="comment">#3,添加并控制形状</span></span><br><span class="line"><span class="comment"># a figure with one axes on the left, and two on the right:控制不同子图的形状</span></span><br><span class="line">fig, axs = plt.subplot_mosaic([[<span class="string">&#x27;left&#x27;</span>, <span class="string">&#x27;right_top&#x27;</span>],</span><br><span class="line">                               [<span class="string">&#x27;left&#x27;</span>, <span class="string">&#x27;right_bottom&#x27;</span>]])</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
+<h2 id="面向对象接口的基本使用"><a href="#面向对象接口的基本使用" class="headerlink" title="面向对象接口的基本使用"></a>面向对象接口的基本使用</h2><h3 id="设置标题和图例等"><a href="#设置标题和图例等" class="headerlink" title="设置标题和图例等"></a>设置标题和图例等</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x = np.linspace(<span class="number">0</span>, <span class="number">2</span>, <span class="number">100</span>)  <span class="comment"># Sample data.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Note that even in the OO-style, we use `.pyplot.figure` to create the Figure.</span></span><br><span class="line">fig, ax = plt.subplots(figsize=(<span class="number">5</span>, <span class="number">2.7</span>), layout=<span class="string">&#x27;constrained&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置整个图像的属性</span></span><br><span class="line"><span class="comment">#标题</span></span><br><span class="line">fig.suptitle(<span class="string">&quot;main&quot;</span>)</span><br><span class="line">fig.figtext(<span class="string">&quot;sss&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#画图并设置图例名</span></span><br><span class="line">ax.plot(x, x, label=<span class="string">&#x27;linear&#x27;</span>)  <span class="comment"># Plot some data on the axes.</span></span><br><span class="line">ax.plot(x, x**<span class="number">2</span>, label=<span class="string">&#x27;quadratic&#x27;</span>)  <span class="comment"># Plot more data on the axes...</span></span><br><span class="line">ax.plot(x, x**<span class="number">3</span>, label=<span class="string">&#x27;cubic&#x27;</span>)  <span class="comment"># ... and some more.</span></span><br><span class="line"><span class="comment">#对象式设置图例</span></span><br><span class="line">line, = ax.plot([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">line.set_label(<span class="string">&#x27;Label via method&#x27;</span>)</span><br><span class="line">ax.legend()</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置x,y标签和标题</span></span><br><span class="line">ax.set_xlabel(<span class="string">&#x27;x label&#x27;</span>)  <span class="comment"># Add an x-label to the axes.</span></span><br><span class="line">ax.set_ylabel(<span class="string">&#x27;y label&#x27;</span>)  <span class="comment"># Add a y-label to the axes.</span></span><br><span class="line">ax.set_title(<span class="string">&quot;Simple Plot&quot;</span>)  <span class="comment"># Add a title to the axes.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#使用tex渲染文字,+r</span></span><br><span class="line">ax.set_ylabel(<span class="string">r&#x27;$\int\ Y^2\ dt\ \ [V^2 s]$&#x27;</span>)  </span><br><span class="line"></span><br><span class="line"><span class="comment">#labelpad可以控制指定轴(x,y)在指定方向的坐标偏移</span></span><br><span class="line">ax.set_ylabel(<span class="string">&#x27;entry b&#x27;</span>,labelpad=-<span class="number">40</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置坐标轴的刻度</span></span><br><span class="line">ax.xaxis.set_ticks(np.linspace(<span class="number">0</span>,<span class="number">50</span>,<span class="number">3</span>))</span><br><span class="line">ax.yaxis...</span><br><span class="line"><span class="comment">#设置自定义的坐标轴刻度</span></span><br><span class="line">ax.set_xticks(np.arange(<span class="number">0</span>, <span class="number">100</span>, <span class="number">30</span>), [<span class="string">&#x27;zero&#x27;</span>, <span class="string">&#x27;30&#x27;</span>, <span class="string">&#x27;sixty&#x27;</span>, <span class="string">&#x27;90&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置坐标的比例</span></span><br><span class="line">ax.set_yscale(<span class="string">&#x27;log&#x27;</span>)  <span class="comment">#设置比例为对数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#显示已添加的图例</span></span><br><span class="line">ax.legend()  <span class="comment"># Add a legend.</span></span><br><span class="line"><span class="comment">#控制显示的图例</span></span><br><span class="line">line1, = ax.plot([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], label=<span class="string">&#x27;label1&#x27;</span>)</span><br><span class="line">line2, = ax.plot([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], label=<span class="string">&#x27;label2&#x27;</span>)</span><br><span class="line">ax.legend([line1, line2], [<span class="string">&#x27;label111&#x27;</span>, <span class="string">&#x27;label222&#x27;</span>]（别名）)</span><br><span class="line"></span><br><span class="line"><span class="comment">#在图像中添加文字,前两个参数设置文字坐标位置</span></span><br><span class="line">ax.text(<span class="number">75</span>, <span class="number">.025</span>,<span class="string">&quot;text&quot;</span>,fontsize=<span class="number">50</span>,color=(<span class="number">0.2</span>,<span class="number">0.3</span>,<span class="number">0.5</span>,<span class="number">0.4</span>))</span><br><span class="line"><span class="comment">#添加提示文字,xy代表箭头起点,xytext代表文字位置</span></span><br><span class="line">ax.annotate(<span class="string">&#x27;annotate&#x27;</span>, xy=(<span class="number">2</span>, <span class="number">1</span>), xytext=(<span class="number">3</span>, <span class="number">4</span>),</span><br><span class="line">            arrowprops=<span class="built_in">dict</span>(facecolor=<span class="string">&#x27;black&#x27;</span>, shrink=<span class="number">0.05</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置x,y坐标的范围</span></span><br><span class="line">ax.axis([<span class="number">55</span>, <span class="number">175</span>, <span class="number">0</span>, <span class="number">0.03</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置是否显示网格</span></span><br><span class="line">ax.grid(<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 
-<p>以上标记为一个分界线，用于展示显示的缩略内容</p>
-<p>cccccccccc</p>
+<h3 id="设置样式的方法"><a href="#设置样式的方法" class="headerlink" title="设置样式的方法"></a>设置样式的方法</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#设置样式</span></span><br><span class="line">fig, ax = plt.subplots(figsize=(<span class="number">5</span>, <span class="number">2.7</span>))</span><br><span class="line">x = np.arange(<span class="built_in">len</span>(data1))</span><br><span class="line"><span class="comment">#在画图时设置</span></span><br><span class="line">ax.plot(x, np.cumsum(data1), color=<span class="string">&#x27;blue&#x27;</span>, linewidth=<span class="number">3</span>, linestyle=<span class="string">&#x27;--&#x27;</span>)</span><br><span class="line"><span class="comment">#面向对象设置方法</span></span><br><span class="line">l, = ax.plot(x, np.cumsum(data2), color=<span class="string">&#x27;orange&#x27;</span>, linewidth=<span class="number">2</span>)</span><br><span class="line">l.set_linestyle(<span class="string">&#x27;:&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置图像之间的遮盖关系z-index"><a href="#设置图像之间的遮盖关系z-index" class="headerlink" title="设置图像之间的遮盖关系z-index"></a>设置图像之间的遮盖关系z-index</h3><p>不同形状的图像有默认的显示优先级，可以通过设置改变</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x = np.linspace(<span class="number">0</span>, <span class="number">7.5</span>, <span class="number">100</span>)</span><br><span class="line">plt.rcParams[<span class="string">&#x27;lines.linewidth&#x27;</span>] = <span class="number">5</span></span><br><span class="line">plt.figure()</span><br><span class="line"><span class="comment">#函数参数设置zorder</span></span><br><span class="line">plt.plot(x, np.sin(x), label=<span class="string">&#x27;zorder=2&#x27;</span>, zorder=<span class="number">2</span>)  <span class="comment"># bottom</span></span><br><span class="line">plt.plot(x, np.sin(x+<span class="number">0.5</span>), label=<span class="string">&#x27;zorder=3&#x27;</span>,  zorder=<span class="number">3</span>)</span><br><span class="line">plt.axhline(<span class="number">0</span>, label=<span class="string">&#x27;zorder=2.5&#x27;</span>, color=<span class="string">&#x27;lightgrey&#x27;</span>, zorder=<span class="number">2.5</span>)</span><br><span class="line">plt.title(<span class="string">&#x27;Custom order of elements&#x27;</span>)</span><br><span class="line"><span class="comment">#对象设置</span></span><br><span class="line">l = plt.legend(loc=<span class="string">&#x27;upper right&#x27;</span>)</span><br><span class="line">l.set_zorder(<span class="number">2.5</span>)  <span class="comment"># legend between blue and orange line</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<h3 id="颜色的设置"><a href="#颜色的设置" class="headerlink" title="颜色的设置"></a>颜色的设置</h3><p>颜色可以使用字符串和rgba等多种形式，使用rgba所有值在0-1之间,<code>color=(0.2,0.3,0.4,0.2)</code></p>
 ]]></content>
       <categories>
-        <category>默认</category>
+        <category>python</category>
       </categories>
       <tags>
         <tag>默认</tag>
+        <tag>python</tag>
+        <tag>机器学习</tag>
+        <tag>数据分析</tag>
       </tags>
   </entry>
   <entry>
-    <title>test2</title>
-    <url>/2023/09/23/test2/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>test3</title>
-    <url>/2023/09/23/test3/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>a</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>test5</title>
-    <url>/2023/09/23/test5/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>默认</category>
-      </categories>
-      <tags>
-        <tag>默认</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>test9</title>
-    <url>/2023/09/23/test9/</url>
-    <content><![CDATA[<p>d</p>
-<p>发v</p>
-<p>vvv一个</p>
+    <title>pandas学习记录</title>
+    <url>/2023/09/24/pandas%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<h2 id="Series"><a href="#Series" class="headerlink" title="Series"></a>Series</h2><p><code>Series</code>是带标签的一维数组，可存储整数、浮点数、字符串、Python 对象等类型的数据。轴标签统称为<strong>索引</strong>。调用 <code>pd.Series</code> 函数即可创建 Series</p>
+<span id="more"></span>
+<h3 id="创建Series"><a href="#创建Series" class="headerlink" title="创建Series"></a>创建Series</h3><ol>
+<li><p>数组</p>
+<p><code>data</code> 是多维数组时，<strong>index</strong> 长度必须与 <strong>data</strong> 长度一致。没有指定 <code>index</code> 参数时，创建数值型索引，即 <code>[0, ..., len(data) - 1]</code>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">3</span>]: s = pd.Series(np.random.randn(<span class="number">5</span>), index=[<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: s</span><br><span class="line">Out[<span class="number">4</span>]: </span><br><span class="line">a    <span class="number">0.469112</span></span><br><span class="line">b   -<span class="number">0.282863</span></span><br><span class="line">c   -<span class="number">1.509059</span></span><br><span class="line">d   -<span class="number">1.135632</span></span><br><span class="line">e    <span class="number">1.212112</span></span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: s.index</span><br><span class="line">Out[<span class="number">5</span>]: Index([<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>], dtype=<span class="string">&#x27;object&#x27;</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: pd.Series(np.random.randn(<span class="number">5</span>))</span><br><span class="line">Out[<span class="number">6</span>]: </span><br><span class="line"><span class="number">0</span>   -<span class="number">0.173215</span></span><br><span class="line"><span class="number">1</span>    <span class="number">0.119209</span></span><br><span class="line"><span class="number">2</span>   -<span class="number">1.044236</span></span><br><span class="line"><span class="number">3</span>   -<span class="number">0.861849</span></span><br><span class="line"><span class="number">4</span>   -<span class="number">2.104569</span></span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字典</p>
+<p>Series 可以用字典实例化：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">7</span>]: d = &#123;<span class="string">&#x27;b&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;c&#x27;</span>: <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: pd.Series(d)</span><br><span class="line">Out[<span class="number">8</span>]: </span><br><span class="line">b    <span class="number">1</span></span><br><span class="line">a    <span class="number">0</span></span><br><span class="line">c    <span class="number">2</span></span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure>
+
+<p>如果设置了 <code>index</code> 参数，则按索引标签提取 <code>data</code> 里对应的值。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">9</span>]: d = &#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">0.</span>, <span class="string">&#x27;b&#x27;</span>: <span class="number">1.</span>, <span class="string">&#x27;c&#x27;</span>: <span class="number">2.</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">10</span>]: pd.Series(d)</span><br><span class="line">Out[<span class="number">10</span>]: </span><br><span class="line">a    <span class="number">0.0</span></span><br><span class="line">b    <span class="number">1.0</span></span><br><span class="line">c    <span class="number">2.0</span></span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">11</span>]: pd.Series(d, index=[<span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;a&#x27;</span>])</span><br><span class="line">Out[<span class="number">11</span>]: </span><br><span class="line">b    <span class="number">1.0</span></span><br><span class="line">c    <span class="number">2.0</span></span><br><span class="line">d    NaN</span><br><span class="line">a    <span class="number">0.0</span></span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3><ol>
+<li><p>一些函数</p>
+<p><code>Series</code> 操作与 <code>ndarray</code> 类似，支持大多数 NumPy 函数，还支持索引切片。</p>
+<p><code>Series.array</code> 用于提取 <code>Series</code> 数组，不是ndarray</p>
+<p>Series 是<code>扩展数组</code> ，<code>Series.to_numpy()</code> 返回的是 NumPy 多维数组。</p>
+</li>
+<li><p>索引切片</p>
+<p><code>Series</code> 操作与 <code>ndarray</code> 类似，支持大多数 NumPy 函数，还支持索引切片。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">13</span>]: s[<span class="number">0</span>]</span><br><span class="line">Out[<span class="number">13</span>]: <span class="number">0.4691122999071863</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">14</span>]: s[:<span class="number">3</span>]</span><br><span class="line">Out[<span class="number">14</span>]: </span><br><span class="line">a    <span class="number">0.469112</span></span><br><span class="line">b   -<span class="number">0.282863</span></span><br><span class="line">c   -<span class="number">1.509059</span></span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">15</span>]: s[s &gt; s.median()]</span><br><span class="line">Out[<span class="number">15</span>]: </span><br><span class="line">a    <span class="number">0.469112</span></span><br><span class="line">e    <span class="number">1.212112</span></span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">16</span>]: s[[<span class="number">4</span>, <span class="number">3</span>, <span class="number">1</span>]]</span><br><span class="line">Out[<span class="number">16</span>]: </span><br><span class="line">e    <span class="number">1.212112</span></span><br><span class="line">d   -<span class="number">1.135632</span></span><br><span class="line">b   -<span class="number">0.282863</span></span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+
+<p>Series 类似固定大小的字典，可以用索引标签提取值或设置值：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">21</span>]: s[<span class="string">&#x27;a&#x27;</span>]</span><br><span class="line">Out[<span class="number">21</span>]: <span class="number">0.4691122999071863</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">22</span>]: s[<span class="string">&#x27;e&#x27;</span>] = <span class="number">12.</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">23</span>]: s</span><br><span class="line">Out[<span class="number">23</span>]: </span><br><span class="line">a     <span class="number">0.469112</span></span><br><span class="line">b    -<span class="number">0.282863</span></span><br><span class="line">c    -<span class="number">1.509059</span></span><br><span class="line">d    -<span class="number">1.135632</span></span><br><span class="line">e    <span class="number">12.000000</span></span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">24</span>]: <span class="string">&#x27;e&#x27;</span> <span class="keyword">in</span> s</span><br><span class="line">Out[<span class="number">24</span>]: <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">25</span>]: <span class="string">&#x27;f&#x27;</span> <span class="keyword">in</span> s</span><br><span class="line">Out[<span class="number">25</span>]: <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p><code>get</code> 方法可以提取 <code>Series</code> 里没有的标签，返回 <code>None</code> 或指定默认值：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">26</span>]: s.get(<span class="string">&#x27;f&#x27;</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">27</span>]: s.get(<span class="string">&#x27;f&#x27;</span>, np.nan)</span><br><span class="line">Out[<span class="number">27</span>]: nan</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="矢量操作与对齐-Series-标签"><a href="#矢量操作与对齐-Series-标签" class="headerlink" title="矢量操作与对齐 Series 标签"></a>矢量操作与对齐 Series 标签</h3><p>Series 和 NumPy 数组一样，都不用循环每个值，而且 Series 支持大多数 NumPy 多维数组的方法。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">28</span>]: s + s</span><br><span class="line">Out[<span class="number">28</span>]: </span><br><span class="line">a     <span class="number">0.938225</span></span><br><span class="line">b    -<span class="number">0.565727</span></span><br><span class="line">c    -<span class="number">3.018117</span></span><br><span class="line">d    -<span class="number">2.271265</span></span><br><span class="line">e    <span class="number">24.000000</span></span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+
+<p>Series 和多维数组的主要区别在于， Series 之间的操作会自动基于标签对齐数据。因此，不用顾及执行计算操作的 Series 是否有相同的标签。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">31</span>]: s[<span class="number">1</span>:] + s[:-<span class="number">1</span>]</span><br><span class="line">Out[<span class="number">31</span>]: </span><br><span class="line">a         NaN</span><br><span class="line">b   -<span class="number">0.565727</span></span><br><span class="line">c   -<span class="number">3.018117</span></span><br><span class="line">d   -<span class="number">2.271265</span></span><br><span class="line">e         NaN</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+
+<p>操作未对齐索引的 Series， 其计算结果是所有涉及索引的<strong>并集</strong>。如果在 Series 里找不到标签，运算结果标记为 <code>NaN</code>，即缺失值。编写无需显式对齐数据的代码，给交互数据分析和研究提供了巨大的自由度和灵活性。Pandas 数据结构集成的数据对齐功能，是 Pandas 区别于大多数标签型数据处理工具的重要特性。</p>
+<p>series有部分运算无法使用numpy的方法,如|，&amp;，~,需要替换为numpy.logic_and,or,not()等等。</p>
+<p>series支持name属性，使用rename重命名</p>
+<h2 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h2><p><strong>DataFrame</strong> 是由多种类型的列构成的二维标签数据结构，类似于 Excel 、SQL 表，或 Series 对象构成的字典。DataFrame 是最常用的 Pandas 对象，与 Series 一样，DataFrame 支持多种类型的输入数据：</p>
+<ul>
+<li>一维 ndarray、列表、字典、Series 字典</li>
+<li>二维 numpy.ndarray</li>
+<li>结构多维数组或记录多维数</li>
+<li><code>Series</code></li>
+<li><code>DataFrame</code></li>
+</ul>
+<p>除了数据，还可以有选择地传递 <strong>index</strong>（行标签）和 <strong>columns</strong>（列标签）参数。传递了索引或列，就可以确保生成的 DataFrame 里包含索引或列。Series 字典加上指定索引时，会丢弃与传递的索引不匹配的所有数据。</p>
+<p>没有传递轴标签时，按常规依据输入数据进行构建。</p>
+<h3 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h3><ol>
+<li><p>用series字典生成</p>
+<p>生成的<strong>索引</strong>是每个 <strong>Series</strong> 索引的并集。先把嵌套字典转换为 Series。如果没有指定列，DataFrame 的列就是字典键的有序列表。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">37</span>]: d = &#123;<span class="string">&#x27;one&#x27;</span>: pd.Series([<span class="number">1.</span>, <span class="number">2.</span>, <span class="number">3.</span>], index=[<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>]),</span><br><span class="line">   ....:      <span class="string">&#x27;two&#x27;</span>: pd.Series([<span class="number">1.</span>, <span class="number">2.</span>, <span class="number">3.</span>, <span class="number">4.</span>], index=[<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>])&#125;</span><br><span class="line">   ....: </span><br><span class="line"></span><br><span class="line">In [<span class="number">38</span>]: df = pd.DataFrame(d)</span><br><span class="line"></span><br><span class="line">In [<span class="number">39</span>]: df</span><br><span class="line">Out[<span class="number">39</span>]: </span><br><span class="line">   one  two</span><br><span class="line">a  <span class="number">1.0</span>  <span class="number">1.0</span></span><br><span class="line">b  <span class="number">2.0</span>  <span class="number">2.0</span></span><br><span class="line">c  <span class="number">3.0</span>  <span class="number">3.0</span></span><br><span class="line">d  NaN  <span class="number">4.0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">40</span>]: pd.DataFrame(d, index=[<span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;a&#x27;</span>])</span><br><span class="line">Out[<span class="number">40</span>]: </span><br><span class="line">   one  two</span><br><span class="line">d  NaN  <span class="number">4.0</span></span><br><span class="line">b  <span class="number">2.0</span>  <span class="number">2.0</span></span><br><span class="line">a  <span class="number">1.0</span>  <span class="number">1.0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">41</span>]: pd.DataFrame(d, index=[<span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;a&#x27;</span>], columns=[<span class="string">&#x27;two&#x27;</span>, <span class="string">&#x27;three&#x27;</span>])</span><br><span class="line">Out[<span class="number">41</span>]: </span><br><span class="line">   two three</span><br><span class="line">d  <span class="number">4.0</span>   NaN</span><br><span class="line">b  <span class="number">2.0</span>   NaN</span><br><span class="line">a  <span class="number">1.0</span>   NaN</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="提取、添加、删除列"><a href="#提取、添加、删除列" class="headerlink" title="提取、添加、删除列"></a>提取、添加、删除列</h3><p>DataFrame 就像带索引的 Series 字典，提取、设置、删除列的操作与字典类似：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">61</span>]: df[<span class="string">&#x27;one&#x27;</span>]</span><br><span class="line">Out[<span class="number">61</span>]: </span><br><span class="line">a    <span class="number">1.0</span></span><br><span class="line">b    <span class="number">2.0</span></span><br><span class="line">c    <span class="number">3.0</span></span><br><span class="line">d    NaN</span><br><span class="line">Name: one, dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">62</span>]: df[<span class="string">&#x27;three&#x27;</span>] = df[<span class="string">&#x27;one&#x27;</span>] * df[<span class="string">&#x27;two&#x27;</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">63</span>]: df[<span class="string">&#x27;flag&#x27;</span>] = df[<span class="string">&#x27;one&#x27;</span>] &gt; <span class="number">2</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">64</span>]: df</span><br><span class="line">Out[<span class="number">64</span>]: </span><br><span class="line">   one  two  three   flag</span><br><span class="line">a  <span class="number">1.0</span>  <span class="number">1.0</span>    <span class="number">1.0</span>  <span class="literal">False</span></span><br><span class="line">b  <span class="number">2.0</span>  <span class="number">2.0</span>    <span class="number">4.0</span>  <span class="literal">False</span></span><br><span class="line">c  <span class="number">3.0</span>  <span class="number">3.0</span>    <span class="number">9.0</span>   <span class="literal">True</span></span><br><span class="line">d  NaN  <span class="number">4.0</span>    NaN  <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p>删除（del、pop）列的方式也与字典类似：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">65</span>]: <span class="keyword">del</span> df[<span class="string">&#x27;two&#x27;</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">66</span>]: three = df.pop(<span class="string">&#x27;three&#x27;</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">67</span>]: df</span><br><span class="line">Out[<span class="number">67</span>]: </span><br><span class="line">   one   flag</span><br><span class="line">a  <span class="number">1.0</span>  <span class="literal">False</span></span><br><span class="line">b  <span class="number">2.0</span>  <span class="literal">False</span></span><br><span class="line">c  <span class="number">3.0</span>   <span class="literal">True</span></span><br><span class="line">d  NaN  <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p>标量值以广播的方式填充列：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">68</span>]: df[<span class="string">&#x27;foo&#x27;</span>] = <span class="string">&#x27;bar&#x27;</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">69</span>]: df</span><br><span class="line">Out[<span class="number">69</span>]: </span><br><span class="line">   one   flag  foo</span><br><span class="line">a  <span class="number">1.0</span>  <span class="literal">False</span>  bar</span><br><span class="line">b  <span class="number">2.0</span>  <span class="literal">False</span>  bar</span><br><span class="line">c  <span class="number">3.0</span>   <span class="literal">True</span>  bar</span><br><span class="line">d  NaN  <span class="literal">False</span>  bar</span><br></pre></td></tr></table></figure>
+
+<p>插入与 DataFrame 索引不同的 Series 时，以 DataFrame 的索引为准：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">70</span>]: df[<span class="string">&#x27;one_trunc&#x27;</span>] = df[<span class="string">&#x27;one&#x27;</span>][:<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">71</span>]: df</span><br><span class="line">Out[<span class="number">71</span>]: </span><br><span class="line">   one   flag  foo  one_trunc</span><br><span class="line">a  <span class="number">1.0</span>  <span class="literal">False</span>  bar        <span class="number">1.0</span></span><br><span class="line">b  <span class="number">2.0</span>  <span class="literal">False</span>  bar        <span class="number">2.0</span></span><br><span class="line">c  <span class="number">3.0</span>   <span class="literal">True</span>  bar        NaN</span><br><span class="line">d  NaN  <span class="literal">False</span>  bar        NaN</span><br></pre></td></tr></table></figure>
+
+<p>可以插入原生多维数组，但长度必须与 DataFrame 索引长度一致。</p>
+<p>默认在 DataFrame 尾部插入列。<code>insert</code> 函数可以指定插入列的位置：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">72</span>]: df.insert(<span class="number">1</span>, <span class="string">&#x27;bar&#x27;</span>, df[<span class="string">&#x27;one&#x27;</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">73</span>]: df</span><br><span class="line">Out[<span class="number">73</span>]: </span><br><span class="line">   one  bar   flag  foo  one_trunc</span><br><span class="line">a  <span class="number">1.0</span>  <span class="number">1.0</span>  <span class="literal">False</span>  bar        <span class="number">1.0</span></span><br><span class="line">b  <span class="number">2.0</span>  <span class="number">2.0</span>  <span class="literal">False</span>  bar        <span class="number">2.0</span></span><br><span class="line">c  <span class="number">3.0</span>  <span class="number">3.0</span>   <span class="literal">True</span>  bar        NaN</span><br><span class="line">d  NaN  NaN  <span class="literal">False</span>  bar        NaN</span><br></pre></td></tr></table></figure>
+
+<h3 id="索引-选择"><a href="#索引-选择" class="headerlink" title="索引 &#x2F; 选择"></a>索引 &#x2F; 选择</h3><p>索引基础用法如下：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>句法</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>选择列</td>
+<td><code>df[col]</code></td>
+<td>Series</td>
+</tr>
+<tr>
+<td>用标签选择行</td>
+<td><code>df.loc[label]</code></td>
+<td>Series</td>
+</tr>
+<tr>
+<td>用整数位置选择行</td>
+<td><code>df.iloc[loc]</code></td>
+<td>Series</td>
+</tr>
+<tr>
+<td>行切片</td>
+<td><code>df[5:10]</code></td>
+<td>DataFrame</td>
+</tr>
+<tr>
+<td>用布尔向量选择行</td>
+<td><code>df[bool_vec]</code></td>
+<td>DataFrame</td>
+</tr>
+</tbody></table>
+<p>在loc和iloc上可以使用与ndarray类似的多重索引,如().iloc[1:2,3:5:8]。loc使用标签索引，iloc使用数字索引</p>
+<p>选择行返回 Series，索引是 DataFrame 的列：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">83</span>]: df.loc[<span class="string">&#x27;b&#x27;</span>]</span><br><span class="line">Out[<span class="number">83</span>]: </span><br><span class="line">one              <span class="number">2</span></span><br><span class="line">bar              <span class="number">2</span></span><br><span class="line">flag         <span class="literal">False</span></span><br><span class="line">foo            bar</span><br><span class="line">one_trunc        <span class="number">2</span></span><br><span class="line">Name: b, dtype: <span class="built_in">object</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">84</span>]: df.iloc[<span class="number">2</span>]</span><br><span class="line">Out[<span class="number">84</span>]: </span><br><span class="line">one             <span class="number">3</span></span><br><span class="line">bar             <span class="number">3</span></span><br><span class="line">flag         <span class="literal">True</span></span><br><span class="line">foo           bar</span><br><span class="line">one_trunc     NaN</span><br><span class="line">Name: c, dtype: <span class="built_in">object</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="在loc选择器上的操作"><a href="#在loc选择器上的操作" class="headerlink" title="在loc选择器上的操作"></a>在loc选择器上的操作</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">1</span>]: df = pd.DataFrame(&#123;<span class="string">&#x27;AAA&#x27;</span>: [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>],</span><br><span class="line">   ...:                    <span class="string">&#x27;BBB&#x27;</span>: [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>],</span><br><span class="line">   ...:                    <span class="string">&#x27;CCC&#x27;</span>: [<span class="number">100</span>, <span class="number">50</span>, -<span class="number">30</span>, -<span class="number">50</span>]&#125;)</span><br><span class="line">   ...: </span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: df</span><br><span class="line">Out[<span class="number">2</span>]: </span><br><span class="line">   AAA  BBB  CCC</span><br><span class="line"><span class="number">0</span>    <span class="number">4</span>   <span class="number">10</span>  <span class="number">100</span></span><br><span class="line"><span class="number">1</span>    <span class="number">5</span>   <span class="number">20</span>   <span class="number">50</span></span><br><span class="line"><span class="number">2</span>    <span class="number">6</span>   <span class="number">30</span>  -<span class="number">30</span></span><br><span class="line"><span class="number">3</span>    <span class="number">7</span>   <span class="number">40</span>  -<span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#在一列上执行 if-then 操作：</span></span><br><span class="line">In [<span class="number">3</span>]: df.loc[df.AAA &gt;= <span class="number">5</span>, <span class="string">&#x27;BBB&#x27;</span>] = -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: df</span><br><span class="line">Out[<span class="number">4</span>]: </span><br><span class="line">   AAA  BBB  CCC</span><br><span class="line"><span class="number">0</span>    <span class="number">4</span>   <span class="number">10</span>  <span class="number">100</span></span><br><span class="line"><span class="number">1</span>    <span class="number">5</span>   -<span class="number">1</span>   <span class="number">50</span></span><br><span class="line"><span class="number">2</span>    <span class="number">6</span>   -<span class="number">1</span>  -<span class="number">30</span></span><br><span class="line"><span class="number">3</span>    <span class="number">7</span>   -<span class="number">1</span>  -<span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#在两列上执行 if-then 操作：</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: df.loc[df.AAA &gt;= <span class="number">5</span>, [<span class="string">&#x27;BBB&#x27;</span>, <span class="string">&#x27;CCC&#x27;</span>]] = <span class="number">555</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: df</span><br><span class="line">Out[<span class="number">6</span>]: </span><br><span class="line">   AAA  BBB  CCC</span><br><span class="line"><span class="number">0</span>    <span class="number">4</span>   <span class="number">10</span>  <span class="number">100</span></span><br><span class="line"><span class="number">1</span>    <span class="number">5</span>  <span class="number">555</span>  <span class="number">555</span></span><br><span class="line"><span class="number">2</span>    <span class="number">6</span>  <span class="number">555</span>  <span class="number">555</span></span><br><span class="line"><span class="number">3</span>    <span class="number">7</span>  <span class="number">555</span>  <span class="number">555</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="where函数的妙用"><a href="#where函数的妙用" class="headerlink" title="where函数的妙用"></a>where函数的妙用</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">11</span>]: df = pd.DataFrame(&#123;<span class="string">&#x27;AAA&#x27;</span>: [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>],</span><br><span class="line">   ....:                    <span class="string">&#x27;BBB&#x27;</span>: [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>],</span><br><span class="line">   ....:                    <span class="string">&#x27;CCC&#x27;</span>: [<span class="number">100</span>, <span class="number">50</span>, -<span class="number">30</span>, -<span class="number">50</span>]&#125;)</span><br><span class="line">   ....: </span><br><span class="line"></span><br><span class="line">In [<span class="number">12</span>]: df</span><br><span class="line">Out[<span class="number">12</span>]: </span><br><span class="line">   AAA  BBB  CCC</span><br><span class="line"><span class="number">0</span>    <span class="number">4</span>   <span class="number">10</span>  <span class="number">100</span></span><br><span class="line"><span class="number">1</span>    <span class="number">5</span>   <span class="number">20</span>   <span class="number">50</span></span><br><span class="line"><span class="number">2</span>    <span class="number">6</span>   <span class="number">30</span>  -<span class="number">30</span></span><br><span class="line"><span class="number">3</span>    <span class="number">7</span>   <span class="number">40</span>  -<span class="number">50</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">13</span>]: df[<span class="string">&#x27;logic&#x27;</span>] = np.where(df[<span class="string">&#x27;AAA&#x27;</span>] &gt; <span class="number">5</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">14</span>]: df</span><br><span class="line">Out[<span class="number">14</span>]: </span><br><span class="line">   AAA  BBB  CCC logic</span><br><span class="line"><span class="number">0</span>    <span class="number">4</span>   <span class="number">10</span>  <span class="number">100</span>   low</span><br><span class="line"><span class="number">1</span>    <span class="number">5</span>   <span class="number">20</span>   <span class="number">50</span>   low</span><br><span class="line"><span class="number">2</span>    <span class="number">6</span>   <span class="number">30</span>  -<span class="number">30</span>  high</span><br><span class="line"><span class="number">3</span>    <span class="number">7</span>   <span class="number">40</span>  -<span class="number">50</span>  high</span><br></pre></td></tr></table></figure>
+
+<h3 id="argsort排序妙用"><a href="#argsort排序妙用" class="headerlink" title="argsort排序妙用"></a>argsort排序妙用</h3><p>使用argsort搭配iloc可以为表格进行排序</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">25</span>]: df = pd.DataFrame(&#123;<span class="string">&#x27;AAA&#x27;</span>: [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>],</span><br><span class="line">   ....:                    <span class="string">&#x27;BBB&#x27;</span>: [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>],</span><br><span class="line">   ....:                    <span class="string">&#x27;CCC&#x27;</span>: [<span class="number">100</span>, <span class="number">50</span>, -<span class="number">30</span>, -<span class="number">50</span>]&#125;)</span><br><span class="line">   ....: </span><br><span class="line"></span><br><span class="line">In [<span class="number">26</span>]: df</span><br><span class="line">Out[<span class="number">26</span>]: </span><br><span class="line">   AAA  BBB  CCC</span><br><span class="line"><span class="number">0</span>    <span class="number">4</span>   <span class="number">10</span>  <span class="number">100</span></span><br><span class="line"><span class="number">1</span>    <span class="number">5</span>   <span class="number">20</span>   <span class="number">50</span></span><br><span class="line"><span class="number">2</span>    <span class="number">6</span>   <span class="number">30</span>  -<span class="number">30</span></span><br><span class="line"><span class="number">3</span>    <span class="number">7</span>   <span class="number">40</span>  -<span class="number">50</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">27</span>]: aValue = <span class="number">43.0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">28</span>]: df.iloc[(df.CCC - aValue).<span class="built_in">abs</span>().argsort()]</span><br><span class="line">Out[<span class="number">28</span>]: </span><br><span class="line">   AAA  BBB  CCC</span><br><span class="line"><span class="number">1</span>    <span class="number">5</span>   <span class="number">20</span>   <span class="number">50</span></span><br><span class="line"><span class="number">0</span>    <span class="number">4</span>   <span class="number">10</span>  <span class="number">100</span></span><br><span class="line"><span class="number">2</span>    <span class="number">6</span>   <span class="number">30</span>  -<span class="number">30</span></span><br><span class="line"><span class="number">3</span>    <span class="number">7</span>   <span class="number">40</span>  -<span class="number">50</span></span><br><span class="line"><span class="comment">#也可以对列进行排序</span></span><br><span class="line">df.iloc[:,(表达式...).argsort()]</span><br></pre></td></tr></table></figure>
+
+<h3 id="映射函数"><a href="#映射函数" class="headerlink" title="映射函数"></a>映射函数</h3><p>map函数对于Series的每个元素应用函数</p>
+<p>apply对于Series的每个元素或DataFrame的每一列应用函数,可以额外传递参数。当对DataFrame使用函数时，可以传入参数axis&#x3D;…来改变传入的的是行还是列。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">apply_age</span>(<span class="params">x,bias</span>):</span><br><span class="line">    <span class="keyword">return</span> x+bias</span><br><span class="line"></span><br><span class="line"><span class="comment">#以元组的方式传入额外的参数</span></span><br><span class="line">data[<span class="string">&quot;age&quot;</span>] = data[<span class="string">&quot;age&quot;</span>].apply(apply_age,args=(-<span class="number">3</span>,))</span><br></pre></td></tr></table></figure>
+
+<p>applymap对于表或者series中的每一个元素应用特定的函数并将结果返回到原位置</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a.applymap(function)</span><br></pre></td></tr></table></figure>
+
+<h3 id="常见函数"><a href="#常见函数" class="headerlink" title="常见函数"></a>常见函数</h3><p>max,min等函数返回表的每一列的最值,idxmax,idxmin,返回最值的索引</p>
+<p>rename函数用来为dataframe的行和列重命名,如<code>d.rename(columns=&#123;&#39;y&#39;:&#39;yr&#39;&#125;,index=&#123;&#39;b&#39;:&#39;bkk&#39;&#125;,inplace=True)</code>，其中inplace参数代表是否改变原数组</p>
 ]]></content>
       <categories>
-        <category>默认</category>
+        <category>python</category>
       </categories>
       <tags>
         <tag>默认</tag>
+        <tag>python</tag>
+        <tag>机器学习</tag>
+        <tag>数据分析</tag>
       </tags>
   </entry>
 </search>

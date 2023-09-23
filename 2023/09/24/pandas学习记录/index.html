@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta name="description" content="一个博客网站" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>pandas学习记录 |  一片叶子</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/profile.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?845e669b2afbd45f4dba3748b68be822";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-pandas学习记录"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  pandas学习记录
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/09/24/pandas%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="article-date">
+  <time datetime="2023-09-23T16:39:25.000Z" itemprop="datePublished">2023-09-24</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/python/">python</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.3k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">10 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="Series"><a href="#Series" class="headerlink" title="Series"></a>Series</h2><p><code>Series</code>是带标签的一维数组，可存储整数、浮点数、字符串、Python 对象等类型的数据。轴标签统称为<strong>索引</strong>。调用 <code>pd.Series</code> 函数即可创建 Series</p>
+<span id="more"></span>
+<h3 id="创建Series"><a href="#创建Series" class="headerlink" title="创建Series"></a>创建Series</h3><ol>
+<li><p>数组</p>
+<p><code>data</code> 是多维数组时，<strong>index</strong> 长度必须与 <strong>data</strong> 长度一致。没有指定 <code>index</code> 参数时，创建数值型索引，即 <code>[0, ..., len(data) - 1]</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">3</span>]: s = pd.Series(np.random.randn(<span class="number">5</span>), index=[<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: s</span><br><span class="line">Out[<span class="number">4</span>]: </span><br><span class="line">a    <span class="number">0.469112</span></span><br><span class="line">b   -<span class="number">0.282863</span></span><br><span class="line">c   -<span class="number">1.509059</span></span><br><span class="line">d   -<span class="number">1.135632</span></span><br><span class="line">e    <span class="number">1.212112</span></span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: s.index</span><br><span class="line">Out[<span class="number">5</span>]: Index([<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>], dtype=<span class="string">&#x27;object&#x27;</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: pd.Series(np.random.randn(<span class="number">5</span>))</span><br><span class="line">Out[<span class="number">6</span>]: </span><br><span class="line"><span class="number">0</span>   -<span class="number">0.173215</span></span><br><span class="line"><span class="number">1</span>    <span class="number">0.119209</span></span><br><span class="line"><span class="number">2</span>   -<span class="number">1.044236</span></span><br><span class="line"><span class="number">3</span>   -<span class="number">0.861849</span></span><br><span class="line"><span class="number">4</span>   -<span class="number">2.104569</span></span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字典</p>
+<p>Series 可以用字典实例化：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">7</span>]: d = &#123;<span class="string">&#x27;b&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;a&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;c&#x27;</span>: <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: pd.Series(d)</span><br><span class="line">Out[<span class="number">8</span>]: </span><br><span class="line">b    <span class="number">1</span></span><br><span class="line">a    <span class="number">0</span></span><br><span class="line">c    <span class="number">2</span></span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure>
+
+<p>如果设置了 <code>index</code> 参数，则按索引标签提取 <code>data</code> 里对应的值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">9</span>]: d = &#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">0.</span>, <span class="string">&#x27;b&#x27;</span>: <span class="number">1.</span>, <span class="string">&#x27;c&#x27;</span>: <span class="number">2.</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">10</span>]: pd.Series(d)</span><br><span class="line">Out[<span class="number">10</span>]: </span><br><span class="line">a    <span class="number">0.0</span></span><br><span class="line">b    <span class="number">1.0</span></span><br><span class="line">c    <span class="number">2.0</span></span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">11</span>]: pd.Series(d, index=[<span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;a&#x27;</span>])</span><br><span class="line">Out[<span class="number">11</span>]: </span><br><span class="line">b    <span class="number">1.0</span></span><br><span class="line">c    <span class="number">2.0</span></span><br><span class="line">d    NaN</span><br><span class="line">a    <span class="number">0.0</span></span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3><ol>
+<li><p>一些函数</p>
+<p><code>Series</code> 操作与 <code>ndarray</code> 类似，支持大多数 NumPy 函数，还支持索引切片。</p>
+<p><code>Series.array</code> 用于提取 <code>Series</code> 数组，不是ndarray</p>
+<p>Series 是<code>扩展数组</code> ，<code>Series.to_numpy()</code> 返回的是 NumPy 多维数组。</p>
+</li>
+<li><p>索引切片</p>
+<p><code>Series</code> 操作与 <code>ndarray</code> 类似，支持大多数 NumPy 函数，还支持索引切片。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">13</span>]: s[<span class="number">0</span>]</span><br><span class="line">Out[<span class="number">13</span>]: <span class="number">0.4691122999071863</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">14</span>]: s[:<span class="number">3</span>]</span><br><span class="line">Out[<span class="number">14</span>]: </span><br><span class="line">a    <span class="number">0.469112</span></span><br><span class="line">b   -<span class="number">0.282863</span></span><br><span class="line">c   -<span class="number">1.509059</span></span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">15</span>]: s[s &gt; s.median()]</span><br><span class="line">Out[<span class="number">15</span>]: </span><br><span class="line">a    <span class="number">0.469112</span></span><br><span class="line">e    <span class="number">1.212112</span></span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">16</span>]: s[[<span class="number">4</span>, <span class="number">3</span>, <span class="number">1</span>]]</span><br><span class="line">Out[<span class="number">16</span>]: </span><br><span class="line">e    <span class="number">1.212112</span></span><br><span class="line">d   -<span class="number">1.135632</span></span><br><span class="line">b   -<span class="number">0.282863</span></span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+
+<p>Series 类似固定大小的字典，可以用索引标签提取值或设置值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">21</span>]: s[<span class="string">&#x27;a&#x27;</span>]</span><br><span class="line">Out[<span class="number">21</span>]: <span class="number">0.4691122999071863</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">22</span>]: s[<span class="string">&#x27;e&#x27;</span>] = <span class="number">12.</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">23</span>]: s</span><br><span class="line">Out[<span class="number">23</span>]: </span><br><span class="line">a     <span class="number">0.469112</span></span><br><span class="line">b    -<span class="number">0.282863</span></span><br><span class="line">c    -<span class="number">1.509059</span></span><br><span class="line">d    -<span class="number">1.135632</span></span><br><span class="line">e    <span class="number">12.000000</span></span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">24</span>]: <span class="string">&#x27;e&#x27;</span> <span class="keyword">in</span> s</span><br><span class="line">Out[<span class="number">24</span>]: <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">25</span>]: <span class="string">&#x27;f&#x27;</span> <span class="keyword">in</span> s</span><br><span class="line">Out[<span class="number">25</span>]: <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p><code>get</code> 方法可以提取 <code>Series</code> 里没有的标签，返回 <code>None</code> 或指定默认值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">26</span>]: s.get(<span class="string">&#x27;f&#x27;</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">27</span>]: s.get(<span class="string">&#x27;f&#x27;</span>, np.nan)</span><br><span class="line">Out[<span class="number">27</span>]: nan</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="矢量操作与对齐-Series-标签"><a href="#矢量操作与对齐-Series-标签" class="headerlink" title="矢量操作与对齐 Series 标签"></a>矢量操作与对齐 Series 标签</h3><p>Series 和 NumPy 数组一样，都不用循环每个值，而且 Series 支持大多数 NumPy 多维数组的方法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">28</span>]: s + s</span><br><span class="line">Out[<span class="number">28</span>]: </span><br><span class="line">a     <span class="number">0.938225</span></span><br><span class="line">b    -<span class="number">0.565727</span></span><br><span class="line">c    -<span class="number">3.018117</span></span><br><span class="line">d    -<span class="number">2.271265</span></span><br><span class="line">e    <span class="number">24.000000</span></span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+
+<p>Series 和多维数组的主要区别在于， Series 之间的操作会自动基于标签对齐数据。因此，不用顾及执行计算操作的 Series 是否有相同的标签。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">31</span>]: s[<span class="number">1</span>:] + s[:-<span class="number">1</span>]</span><br><span class="line">Out[<span class="number">31</span>]: </span><br><span class="line">a         NaN</span><br><span class="line">b   -<span class="number">0.565727</span></span><br><span class="line">c   -<span class="number">3.018117</span></span><br><span class="line">d   -<span class="number">2.271265</span></span><br><span class="line">e         NaN</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure>
+
+<p>操作未对齐索引的 Series， 其计算结果是所有涉及索引的<strong>并集</strong>。如果在 Series 里找不到标签，运算结果标记为 <code>NaN</code>，即缺失值。编写无需显式对齐数据的代码，给交互数据分析和研究提供了巨大的自由度和灵活性。Pandas 数据结构集成的数据对齐功能，是 Pandas 区别于大多数标签型数据处理工具的重要特性。</p>
+<p>series有部分运算无法使用numpy的方法,如|，&amp;，~,需要替换为numpy.logic_and,or,not()等等。</p>
+<p>series支持name属性，使用rename重命名</p>
+<h2 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h2><p><strong>DataFrame</strong> 是由多种类型的列构成的二维标签数据结构，类似于 Excel 、SQL 表，或 Series 对象构成的字典。DataFrame 是最常用的 Pandas 对象，与 Series 一样，DataFrame 支持多种类型的输入数据：</p>
+<ul>
+<li>一维 ndarray、列表、字典、Series 字典</li>
+<li>二维 numpy.ndarray</li>
+<li>结构多维数组或记录多维数</li>
+<li><code>Series</code></li>
+<li><code>DataFrame</code></li>
+</ul>
+<p>除了数据，还可以有选择地传递 <strong>index</strong>（行标签）和 <strong>columns</strong>（列标签）参数。传递了索引或列，就可以确保生成的 DataFrame 里包含索引或列。Series 字典加上指定索引时，会丢弃与传递的索引不匹配的所有数据。</p>
+<p>没有传递轴标签时，按常规依据输入数据进行构建。</p>
+<h3 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h3><ol>
+<li><p>用series字典生成</p>
+<p>生成的<strong>索引</strong>是每个 <strong>Series</strong> 索引的并集。先把嵌套字典转换为 Series。如果没有指定列，DataFrame 的列就是字典键的有序列表。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">37</span>]: d = &#123;<span class="string">&#x27;one&#x27;</span>: pd.Series([<span class="number">1.</span>, <span class="number">2.</span>, <span class="number">3.</span>], index=[<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>]),</span><br><span class="line">   ....:      <span class="string">&#x27;two&#x27;</span>: pd.Series([<span class="number">1.</span>, <span class="number">2.</span>, <span class="number">3.</span>, <span class="number">4.</span>], index=[<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>])&#125;</span><br><span class="line">   ....: </span><br><span class="line"></span><br><span class="line">In [<span class="number">38</span>]: df = pd.DataFrame(d)</span><br><span class="line"></span><br><span class="line">In [<span class="number">39</span>]: df</span><br><span class="line">Out[<span class="number">39</span>]: </span><br><span class="line">   one  two</span><br><span class="line">a  <span class="number">1.0</span>  <span class="number">1.0</span></span><br><span class="line">b  <span class="number">2.0</span>  <span class="number">2.0</span></span><br><span class="line">c  <span class="number">3.0</span>  <span class="number">3.0</span></span><br><span class="line">d  NaN  <span class="number">4.0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">40</span>]: pd.DataFrame(d, index=[<span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;a&#x27;</span>])</span><br><span class="line">Out[<span class="number">40</span>]: </span><br><span class="line">   one  two</span><br><span class="line">d  NaN  <span class="number">4.0</span></span><br><span class="line">b  <span class="number">2.0</span>  <span class="number">2.0</span></span><br><span class="line">a  <span class="number">1.0</span>  <span class="number">1.0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">41</span>]: pd.DataFrame(d, index=[<span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;a&#x27;</span>], columns=[<span class="string">&#x27;two&#x27;</span>, <span class="string">&#x27;three&#x27;</span>])</span><br><span class="line">Out[<span class="number">41</span>]: </span><br><span class="line">   two three</span><br><span class="line">d  <span class="number">4.0</span>   NaN</span><br><span class="line">b  <span class="number">2.0</span>   NaN</span><br><span class="line">a  <span class="number">1.0</span>   NaN</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="提取、添加、删除列"><a href="#提取、添加、删除列" class="headerlink" title="提取、添加、删除列"></a>提取、添加、删除列</h3><p>DataFrame 就像带索引的 Series 字典，提取、设置、删除列的操作与字典类似：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">61</span>]: df[<span class="string">&#x27;one&#x27;</span>]</span><br><span class="line">Out[<span class="number">61</span>]: </span><br><span class="line">a    <span class="number">1.0</span></span><br><span class="line">b    <span class="number">2.0</span></span><br><span class="line">c    <span class="number">3.0</span></span><br><span class="line">d    NaN</span><br><span class="line">Name: one, dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">62</span>]: df[<span class="string">&#x27;three&#x27;</span>] = df[<span class="string">&#x27;one&#x27;</span>] * df[<span class="string">&#x27;two&#x27;</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">63</span>]: df[<span class="string">&#x27;flag&#x27;</span>] = df[<span class="string">&#x27;one&#x27;</span>] &gt; <span class="number">2</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">64</span>]: df</span><br><span class="line">Out[<span class="number">64</span>]: </span><br><span class="line">   one  two  three   flag</span><br><span class="line">a  <span class="number">1.0</span>  <span class="number">1.0</span>    <span class="number">1.0</span>  <span class="literal">False</span></span><br><span class="line">b  <span class="number">2.0</span>  <span class="number">2.0</span>    <span class="number">4.0</span>  <span class="literal">False</span></span><br><span class="line">c  <span class="number">3.0</span>  <span class="number">3.0</span>    <span class="number">9.0</span>   <span class="literal">True</span></span><br><span class="line">d  NaN  <span class="number">4.0</span>    NaN  <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p>删除（del、pop）列的方式也与字典类似：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">65</span>]: <span class="keyword">del</span> df[<span class="string">&#x27;two&#x27;</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">66</span>]: three = df.pop(<span class="string">&#x27;three&#x27;</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">67</span>]: df</span><br><span class="line">Out[<span class="number">67</span>]: </span><br><span class="line">   one   flag</span><br><span class="line">a  <span class="number">1.0</span>  <span class="literal">False</span></span><br><span class="line">b  <span class="number">2.0</span>  <span class="literal">False</span></span><br><span class="line">c  <span class="number">3.0</span>   <span class="literal">True</span></span><br><span class="line">d  NaN  <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p>标量值以广播的方式填充列：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">68</span>]: df[<span class="string">&#x27;foo&#x27;</span>] = <span class="string">&#x27;bar&#x27;</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">69</span>]: df</span><br><span class="line">Out[<span class="number">69</span>]: </span><br><span class="line">   one   flag  foo</span><br><span class="line">a  <span class="number">1.0</span>  <span class="literal">False</span>  bar</span><br><span class="line">b  <span class="number">2.0</span>  <span class="literal">False</span>  bar</span><br><span class="line">c  <span class="number">3.0</span>   <span class="literal">True</span>  bar</span><br><span class="line">d  NaN  <span class="literal">False</span>  bar</span><br></pre></td></tr></table></figure>
+
+<p>插入与 DataFrame 索引不同的 Series 时，以 DataFrame 的索引为准：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">70</span>]: df[<span class="string">&#x27;one_trunc&#x27;</span>] = df[<span class="string">&#x27;one&#x27;</span>][:<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">71</span>]: df</span><br><span class="line">Out[<span class="number">71</span>]: </span><br><span class="line">   one   flag  foo  one_trunc</span><br><span class="line">a  <span class="number">1.0</span>  <span class="literal">False</span>  bar        <span class="number">1.0</span></span><br><span class="line">b  <span class="number">2.0</span>  <span class="literal">False</span>  bar        <span class="number">2.0</span></span><br><span class="line">c  <span class="number">3.0</span>   <span class="literal">True</span>  bar        NaN</span><br><span class="line">d  NaN  <span class="literal">False</span>  bar        NaN</span><br></pre></td></tr></table></figure>
+
+<p>可以插入原生多维数组，但长度必须与 DataFrame 索引长度一致。</p>
+<p>默认在 DataFrame 尾部插入列。<code>insert</code> 函数可以指定插入列的位置：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">72</span>]: df.insert(<span class="number">1</span>, <span class="string">&#x27;bar&#x27;</span>, df[<span class="string">&#x27;one&#x27;</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">73</span>]: df</span><br><span class="line">Out[<span class="number">73</span>]: </span><br><span class="line">   one  bar   flag  foo  one_trunc</span><br><span class="line">a  <span class="number">1.0</span>  <span class="number">1.0</span>  <span class="literal">False</span>  bar        <span class="number">1.0</span></span><br><span class="line">b  <span class="number">2.0</span>  <span class="number">2.0</span>  <span class="literal">False</span>  bar        <span class="number">2.0</span></span><br><span class="line">c  <span class="number">3.0</span>  <span class="number">3.0</span>   <span class="literal">True</span>  bar        NaN</span><br><span class="line">d  NaN  NaN  <span class="literal">False</span>  bar        NaN</span><br></pre></td></tr></table></figure>
+
+<h3 id="索引-选择"><a href="#索引-选择" class="headerlink" title="索引 &#x2F; 选择"></a>索引 &#x2F; 选择</h3><p>索引基础用法如下：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>句法</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>选择列</td>
+<td><code>df[col]</code></td>
+<td>Series</td>
+</tr>
+<tr>
+<td>用标签选择行</td>
+<td><code>df.loc[label]</code></td>
+<td>Series</td>
+</tr>
+<tr>
+<td>用整数位置选择行</td>
+<td><code>df.iloc[loc]</code></td>
+<td>Series</td>
+</tr>
+<tr>
+<td>行切片</td>
+<td><code>df[5:10]</code></td>
+<td>DataFrame</td>
+</tr>
+<tr>
+<td>用布尔向量选择行</td>
+<td><code>df[bool_vec]</code></td>
+<td>DataFrame</td>
+</tr>
+</tbody></table>
+<p>在loc和iloc上可以使用与ndarray类似的多重索引,如().iloc[1:2,3:5:8]。loc使用标签索引，iloc使用数字索引</p>
+<p>选择行返回 Series，索引是 DataFrame 的列：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">83</span>]: df.loc[<span class="string">&#x27;b&#x27;</span>]</span><br><span class="line">Out[<span class="number">83</span>]: </span><br><span class="line">one              <span class="number">2</span></span><br><span class="line">bar              <span class="number">2</span></span><br><span class="line">flag         <span class="literal">False</span></span><br><span class="line">foo            bar</span><br><span class="line">one_trunc        <span class="number">2</span></span><br><span class="line">Name: b, dtype: <span class="built_in">object</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">84</span>]: df.iloc[<span class="number">2</span>]</span><br><span class="line">Out[<span class="number">84</span>]: </span><br><span class="line">one             <span class="number">3</span></span><br><span class="line">bar             <span class="number">3</span></span><br><span class="line">flag         <span class="literal">True</span></span><br><span class="line">foo           bar</span><br><span class="line">one_trunc     NaN</span><br><span class="line">Name: c, dtype: <span class="built_in">object</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="在loc选择器上的操作"><a href="#在loc选择器上的操作" class="headerlink" title="在loc选择器上的操作"></a>在loc选择器上的操作</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: df = pd.DataFrame(&#123;<span class="string">&#x27;AAA&#x27;</span>: [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>],</span><br><span class="line">   ...:                    <span class="string">&#x27;BBB&#x27;</span>: [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>],</span><br><span class="line">   ...:                    <span class="string">&#x27;CCC&#x27;</span>: [<span class="number">100</span>, <span class="number">50</span>, -<span class="number">30</span>, -<span class="number">50</span>]&#125;)</span><br><span class="line">   ...: </span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: df</span><br><span class="line">Out[<span class="number">2</span>]: </span><br><span class="line">   AAA  BBB  CCC</span><br><span class="line"><span class="number">0</span>    <span class="number">4</span>   <span class="number">10</span>  <span class="number">100</span></span><br><span class="line"><span class="number">1</span>    <span class="number">5</span>   <span class="number">20</span>   <span class="number">50</span></span><br><span class="line"><span class="number">2</span>    <span class="number">6</span>   <span class="number">30</span>  -<span class="number">30</span></span><br><span class="line"><span class="number">3</span>    <span class="number">7</span>   <span class="number">40</span>  -<span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#在一列上执行 if-then 操作：</span></span><br><span class="line">In [<span class="number">3</span>]: df.loc[df.AAA &gt;= <span class="number">5</span>, <span class="string">&#x27;BBB&#x27;</span>] = -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: df</span><br><span class="line">Out[<span class="number">4</span>]: </span><br><span class="line">   AAA  BBB  CCC</span><br><span class="line"><span class="number">0</span>    <span class="number">4</span>   <span class="number">10</span>  <span class="number">100</span></span><br><span class="line"><span class="number">1</span>    <span class="number">5</span>   -<span class="number">1</span>   <span class="number">50</span></span><br><span class="line"><span class="number">2</span>    <span class="number">6</span>   -<span class="number">1</span>  -<span class="number">30</span></span><br><span class="line"><span class="number">3</span>    <span class="number">7</span>   -<span class="number">1</span>  -<span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#在两列上执行 if-then 操作：</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: df.loc[df.AAA &gt;= <span class="number">5</span>, [<span class="string">&#x27;BBB&#x27;</span>, <span class="string">&#x27;CCC&#x27;</span>]] = <span class="number">555</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: df</span><br><span class="line">Out[<span class="number">6</span>]: </span><br><span class="line">   AAA  BBB  CCC</span><br><span class="line"><span class="number">0</span>    <span class="number">4</span>   <span class="number">10</span>  <span class="number">100</span></span><br><span class="line"><span class="number">1</span>    <span class="number">5</span>  <span class="number">555</span>  <span class="number">555</span></span><br><span class="line"><span class="number">2</span>    <span class="number">6</span>  <span class="number">555</span>  <span class="number">555</span></span><br><span class="line"><span class="number">3</span>    <span class="number">7</span>  <span class="number">555</span>  <span class="number">555</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="where函数的妙用"><a href="#where函数的妙用" class="headerlink" title="where函数的妙用"></a>where函数的妙用</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">11</span>]: df = pd.DataFrame(&#123;<span class="string">&#x27;AAA&#x27;</span>: [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>],</span><br><span class="line">   ....:                    <span class="string">&#x27;BBB&#x27;</span>: [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>],</span><br><span class="line">   ....:                    <span class="string">&#x27;CCC&#x27;</span>: [<span class="number">100</span>, <span class="number">50</span>, -<span class="number">30</span>, -<span class="number">50</span>]&#125;)</span><br><span class="line">   ....: </span><br><span class="line"></span><br><span class="line">In [<span class="number">12</span>]: df</span><br><span class="line">Out[<span class="number">12</span>]: </span><br><span class="line">   AAA  BBB  CCC</span><br><span class="line"><span class="number">0</span>    <span class="number">4</span>   <span class="number">10</span>  <span class="number">100</span></span><br><span class="line"><span class="number">1</span>    <span class="number">5</span>   <span class="number">20</span>   <span class="number">50</span></span><br><span class="line"><span class="number">2</span>    <span class="number">6</span>   <span class="number">30</span>  -<span class="number">30</span></span><br><span class="line"><span class="number">3</span>    <span class="number">7</span>   <span class="number">40</span>  -<span class="number">50</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">13</span>]: df[<span class="string">&#x27;logic&#x27;</span>] = np.where(df[<span class="string">&#x27;AAA&#x27;</span>] &gt; <span class="number">5</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">14</span>]: df</span><br><span class="line">Out[<span class="number">14</span>]: </span><br><span class="line">   AAA  BBB  CCC logic</span><br><span class="line"><span class="number">0</span>    <span class="number">4</span>   <span class="number">10</span>  <span class="number">100</span>   low</span><br><span class="line"><span class="number">1</span>    <span class="number">5</span>   <span class="number">20</span>   <span class="number">50</span>   low</span><br><span class="line"><span class="number">2</span>    <span class="number">6</span>   <span class="number">30</span>  -<span class="number">30</span>  high</span><br><span class="line"><span class="number">3</span>    <span class="number">7</span>   <span class="number">40</span>  -<span class="number">50</span>  high</span><br></pre></td></tr></table></figure>
+
+<h3 id="argsort排序妙用"><a href="#argsort排序妙用" class="headerlink" title="argsort排序妙用"></a>argsort排序妙用</h3><p>使用argsort搭配iloc可以为表格进行排序</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">25</span>]: df = pd.DataFrame(&#123;<span class="string">&#x27;AAA&#x27;</span>: [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>],</span><br><span class="line">   ....:                    <span class="string">&#x27;BBB&#x27;</span>: [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>],</span><br><span class="line">   ....:                    <span class="string">&#x27;CCC&#x27;</span>: [<span class="number">100</span>, <span class="number">50</span>, -<span class="number">30</span>, -<span class="number">50</span>]&#125;)</span><br><span class="line">   ....: </span><br><span class="line"></span><br><span class="line">In [<span class="number">26</span>]: df</span><br><span class="line">Out[<span class="number">26</span>]: </span><br><span class="line">   AAA  BBB  CCC</span><br><span class="line"><span class="number">0</span>    <span class="number">4</span>   <span class="number">10</span>  <span class="number">100</span></span><br><span class="line"><span class="number">1</span>    <span class="number">5</span>   <span class="number">20</span>   <span class="number">50</span></span><br><span class="line"><span class="number">2</span>    <span class="number">6</span>   <span class="number">30</span>  -<span class="number">30</span></span><br><span class="line"><span class="number">3</span>    <span class="number">7</span>   <span class="number">40</span>  -<span class="number">50</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">27</span>]: aValue = <span class="number">43.0</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">28</span>]: df.iloc[(df.CCC - aValue).<span class="built_in">abs</span>().argsort()]</span><br><span class="line">Out[<span class="number">28</span>]: </span><br><span class="line">   AAA  BBB  CCC</span><br><span class="line"><span class="number">1</span>    <span class="number">5</span>   <span class="number">20</span>   <span class="number">50</span></span><br><span class="line"><span class="number">0</span>    <span class="number">4</span>   <span class="number">10</span>  <span class="number">100</span></span><br><span class="line"><span class="number">2</span>    <span class="number">6</span>   <span class="number">30</span>  -<span class="number">30</span></span><br><span class="line"><span class="number">3</span>    <span class="number">7</span>   <span class="number">40</span>  -<span class="number">50</span></span><br><span class="line"><span class="comment">#也可以对列进行排序</span></span><br><span class="line">df.iloc[:,(表达式...).argsort()]</span><br></pre></td></tr></table></figure>
+
+<h3 id="映射函数"><a href="#映射函数" class="headerlink" title="映射函数"></a>映射函数</h3><p>map函数对于Series的每个元素应用函数</p>
+<p>apply对于Series的每个元素或DataFrame的每一列应用函数,可以额外传递参数。当对DataFrame使用函数时，可以传入参数axis&#x3D;…来改变传入的的是行还是列。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">apply_age</span>(<span class="params">x,bias</span>):</span><br><span class="line">    <span class="keyword">return</span> x+bias</span><br><span class="line"></span><br><span class="line"><span class="comment">#以元组的方式传入额外的参数</span></span><br><span class="line">data[<span class="string">&quot;age&quot;</span>] = data[<span class="string">&quot;age&quot;</span>].apply(apply_age,args=(-<span class="number">3</span>,))</span><br></pre></td></tr></table></figure>
+
+<p>applymap对于表或者series中的每一个元素应用特定的函数并将结果返回到原位置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a.applymap(function)</span><br></pre></td></tr></table></figure>
+
+<h3 id="常见函数"><a href="#常见函数" class="headerlink" title="常见函数"></a>常见函数</h3><p>max,min等函数返回表的每一列的最值,idxmax,idxmin,返回最值的索引</p>
+<p>rename函数用来为dataframe的行和列重命名,如<code>d.rename(columns=&#123;&#39;y&#39;:&#39;yr&#39;&#125;,index=&#123;&#39;b&#39;:&#39;bkk&#39;&#125;,inplace=True)</code>，其中inplace参数代表是否改变原数组</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://licasea.github.io/2023/09/24/pandas%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag">数据分析</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%BB%98%E8%AE%A4/" rel="tag">默认</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2023/09/24/matplotlib%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            matplotlib学习记录
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2023/09/24/numpy%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">numpy学习记录</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "Rm8nAHYLJtqJE84erLHOTBxF-gzGzoHsz",
+    app_key: "fJwYbxDQ5uoIetLzbsBgKKu7",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+    
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023
+        <i class="ri-heart-fill heart_icon"></i> 一片叶子
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/profile.jpg" alt="一片叶子"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">时间线</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">画廊</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
