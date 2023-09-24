@@ -1,6 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>hexo使用笔记</title>
+    <url>/2023/09/24/hexo%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="关于hexo的使用说明"><a href="#关于hexo的使用说明" class="headerlink" title="关于hexo的使用说明"></a>关于hexo的使用说明</h1><h2 id="网站"><a href="#网站" class="headerlink" title="网站"></a>网站</h2><p><a href="https://hexo.io/zh-cn/">Hexo</a></p>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><ol>
+<li><p>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</p>
+<p>hexo clean:用于清除public文件中所有已经生成的文件，便于后续生成新文件时不必引起冲突</p>
+</li>
+</ol>
+<span id="more"></span>
+<p>   hexo g:用于将source文件夹中写好的md文件生成为html文件</p>
+<p>   hexo d:用于将已经生成好的网站推送到远程服务器上</p>
+<ol start="2">
+<li><p>hexo new [type] {文件名}</p>
+<p>用于在source文件夹中生成一个指定名称的带有预设格式的md文档</p>
+<p>type用于指定格式，默认为post</p>
+</li>
+<li><p>hexo s</p>
+<p>用于在本地启动一个服务器用于测试</p>
+</li>
+</ol>
+<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><h3 id="主题-六角形-hexo-io"><a href="#主题-六角形-hexo-io" class="headerlink" title="主题 |六角形 (hexo.io)"></a><a href="https://hexo.io/themes/">主题 |六角形 (hexo.io)</a></h3><h3 id="hexo-theme-ayer"><a href="#hexo-theme-ayer" class="headerlink" title="hexo-theme-ayer"></a><strong><a href="https://github.com/shen-yu/hexo-theme-ayer">hexo-theme-ayer</a></strong></h3><h3 id="三钻-Benny-X-Guo-三钻-Benny-X-Guo-tridiamond-tech"><a href="#三钻-Benny-X-Guo-三钻-Benny-X-Guo-tridiamond-tech" class="headerlink" title="三钻 Benny X Guo | 三钻 Benny X Guo (tridiamond.tech)"></a><a href="https://tridiamond.tech/">三钻 Benny X Guo | 三钻 Benny X Guo (tridiamond.tech)</a></h3><h3 id="Theme-Yuzu-专注文字-cerallin-github-io"><a href="#Theme-Yuzu-专注文字-cerallin-github-io" class="headerlink" title="Theme Yuzu - 专注文字 (cerallin.github.io)"></a><a href="https://cerallin.github.io/">Theme Yuzu - 专注文字 (cerallin.github.io)</a></h3><p> <a href="https://github.com/cerallin/hexo-theme-yuzu">Cerallin&#x2F;hexo-theme-yuzu: A simple black&#x2F;white hexo theme for novel reading. (github.com)</a></p>
+<h3 id="君の名は-iloveu-xyz"><a href="#君の名は-iloveu-xyz" class="headerlink" title="君の名は (iloveu.xyz)"></a><a href="https://iloveu.xyz/">君の名は (iloveu.xyz)</a></h3><p><a href="https://github.com/JackZong/hexo-theme-burgerking">JackZong&#x2F;hexo-theme-burgerking: A simple hexo theme. (github.com)</a></p>
+<h3 id="海风博客-分享代码与创意-hinpc-github-io"><a href="#海风博客-分享代码与创意-hinpc-github-io" class="headerlink" title="海风博客 - 分享代码与创意 (hinpc.github.io)"></a><a href="https://hinpc.github.io/Daily/">海风博客 - 分享代码与创意 (hinpc.github.io)</a></h3><p><a href="https://github.com/GallenHu/hexo-theme-Daily">GallenHu&#x2F;hexo-theme-Daily: A simple theme for Hexo (github.com)</a></p>
+<h3 id="本博客，已开源，关于itsNeko开源博客食用方法-itsNeko「生活日志」-dyfa-top"><a href="#本博客，已开源，关于itsNeko开源博客食用方法-itsNeko「生活日志」-dyfa-top" class="headerlink" title="本博客，已开源，关于itsNeko开源博客食用方法 | itsNeko「生活日志」 (dyfa.top)"></a><a href="https://blog.dyfa.top/posts/itsneko-opensource-blog.html">本博客，已开源，关于itsNeko开源博客食用方法 | itsNeko「生活日志」 (dyfa.top)</a></h3>]]></content>
+      <categories>
+        <category>默认</category>
+      </categories>
+      <tags>
+        <tag>默认</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文章功能测试</title>
+    <url>/2023/09/24/%E6%96%87%E7%AB%A0%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[<p>美图<br><img src="/2023/09/24/%E6%96%87%E7%AB%A0%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95/001.jpg" alt="005"></p>
+<span id="more"></span>
+
+<blockquote>
+<p>一个小测试项目</p>
+</blockquote>
+<div align="center"><img width="200" height="150" src="./001.jpg"/></div>
+
+<script> alert("大家好") </script>
+
+<p><button type="button">Click Me!</button></p>
+<div style="text-align: center">
+    <p style="color: red;font-size: 40pt">一个html的测试</p>
+</div>
+
+<div>
+    <script>
+        xx=1
+        te1=function () {
+            alert(xx++);
+        }
+    </script>
+    <button onclick="te1">
+        点我
+    </button>
+</div>
+]]></content>
+      <categories>
+        <category>默认</category>
+      </categories>
+      <tags>
+        <tag>默认</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VUE学习记录</title>
     <url>/2023/09/24/VUE%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<h1 id="VUE-LEARN"><a href="#VUE-LEARN" class="headerlink" title="VUE LEARN"></a>VUE LEARN</h1><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h3 id="v-bind"><a href="#v-bind" class="headerlink" title="v-bind"></a>v-bind</h3><p>用于单向绑定事件，数据变化时重新渲染，界面变化不引起数据变化</p>
@@ -337,38 +406,6 @@
       </tags>
   </entry>
   <entry>
-    <title>hexo使用笔记</title>
-    <url>/2023/09/24/hexo%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="关于hexo的使用说明"><a href="#关于hexo的使用说明" class="headerlink" title="关于hexo的使用说明"></a>关于hexo的使用说明</h1><h2 id="网站"><a href="#网站" class="headerlink" title="网站"></a>网站</h2><p><a href="https://hexo.io/zh-cn/">Hexo</a></p>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><ol>
-<li><p>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</p>
-<p>hexo clean:用于清除public文件中所有已经生成的文件，便于后续生成新文件时不必引起冲突</p>
-</li>
-</ol>
-<span id="more"></span>
-<p>   hexo g:用于将source文件夹中写好的md文件生成为html文件</p>
-<p>   hexo d:用于将已经生成好的网站推送到远程服务器上</p>
-<ol start="2">
-<li><p>hexo new [type] {文件名}</p>
-<p>用于在source文件夹中生成一个指定名称的带有预设格式的md文档</p>
-<p>type用于指定格式，默认为post</p>
-</li>
-<li><p>hexo s</p>
-<p>用于在本地启动一个服务器用于测试</p>
-</li>
-</ol>
-<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><h3 id="主题-六角形-hexo-io"><a href="#主题-六角形-hexo-io" class="headerlink" title="主题 |六角形 (hexo.io)"></a><a href="https://hexo.io/themes/">主题 |六角形 (hexo.io)</a></h3><h3 id="hexo-theme-ayer"><a href="#hexo-theme-ayer" class="headerlink" title="hexo-theme-ayer"></a><strong><a href="https://github.com/shen-yu/hexo-theme-ayer">hexo-theme-ayer</a></strong></h3><h3 id="三钻-Benny-X-Guo-三钻-Benny-X-Guo-tridiamond-tech"><a href="#三钻-Benny-X-Guo-三钻-Benny-X-Guo-tridiamond-tech" class="headerlink" title="三钻 Benny X Guo | 三钻 Benny X Guo (tridiamond.tech)"></a><a href="https://tridiamond.tech/">三钻 Benny X Guo | 三钻 Benny X Guo (tridiamond.tech)</a></h3><h3 id="Theme-Yuzu-专注文字-cerallin-github-io"><a href="#Theme-Yuzu-专注文字-cerallin-github-io" class="headerlink" title="Theme Yuzu - 专注文字 (cerallin.github.io)"></a><a href="https://cerallin.github.io/">Theme Yuzu - 专注文字 (cerallin.github.io)</a></h3><p> <a href="https://github.com/cerallin/hexo-theme-yuzu">Cerallin&#x2F;hexo-theme-yuzu: A simple black&#x2F;white hexo theme for novel reading. (github.com)</a></p>
-<h3 id="君の名は-iloveu-xyz"><a href="#君の名は-iloveu-xyz" class="headerlink" title="君の名は (iloveu.xyz)"></a><a href="https://iloveu.xyz/">君の名は (iloveu.xyz)</a></h3><p><a href="https://github.com/JackZong/hexo-theme-burgerking">JackZong&#x2F;hexo-theme-burgerking: A simple hexo theme. (github.com)</a></p>
-<h3 id="海风博客-分享代码与创意-hinpc-github-io"><a href="#海风博客-分享代码与创意-hinpc-github-io" class="headerlink" title="海风博客 - 分享代码与创意 (hinpc.github.io)"></a><a href="https://hinpc.github.io/Daily/">海风博客 - 分享代码与创意 (hinpc.github.io)</a></h3><p><a href="https://github.com/GallenHu/hexo-theme-Daily">GallenHu&#x2F;hexo-theme-Daily: A simple theme for Hexo (github.com)</a></p>
-]]></content>
-      <categories>
-        <category>默认</category>
-      </categories>
-      <tags>
-        <tag>默认</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>matplotlib学习记录</title>
     <url>/2023/09/24/matplotlib%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<h2 id="图表的创建方法"><a href="#图表的创建方法" class="headerlink" title="图表的创建方法"></a>图表的创建方法</h2><p>创建新图形的最简单方法是使用 pyplot：</p>
@@ -391,136 +428,6 @@
         <tag>python</tag>
         <tag>机器学习</tag>
         <tag>数据分析</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>numpy学习记录</title>
-    <url>/2023/09/24/numpy%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
-    <content><![CDATA[<h2 id="创建ndarray的方法"><a href="#创建ndarray的方法" class="headerlink" title="创建ndarray的方法"></a>创建ndarray的方法</h2><h3 id="array"><a href="#array" class="headerlink" title="array"></a>array</h3><p>通过数组</p>
-<h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p>zeros,empty,ones</p>
-<p>…_like</p>
-<span id="more"></span>
-<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><ul>
-<li><p>arange</p>
-<p>类似于range</p>
-</li>
-<li><p>linspace</p>
-<p>等分区间</p>
-</li>
-<li><p>fromfunction</p>
-<p>按照函数生成，以下标为参数</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fromfunction(<span class="keyword">lambda</span> i,j:j,[<span class="number">4</span>,<span class="number">4</span>])</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="ndarray的一些方法"><a href="#ndarray的一些方法" class="headerlink" title="ndarray的一些方法"></a>ndarray的一些方法</h2><h3 id="1-自身的方法"><a href="#1-自身的方法" class="headerlink" title="1.自身的方法"></a>1.自身的方法</h3><p>sum,min,max</p>
-<p>().sum()</p>
-<p>可以使用axis指定维度</p>
-<p>().sum(axis&#x3D;0,1,2…)</p>
-<h3 id="2-numpy的一些方法"><a href="#2-numpy的一些方法" class="headerlink" title="2.numpy的一些方法"></a>2.numpy的一些方法</h3><p>在方法中使用axis&#x3D;None参数一般得到一个操作后的一维数组</p>
-<ul>
-<li><p>all,any (可以使用axis指定维度),用于判断数组中是否都是（或有）真值</p>
-</li>
-<li><p>sort,用于在指定轴对数组进行排序<code> np.sort(x, axis=0)</code>,不改变原数组</p>
-</li>
-<li><p>nonzero,用于获得数组中非零元素的坐标</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>], [<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]])</span><br><span class="line">a &gt; <span class="number">3</span></span><br><span class="line">array([[<span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>],</span><br><span class="line">       [ <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>],</span><br><span class="line">       [ <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>]])</span><br><span class="line">np.nonzero(a &gt; <span class="number">3</span>)</span><br><span class="line">(array([<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>]), array([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>argmax,argmin,argsort,类似于去掉arg的函数，但是返回的是操作之后的数组的索引</p>
-</li>
-<li><p>mean,var,返回沿指定轴方向的平均值或方差，<code>np.var(a, axis=0)</code>,如果不指定axis会对全体数据求值</p>
-</li>
-<li><p>cross，dot，返回向量的叉积或行列式的值</p>
-</li>
-<li><p>cumsum计算数组沿着轴向的累加和，可以设置axis</p>
-</li>
-<li><p>where,相当于三元表达式? :</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = np.arange(<span class="number">10</span>)</span><br><span class="line">a</span><br><span class="line">array([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>])</span><br><span class="line">np.where(a &lt; <span class="number">5</span>, a, <span class="number">10</span>*a)</span><br><span class="line">array([ <span class="number">0</span>,  <span class="number">1</span>,  <span class="number">2</span>,  <span class="number">3</span>,  <span class="number">4</span>, <span class="number">50</span>, <span class="number">60</span>, <span class="number">70</span>, <span class="number">80</span>, <span class="number">90</span>])</span><br><span class="line">这也可以用于多维数组：</span><br><span class="line"></span><br><span class="line">np.where([[<span class="literal">True</span>, <span class="literal">False</span>], [<span class="literal">True</span>, <span class="literal">True</span>]],</span><br><span class="line">         [[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]],</span><br><span class="line">         [[<span class="number">9</span>, <span class="number">8</span>], [<span class="number">7</span>, <span class="number">6</span>]])</span><br><span class="line">array([[<span class="number">1</span>, <span class="number">8</span>],</span><br><span class="line">       [<span class="number">3</span>, <span class="number">4</span>]])</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="变换数组自身"><a href="#变换数组自身" class="headerlink" title="变换数组自身"></a>变换数组自身</h2><h3 id="1-1"><a href="#1-1" class="headerlink" title="1"></a>1</h3><p>reshape</p>
-<p>（-1自动计算大小)返回特定形状数组，不修改原数组</p>
-<p>resize</p>
-<p>修改原数组</p>
-<h3 id="2-1"><a href="#2-1" class="headerlink" title="2"></a>2</h3><ul>
-<li><p>concatenate</p>
-<p>拼接函数，可以按照特定axis方向(默认为0)拼接不同的数组,当axis为none时,会变成一维数组</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 数组a,b</span></span><br><span class="line">concatenate((a,b),axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>stack</p>
-<p>在指定的axis上增加一个维度，将数组堆叠起来,默认axis为0,要求数组的形状完全相同。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">arrays = [np.random.randn(<span class="number">3</span>, <span class="number">4</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)]</span><br><span class="line">np.stack(arrays, axis=<span class="number">0</span>).shape</span><br><span class="line">(<span class="number">10</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">np.stack(arrays, axis=<span class="number">1</span>).shape</span><br><span class="line">(<span class="number">3</span>, <span class="number">10</span>, <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">np.stack(arrays, axis=<span class="number">2</span>).shape</span><br><span class="line">(<span class="number">3</span>, <span class="number">4</span>, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">a = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">b = np.array([<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])</span><br><span class="line">np.stack((a, b))</span><br><span class="line">array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">       [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])</span><br><span class="line">np.stack((a, b), axis=-<span class="number">1</span>)</span><br><span class="line">array([[<span class="number">1</span>, <span class="number">4</span>],</span><br><span class="line">       [<span class="number">2</span>, <span class="number">5</span>],</span><br><span class="line">       [<span class="number">3</span>, <span class="number">6</span>]])</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>block</p>
-<p>将数组按照自然的方式拼接起来</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">A = np.eye(<span class="number">2</span>) * <span class="number">2</span></span><br><span class="line">B = np.eye(<span class="number">3</span>) * <span class="number">3</span></span><br><span class="line">np.block([</span><br><span class="line">    [A,               np.zeros((<span class="number">2</span>, <span class="number">3</span>))],</span><br><span class="line">    [np.ones((<span class="number">3</span>, <span class="number">2</span>)), B               ]</span><br><span class="line">])</span><br><span class="line">array([[<span class="number">2.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>],</span><br><span class="line">       [<span class="number">0.</span>, <span class="number">2.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>],</span><br><span class="line">       [<span class="number">1.</span>, <span class="number">1.</span>, <span class="number">3.</span>, <span class="number">0.</span>, <span class="number">0.</span>],</span><br><span class="line">       [<span class="number">1.</span>, <span class="number">1.</span>, <span class="number">0.</span>, <span class="number">3.</span>, <span class="number">0.</span>],</span><br><span class="line">       [<span class="number">1.</span>, <span class="number">1.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">3.</span>]])</span><br></pre></td></tr></table></figure>
-
-<h2 id="数组的浅拷贝和深拷贝"><a href="#数组的浅拷贝和深拷贝" class="headerlink" title="数组的浅拷贝和深拷贝"></a>数组的浅拷贝和深拷贝</h2><h3 id="view"><a href="#view" class="headerlink" title="view"></a>view</h3><p>是浅拷贝，数组切片等返回的是view,对view的修改返回到源对象上</p>
-<h3 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h3><p>是深拷贝,返回一个新的对象</p>
-</li>
-</ul>
-<h2 id="花式索引"><a href="#花式索引" class="headerlink" title="花式索引"></a>花式索引</h2><ul>
-<li><p>索引数组</p>
-<p>当索引数组<code>a</code>是多维的时，单个索引数组指的是第一个维度<code>a</code>，我们还可以为多个维度提供索引。每个维度的索引数组必须具有相同的形状</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">array([[ <span class="number">0</span>,  <span class="number">1</span>,  <span class="number">2</span>,  <span class="number">3</span>],</span><br><span class="line">       [ <span class="number">4</span>,  <span class="number">5</span>,  <span class="number">6</span>,  <span class="number">7</span>],</span><br><span class="line">       [ <span class="number">8</span>,  <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>i = np.array( [ [<span class="number">0</span>,<span class="number">1</span>],                        <span class="comment"># indices for the first dim of a</span></span><br><span class="line"><span class="meta">... </span>                [<span class="number">1</span>,<span class="number">2</span>] ] )</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>j = np.array( [ [<span class="number">2</span>,<span class="number">1</span>],                        <span class="comment"># indices for the second dim</span></span><br><span class="line"><span class="meta">... </span>                [<span class="number">3</span>,<span class="number">3</span>] ] )</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a[i,j]                                     <span class="comment"># i and j must have equal shape</span></span><br><span class="line">array([[ <span class="number">2</span>,  <span class="number">5</span>],</span><br><span class="line">       [ <span class="number">7</span>, <span class="number">11</span>]])</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>布尔数组</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#第一种方式</span></span><br><span class="line">a = np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = a &gt; <span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b                                          <span class="comment"># b is a boolean with a&#x27;s shape</span></span><br><span class="line">array([[<span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>],</span><br><span class="line">       [<span class="literal">False</span>,  <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>],</span><br><span class="line">       [ <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a[b]                                       <span class="comment"># 1d array with the selected elements</span></span><br><span class="line">array([ <span class="number">5</span>,  <span class="number">6</span>,  <span class="number">7</span>,  <span class="number">8</span>,  <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#第二种方式</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b1 = np.array([<span class="literal">False</span>,<span class="literal">True</span>,<span class="literal">True</span>])             <span class="comment"># first dim selection</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b2 = np.array([<span class="literal">True</span>,<span class="literal">False</span>,<span class="literal">True</span>,<span class="literal">False</span>])       <span class="comment"># second dim selection</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a[b1,b2]                                  <span class="comment"># a weird thing to do</span></span><br><span class="line">array([ <span class="number">4</span>, <span class="number">10</span>])</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>ix_函数</p>
-<p>用于把向量生成为几个正交的向量</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.array([<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = np.array([<span class="number">8</span>,<span class="number">5</span>,<span class="number">4</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c = np.array([<span class="number">5</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">3</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ax,bx,cx = np.ix_(a,b,c)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ax</span><br><span class="line">array([[[<span class="number">2</span>]],</span><br><span class="line">       [[<span class="number">3</span>]],</span><br><span class="line">       [[<span class="number">4</span>]],</span><br><span class="line">       [[<span class="number">5</span>]]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bx</span><br><span class="line">array([[[<span class="number">8</span>],</span><br><span class="line">        [<span class="number">5</span>],</span><br><span class="line">        [<span class="number">4</span>]]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cx</span><br><span class="line">array([[[<span class="number">5</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">3</span>]]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ax.shape, bx.shape, cx.shape</span><br><span class="line">((<span class="number">4</span>, <span class="number">1</span>, <span class="number">1</span>), (<span class="number">1</span>, <span class="number">3</span>, <span class="number">1</span>), (<span class="number">1</span>, <span class="number">1</span>, <span class="number">5</span>))</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="广播"><a href="#广播" class="headerlink" title="广播"></a>广播</h2><p>广播的原则:在两个数组上操作时，NumPy 会逐个元素比较它们的形状。 它从尾随（即最右边）维度开始，并计算其 向左走。两个维度兼容以下情况</p>
-<ol>
-<li>它们是相等的，或者</li>
-<li>其中之一是 1。</li>
-</ol>
-<p>如果不满足这些条件，则例外情况为 抛出，指示数组具有不兼容的形状。</p>
-<p>赋值运算也会使用广播原则</p>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>默认</tag>
-        <tag>python</tag>
-        <tag>机器学习</tag>
-        <tag>数据分析</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>文章功能测试</title>
-    <url>/2023/09/24/%E6%96%87%E7%AB%A0%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95/</url>
-    <content><![CDATA[<p>美图<br><img src="/2023/09/24/%E6%96%87%E7%AB%A0%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95/001.jpg" alt="005"></p>
-<span id="more"></span>
-
-<blockquote>
-<p>一个小测试项目</p>
-</blockquote>
-<div align="center"><img width="200" height="150" src="./001.jpg"/></div>
-
-<script> alert("大家好") </script>
-
-<p><button type="button">Click Me!</button></p>
-<div style="text-align: center">
-    <p style="color: red;font-size: 40pt">一个html的测试</p>
-</div>
-
-<div>
-    <script>
-        xx=1
-        te1=function () {
-            alert(xx++);
-        }
-    </script>
-    <button onclick="te1">
-        点我
-    </button>
-</div>
-]]></content>
-      <categories>
-        <category>默认</category>
-      </categories>
-      <tags>
-        <tag>默认</tag>
       </tags>
   </entry>
   <entry>
@@ -651,6 +558,99 @@
 
 <h3 id="常见函数"><a href="#常见函数" class="headerlink" title="常见函数"></a>常见函数</h3><p>max,min等函数返回表的每一列的最值,idxmax,idxmin,返回最值的索引</p>
 <p>rename函数用来为dataframe的行和列重命名,如<code>d.rename(columns=&#123;&#39;y&#39;:&#39;yr&#39;&#125;,index=&#123;&#39;b&#39;:&#39;bkk&#39;&#125;,inplace=True)</code>，其中inplace参数代表是否改变原数组</p>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>默认</tag>
+        <tag>python</tag>
+        <tag>机器学习</tag>
+        <tag>数据分析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>numpy学习记录</title>
+    <url>/2023/09/24/numpy%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<h2 id="创建ndarray的方法"><a href="#创建ndarray的方法" class="headerlink" title="创建ndarray的方法"></a>创建ndarray的方法</h2><h3 id="array"><a href="#array" class="headerlink" title="array"></a>array</h3><p>通过数组</p>
+<h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><p>zeros,empty,ones</p>
+<p>…_like</p>
+<span id="more"></span>
+<h3 id="2"><a href="#2" class="headerlink" title="2"></a>2</h3><ul>
+<li><p>arange</p>
+<p>类似于range</p>
+</li>
+<li><p>linspace</p>
+<p>等分区间</p>
+</li>
+<li><p>fromfunction</p>
+<p>按照函数生成，以下标为参数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fromfunction(<span class="keyword">lambda</span> i,j:j,[<span class="number">4</span>,<span class="number">4</span>])</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="ndarray的一些方法"><a href="#ndarray的一些方法" class="headerlink" title="ndarray的一些方法"></a>ndarray的一些方法</h2><h3 id="1-自身的方法"><a href="#1-自身的方法" class="headerlink" title="1.自身的方法"></a>1.自身的方法</h3><p>sum,min,max</p>
+<p>().sum()</p>
+<p>可以使用axis指定维度</p>
+<p>().sum(axis&#x3D;0,1,2…)</p>
+<h3 id="2-numpy的一些方法"><a href="#2-numpy的一些方法" class="headerlink" title="2.numpy的一些方法"></a>2.numpy的一些方法</h3><p>在方法中使用axis&#x3D;None参数一般得到一个操作后的一维数组</p>
+<ul>
+<li><p>all,any (可以使用axis指定维度),用于判断数组中是否都是（或有）真值</p>
+</li>
+<li><p>sort,用于在指定轴对数组进行排序<code> np.sort(x, axis=0)</code>,不改变原数组</p>
+</li>
+<li><p>nonzero,用于获得数组中非零元素的坐标</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>], [<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]])</span><br><span class="line">a &gt; <span class="number">3</span></span><br><span class="line">array([[<span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>],</span><br><span class="line">       [ <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>],</span><br><span class="line">       [ <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>]])</span><br><span class="line">np.nonzero(a &gt; <span class="number">3</span>)</span><br><span class="line">(array([<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>]), array([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>argmax,argmin,argsort,类似于去掉arg的函数，但是返回的是操作之后的数组的索引</p>
+</li>
+<li><p>mean,var,返回沿指定轴方向的平均值或方差，<code>np.var(a, axis=0)</code>,如果不指定axis会对全体数据求值</p>
+</li>
+<li><p>cross，dot，返回向量的叉积或行列式的值</p>
+</li>
+<li><p>cumsum计算数组沿着轴向的累加和，可以设置axis</p>
+</li>
+<li><p>where,相当于三元表达式? :</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = np.arange(<span class="number">10</span>)</span><br><span class="line">a</span><br><span class="line">array([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>])</span><br><span class="line">np.where(a &lt; <span class="number">5</span>, a, <span class="number">10</span>*a)</span><br><span class="line">array([ <span class="number">0</span>,  <span class="number">1</span>,  <span class="number">2</span>,  <span class="number">3</span>,  <span class="number">4</span>, <span class="number">50</span>, <span class="number">60</span>, <span class="number">70</span>, <span class="number">80</span>, <span class="number">90</span>])</span><br><span class="line">这也可以用于多维数组：</span><br><span class="line"></span><br><span class="line">np.where([[<span class="literal">True</span>, <span class="literal">False</span>], [<span class="literal">True</span>, <span class="literal">True</span>]],</span><br><span class="line">         [[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]],</span><br><span class="line">         [[<span class="number">9</span>, <span class="number">8</span>], [<span class="number">7</span>, <span class="number">6</span>]])</span><br><span class="line">array([[<span class="number">1</span>, <span class="number">8</span>],</span><br><span class="line">       [<span class="number">3</span>, <span class="number">4</span>]])</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="变换数组自身"><a href="#变换数组自身" class="headerlink" title="变换数组自身"></a>变换数组自身</h2><h3 id="1-1"><a href="#1-1" class="headerlink" title="1"></a>1</h3><p>reshape</p>
+<p>（-1自动计算大小)返回特定形状数组，不修改原数组</p>
+<p>resize</p>
+<p>修改原数组</p>
+<h3 id="2-1"><a href="#2-1" class="headerlink" title="2"></a>2</h3><ul>
+<li><p>concatenate</p>
+<p>拼接函数，可以按照特定axis方向(默认为0)拼接不同的数组,当axis为none时,会变成一维数组</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 数组a,b</span></span><br><span class="line">concatenate((a,b),axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>stack</p>
+<p>在指定的axis上增加一个维度，将数组堆叠起来,默认axis为0,要求数组的形状完全相同。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">arrays = [np.random.randn(<span class="number">3</span>, <span class="number">4</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)]</span><br><span class="line">np.stack(arrays, axis=<span class="number">0</span>).shape</span><br><span class="line">(<span class="number">10</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">np.stack(arrays, axis=<span class="number">1</span>).shape</span><br><span class="line">(<span class="number">3</span>, <span class="number">10</span>, <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">np.stack(arrays, axis=<span class="number">2</span>).shape</span><br><span class="line">(<span class="number">3</span>, <span class="number">4</span>, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">a = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">b = np.array([<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])</span><br><span class="line">np.stack((a, b))</span><br><span class="line">array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">       [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])</span><br><span class="line">np.stack((a, b), axis=-<span class="number">1</span>)</span><br><span class="line">array([[<span class="number">1</span>, <span class="number">4</span>],</span><br><span class="line">       [<span class="number">2</span>, <span class="number">5</span>],</span><br><span class="line">       [<span class="number">3</span>, <span class="number">6</span>]])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>block</p>
+<p>将数组按照自然的方式拼接起来</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">A = np.eye(<span class="number">2</span>) * <span class="number">2</span></span><br><span class="line">B = np.eye(<span class="number">3</span>) * <span class="number">3</span></span><br><span class="line">np.block([</span><br><span class="line">    [A,               np.zeros((<span class="number">2</span>, <span class="number">3</span>))],</span><br><span class="line">    [np.ones((<span class="number">3</span>, <span class="number">2</span>)), B               ]</span><br><span class="line">])</span><br><span class="line">array([[<span class="number">2.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>],</span><br><span class="line">       [<span class="number">0.</span>, <span class="number">2.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>],</span><br><span class="line">       [<span class="number">1.</span>, <span class="number">1.</span>, <span class="number">3.</span>, <span class="number">0.</span>, <span class="number">0.</span>],</span><br><span class="line">       [<span class="number">1.</span>, <span class="number">1.</span>, <span class="number">0.</span>, <span class="number">3.</span>, <span class="number">0.</span>],</span><br><span class="line">       [<span class="number">1.</span>, <span class="number">1.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">3.</span>]])</span><br></pre></td></tr></table></figure>
+
+<h2 id="数组的浅拷贝和深拷贝"><a href="#数组的浅拷贝和深拷贝" class="headerlink" title="数组的浅拷贝和深拷贝"></a>数组的浅拷贝和深拷贝</h2><h3 id="view"><a href="#view" class="headerlink" title="view"></a>view</h3><p>是浅拷贝，数组切片等返回的是view,对view的修改返回到源对象上</p>
+<h3 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h3><p>是深拷贝,返回一个新的对象</p>
+</li>
+</ul>
+<h2 id="花式索引"><a href="#花式索引" class="headerlink" title="花式索引"></a>花式索引</h2><ul>
+<li><p>索引数组</p>
+<p>当索引数组<code>a</code>是多维的时，单个索引数组指的是第一个维度<code>a</code>，我们还可以为多个维度提供索引。每个维度的索引数组必须具有相同的形状</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">array([[ <span class="number">0</span>,  <span class="number">1</span>,  <span class="number">2</span>,  <span class="number">3</span>],</span><br><span class="line">       [ <span class="number">4</span>,  <span class="number">5</span>,  <span class="number">6</span>,  <span class="number">7</span>],</span><br><span class="line">       [ <span class="number">8</span>,  <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>i = np.array( [ [<span class="number">0</span>,<span class="number">1</span>],                        <span class="comment"># indices for the first dim of a</span></span><br><span class="line"><span class="meta">... </span>                [<span class="number">1</span>,<span class="number">2</span>] ] )</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>j = np.array( [ [<span class="number">2</span>,<span class="number">1</span>],                        <span class="comment"># indices for the second dim</span></span><br><span class="line"><span class="meta">... </span>                [<span class="number">3</span>,<span class="number">3</span>] ] )</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a[i,j]                                     <span class="comment"># i and j must have equal shape</span></span><br><span class="line">array([[ <span class="number">2</span>,  <span class="number">5</span>],</span><br><span class="line">       [ <span class="number">7</span>, <span class="number">11</span>]])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>布尔数组</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#第一种方式</span></span><br><span class="line">a = np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = a &gt; <span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b                                          <span class="comment"># b is a boolean with a&#x27;s shape</span></span><br><span class="line">array([[<span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>, <span class="literal">False</span>],</span><br><span class="line">       [<span class="literal">False</span>,  <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>],</span><br><span class="line">       [ <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>,  <span class="literal">True</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a[b]                                       <span class="comment"># 1d array with the selected elements</span></span><br><span class="line">array([ <span class="number">5</span>,  <span class="number">6</span>,  <span class="number">7</span>,  <span class="number">8</span>,  <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#第二种方式</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b1 = np.array([<span class="literal">False</span>,<span class="literal">True</span>,<span class="literal">True</span>])             <span class="comment"># first dim selection</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b2 = np.array([<span class="literal">True</span>,<span class="literal">False</span>,<span class="literal">True</span>,<span class="literal">False</span>])       <span class="comment"># second dim selection</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a[b1,b2]                                  <span class="comment"># a weird thing to do</span></span><br><span class="line">array([ <span class="number">4</span>, <span class="number">10</span>])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ix_函数</p>
+<p>用于把向量生成为几个正交的向量</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.array([<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = np.array([<span class="number">8</span>,<span class="number">5</span>,<span class="number">4</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c = np.array([<span class="number">5</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">3</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ax,bx,cx = np.ix_(a,b,c)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ax</span><br><span class="line">array([[[<span class="number">2</span>]],</span><br><span class="line">       [[<span class="number">3</span>]],</span><br><span class="line">       [[<span class="number">4</span>]],</span><br><span class="line">       [[<span class="number">5</span>]]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bx</span><br><span class="line">array([[[<span class="number">8</span>],</span><br><span class="line">        [<span class="number">5</span>],</span><br><span class="line">        [<span class="number">4</span>]]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cx</span><br><span class="line">array([[[<span class="number">5</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">3</span>]]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ax.shape, bx.shape, cx.shape</span><br><span class="line">((<span class="number">4</span>, <span class="number">1</span>, <span class="number">1</span>), (<span class="number">1</span>, <span class="number">3</span>, <span class="number">1</span>), (<span class="number">1</span>, <span class="number">1</span>, <span class="number">5</span>))</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="广播"><a href="#广播" class="headerlink" title="广播"></a>广播</h2><p>广播的原则:在两个数组上操作时，NumPy 会逐个元素比较它们的形状。 它从尾随（即最右边）维度开始，并计算其 向左走。两个维度兼容以下情况</p>
+<ol>
+<li>它们是相等的，或者</li>
+<li>其中之一是 1。</li>
+</ol>
+<p>如果不满足这些条件，则例外情况为 抛出，指示数组具有不兼容的形状。</p>
+<p>赋值运算也会使用广播原则</p>
 ]]></content>
       <categories>
         <category>python</category>
