@@ -161,14 +161,14 @@
   </url>
   
   <url>
-    <loc>https://licasea.github.io/categories/python/</loc>
+    <loc>https://licasea.github.io/categories/%E9%BB%98%E8%AE%A4/</loc>
     <lastmod>2023-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://licasea.github.io/categories/%E9%BB%98%E8%AE%A4/</loc>
+    <loc>https://licasea.github.io/categories/python/</loc>
     <lastmod>2023-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
