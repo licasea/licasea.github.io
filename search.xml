@@ -1,655 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>VUE学习记录</title>
-    <url>/2023/09/24/VUE%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
-    <content><![CDATA[
-
-# VUE LEARN
-
-## 命令
-
-### v-bind
-
-用于单向绑定事件，数据变化时重新渲染，界面变化不引起数据变化
-
-:[v]=“line”
-
-v-bind得到的是表达式而不是一个字符串，可以利用这一点向一个组件菜单非字符串参数
-
-<span id="more"></span>
-### v-model
-
-用于双向绑定事件，数据变化时重新渲染，界面变化也引起数据变化
-
-v-model=“line”
-
-.lazy是懒惰更新，在组件失去焦点时更新数据
-
-例：
-
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">v-model.lazy</span>=<span class="string">&quot;value&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-### v-on
-
-用于绑定事件的监听函数
-
-@[even]=value
-
-修饰符：.once (只触发一次)，……
-
-### v-show
-
-用于便捷的设置dom是否显示，原理是设置display属性
-
-v-show=“boolean”
-
-### v-if
-
-条件判断命令，若干条逻辑相连的语句必须相邻
-
-v-if=“boolean”
-
-v-else-if=“boolean”
-
-v-else
-
-### v-for
-
-循环语句
-
-借助js原生数组方法进行排序和过滤
-
-+ 遍历数组
-
-  v-for=“(data,index) of value”
-
-+ 遍历字符串
-
-  v-for=“(data,index) of str”
-
-+ 遍历指定次数
-
-  v-for=“(data,index) of 5(num)”
-
-#### key(:key=…)
-
-用于循环语句中
-
-用来标识每一个遍历对象。
-
-当遍历对象变化时，通过对比算法对比虚拟dom来覆盖原有的虚拟dom
-
-### v-text
-
-设置组件中的文本
-
-例子
-
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//设置组件中的文本</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-text</span>=<span class="string">&quot;value&quot;</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-### v-html
-
-设置组件中的文本,可以将文本解析为dom节点
-
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//设置组件中的文本,可以将文本解析为dom节点</span><br><span class="line">value=&quot;<span class="tag">&lt;<span class="name">h1</span>&gt;</span>kk<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>&quot;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-html</span>=<span class="string">&quot;value&quot;</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-### v-cloak
-
-当vue开始执行时会删除该标签，配合css用于js加载前页面元素的隐藏
-
-### v-once
-
-类似于v-bind,但是只在页面初始化时执行一次，之后数据变化也不再执行
-
-### v-pre
-
-跳过vue的解析，不解析其中的vue语法，加快页面的解析
-
-### {{value}}
-
-显示变量的返回值
-
-## vue相关原理
-
-### vue开发者工具
-
-### vue检测对象变化的原理
-
-#### vue2
-
-以原对象为模板构造新对象，使用gette和setter达到目的
-
-setter无法检测一个数组和对象的属性的改变（在新对象和原对象上都不可以完成对整体的更改，也不可以检测到改变）
-
-在vue2(vue2使用setter,getter)中直接在原对象上增加属性不会在新对象中增加setter，不会检测到变化,可以使用Vue.set函数动态增加响应式的数据
-
-例如
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">a=&#123;<span class="attr">x</span>:[<span class="number">1</span>]&#125;</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(a,<span class="string">&quot;y&quot;</span>,&#123;</span><br><span class="line">    <span class="title function_">get</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> a.<span class="property">x</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">set</span>(<span class="params">v</span>)&#123;</span><br><span class="line">        a.<span class="property">x</span>=v</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//会触发setter</span></span><br><span class="line">a.<span class="property">y</span>=<span class="number">1</span></span><br><span class="line"><span class="comment">//向其中增加数组元素不会触发setter</span></span><br><span class="line">a.<span class="property">y</span>.<span class="title function_">push</span>(<span class="number">3</span>)</span><br><span class="line"><span class="comment">//增加属性不会触发setter</span></span><br><span class="line">a.<span class="property">y</span>.<span class="property">a</span>=<span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-
-
-#### vue3
-
-以原对象为模板构造新对象，使用代理达到目的
-
-可以检测到对象和数组属性的变化（在新对象和原对象上都可以完成更改，但仅仅在新对象上可以检测到改变）。
-
-在vue3(vue3使用代理)中直接在原对象上增加属性，该操作vue3不会检测到变化,vue3中Vue.set函数(由于vue3使用了代理))被废弃，使用了新的函数。
-
-直接在原对象上增加属性会在新对象中增加属性,如果该属性是data数组中的一个对象上的某个属性，会在新对象中增加该属性。如果该属性是data数组中的一个不存在的对象，且如果在html中未使用该不存在的对象，也会在新对象中增加该属性，而如果在html中使用该不存在的对象，会给出警告，且不会在新对象中增加该属性。
-
-### 对象代理
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">object.<span class="title function_">defineproperty</span>(object,name,&#123;</span><br><span class="line">    <span class="title function_">set</span>(<span class="params"></span>)&#123;&#125;,</span><br><span class="line">    <span class="title function_">get</span>(<span class="params"></span>)&#123;&#125;,</span><br><span class="line">    ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-### MVVM
-
-### vue的不同使用方式
-
-#### 通过script标签引入
-
-使用简单，但是部分vue简化语法不可以如：
-
-+ 自定义组件标签无法自闭合
-
-  <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//正确</span><br><span class="line"><span class="tag">&lt;<span class="name">custom</span>&gt;</span><span class="tag">&lt;/<span class="name">custom</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">custom</span>&gt;</span><span class="tag">&lt;/<span class="name">custom</span>&gt;</span></span><br><span class="line">//这种方法下错误</span><br><span class="line"><span class="tag">&lt;<span class="name">custom</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">custom</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-+ 组件的命名问题
-
-  1. 使用大小写会导致错误
-  2. 推荐使用“-”
-
-#### 通过脚手架使用
-
-可以完整使用vue的功能
-
-## vue配置属性
-
-### data(数据属性)
-
-相关属性
-
-### computed(计算属性)
-
-类似于data,但是在相关数据变化时才调用
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//demo</span></span><br><span class="line"><span class="attr">computed</span>:&#123;</span><br><span class="line">    <span class="attr">test</span>:&#123;</span><br><span class="line">        <span class="comment">//特殊语法,由vue解析</span></span><br><span class="line">        <span class="title function_">get</span>(<span class="params"></span>)&#123;</span><br><span class="line">            </span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="title function_">set</span>(<span class="params"></span>)&#123;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-###  watch(监视属性)
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="attr">watch</span>:&#123;</span><br><span class="line">    <span class="comment">//直接使用要监视的变量名</span></span><br><span class="line">    <span class="attr">value</span>:&#123;</span><br><span class="line">        <span class="comment">//是否深度监视value(如嵌套结构),默认false</span></span><br><span class="line">        <span class="attr">deep</span>:boolean</span><br><span class="line">        <span class="comment">//初始化时是否调用，默认false</span></span><br><span class="line">        <span class="attr">immediate</span>:boolean</span><br><span class="line">        <span class="comment">//value值变化时调用</span></span><br><span class="line">        <span class="title function_">handler</span>(<span class="params">changed,past</span>)&#123;<span class="comment">//可以看到修改后的值和修改前的值</span></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//使用要监视的变量名的字符串(可以监视嵌套结构中某一个属性的变化)</span></span><br><span class="line">    <span class="string">&quot;value.a.b&quot;</span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-### methods（方法属性）
-
-数据（无论是否相关）变化时就调用
-
-### filters(过滤器)
-
-例子：
-
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">filters:&#123;</span><br><span class="line">fun()&#123;&#125;</span><br><span class="line">fun2()&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    &#123;&#123;value | fun | fun2 | ...&#125;&#125; //将value传入fun并将fun的返回值传入fun2继续调用下去直到结束后将返回值返回</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-全局过滤器
-
-Vue.fliter(“name”,()=>{})
-
-### directives(自定义指令设置)
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//vue2中设置</span></span><br><span class="line"><span class="comment">//函数的this为windows</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//全局vue指令写法</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">directive</span>(<span class="string">&quot;name&quot;</span>,&#123;...&#125;)</span><br><span class="line">                      </span><br><span class="line"><span class="comment">//单个组件vue指令写法                      </span></span><br><span class="line"><span class="attr">directives</span>:&#123;</span><br><span class="line">    <span class="comment">//自定义指令为v-value</span></span><br><span class="line">    <span class="comment">//指令调用时机:1.组件初始化时.2.组件中数据变化导致组件更新时(类似于methods中的函数)</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//使用有两种方式，一种简化版，一种完整版</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//简化版</span></span><br><span class="line">    <span class="title function_">value</span>(<span class="params">element,binding</span>)&#123;<span class="comment">// element代表该指令绑定的dom元素,binding代表与该该指令相关的值，如binding.value代表v-value后赋的值</span></span><br><span class="line">        <span class="comment">//在这里操纵dom,完成操作</span></span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    <span class="comment">//完整版</span></span><br><span class="line">    <span class="attr">value</span>:&#123;</span><br><span class="line">        <span class="comment">//指令与元素绑定时</span></span><br><span class="line">        <span class="title function_">bind</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">        <span class="comment">//元素插入页面时</span></span><br><span class="line">        <span class="title function_">inserted</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">        <span class="comment">//组件更新时</span></span><br><span class="line">        <span class="title function_">update</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-### template(模板)
-
-当组件中未有任何元素是使用模板可以为其中添加元素。该模板会覆盖原有内容。
-
-### components(组件)
-
-向当前组件中添加子组件。
-
-### name(组件名称)
-
-指定组件在开发者工具中的名称
-
-### render(渲染器)
-
-在vue的脚手架项目中，默认引入的是一个简化版的vue，这个简化版的vue不支持template，因为为了提供页面的渲染速度。可以通过修改导入方式引入完整版的vue或修改node_moudle/vue中的导入配置文件。
-
-代替template的功能，向页面添加元素。
-
-### props(参数)
-
-用于外部向组件内传递若干的数据参数，传入后变量使用类似于data。
-
-尽量不要修改外部传入的props参数，会有警告。
-
-不能使用若干vue使用的关键字作为参数名，如：ref,key等等
-
-例：
-
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//通过以下方式构造</span><br><span class="line">//1.简单接收</span><br><span class="line">props:[&quot;re1&quot;,&quot;re2&quot;,&quot;re3&quot;]  // 相当于若干的变量</span><br><span class="line">//2.类型检查，当外部传入参数时会进行检查，当与期望类型不符合时会进行警告</span><br><span class="line">props:&#123;</span><br><span class="line">re1:String</span><br><span class="line">re2:Number</span><br><span class="line">&#125;</span><br><span class="line">//3.完整写法</span><br><span class="line">props:&#123;</span><br><span class="line">rel:&#123;</span><br><span class="line">type:String  //类型检测(可不写)</span><br><span class="line">required:true //设置该属性是否必须设置填写</span><br><span class="line">default:value //设置该属性默认值(当用户未填写该属性时使用)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//使用方式</span><br><span class="line"><span class="tag">&lt;<span class="name">自定义组件名称</span> <span class="attr">rel</span>=<span class="string">&quot;12&quot;</span> <span class="attr">re2</span>=<span class="string">&quot;good&quot;</span> <span class="attr">:re3</span>=<span class="string">&quot;4+7&quot;</span>&gt;</span>  //可在标签中向组件传递参数,并且可以结合v-bind实现传递非字符串值</span><br></pre></td></tr></table></figure>
-
-### mixins(混合)
-
-不同组件之间的功能有一定重叠时，可以将这部分代码分离为一个新的js文件，之后通过引入实现功能
-
-例：
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//js文件</span></span><br><span class="line"><span class="keyword">export</span> <span class="title function_">fun</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment">//vue文件中</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">import</span> &#123;fun,...&#125; <span class="keyword">from</span> ./....</span><br><span class="line">...</span><br><span class="line"><span class="attr">mixins</span>:[fun,...]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-通过Vue.mixin(fun_name)可以进行全局混合，全局混合后所有的组件上都会有这个属性
-
-## vue生命周期函数
-
-### vue2
-
-#### beforeCreate
-
-组件初始化(生命周期，事件)，但此时data以及methods还未初始化，无法使用
-
-#### created
-
-组件初始化(数据监听，代理),可以使用data和methods
-
-#### beforeMount
-
-vue开始解析模板，并生成虚拟dom，但还未改变真实dom,此时对真实dom的操作会在下一个周期被覆盖
-
-#### mounted
-
-在组件被挂载到页面,虚拟dom被转化为真实dom。
-
-#### beforeUpdata
-
-在组件中的数据更新后，但数据的更新还未反映到dom(也未更新虚拟dom)前调用
-
-#### updated
-
-组件的数据和页面都更新之后调用
-
-#### beforeDestroy
-
-组件销毁之前，此时组件中的一切都存在未被开始销毁，可以调用组件中存在的对象。可以更改组件的事件数据，但此时对于数据的更改不会反映到真实的dom上
-
-#### destroy
-
-可以通过vm(组件名).destroy()开始销毁。
-
-组件销毁后，在此之前组件中的自定义事件，vue指令，对数据的监听都已被销毁，与其他组件的连接也都已经断开,但是已经添加到页面上的html,js相关的事件不会被删除,如计时器不会被删除
-
-组件销毁会销毁掉和vue相关的对象，如不会再有数据的更新，自定义事件也会消失，{{}}语法中的变量不再随数据变化改变
-
-## vue插件（plugin）
-
-用于增强vue的功能
-
-vue插件相当于一个对象，这个对象内部需要实现一个特定的方法install
-
-这个方法可以得到Vue（相当于vm的构造函数）作为参数，可以修改Vue的功能
-
-使用Vue.use(插件名称,参数1，参数2, …)来使用插件,该函数中的参数1-n再搭配Vue可以作为参数传入插件中的install函数
-
-此方法可以搭配Vue.filter,Vue.mixin,Vue.directive来向全局动态的增删过滤器，混入，自定义指令等等
-
-## 组件
-
-### 类型
-
-+ 单文件组件
-
-  要使用脚手架或webpack才能使用，文件后缀为.vue
-
-+ 非单文件组件
-
-  可以写原生的js代码
-
-### vue2
-
-#### 如何构造
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//使用以下方法构造</span></span><br><span class="line">a=<span class="title class_">Vue</span>.<span class="title function_">extend</span>(&#123;</span><br><span class="line">    <span class="comment">//与new Vue()和Vue.createApp的配置类似</span></span><br><span class="line">    <span class="comment">//但el不可以配置</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果未使用Vue.extend函数，而是单纯的写的如下所示，在注册组件时vue可以自动调用extend方法，不会报错</span></span><br><span class="line">a=&#123;</span><br><span class="line">    <span class="comment">//与new Vue()和Vue.createApp的配置类似</span></span><br><span class="line">    <span class="comment">//但el不可以配置</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-#### 使用流程
-
-1. 创建设计组件
-
-2. 注册组件（局部注册&&全局注册）
-
-   1. 局部注册
-
-      在组件内部的components内直接注册
-
-   2. 全局注册
-
-      <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="string">&quot;name&quot;</span>,组件名)  </span><br></pre></td></tr></table></figure>
-
-3. 编写组件标签
-
-### 组件原理
-
-+ 通过调用Vue.extend返回了一个组件的构造函数，通过该组件的构造函数来实现生成组件
-+ VueComponent和Vue实例对象(通过new Vue()实现)不同，VC相当于组件类，VM相当于一个实例的调用。不过VC和VM中的属性差异不大
-+ vm可以写el，而vc不可以，只能依附在vm上
-
-### 组件自定义事件
-
-可以通过在组件上设置自定义事件完成组件之间的通信。
-
-例:
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//在组件上添加自定义事件</span></span><br><span class="line"><span class="comment">//通过触发html事件后调用函数，在函数内触发自定义事件</span></span><br><span class="line"><span class="title function_">method</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.$emit(<span class="string">&quot;自定义事件名称&quot;</span>,向调用自定义事件的处理函数传递的参数，...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//为自定义事件添加处理函数</span></span><br><span class="line"><span class="variable language_">this</span>.$on(<span class="string">&quot;自定义事件名&quot;</span>,<span class="string">&quot;处理函数&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//父组件监听在自定义事件</span></span><br><span class="line">&lt;组件 @自定义事件名=<span class="string">&quot;处理函数名&quot;</span>&gt;</span><br><span class="line">处理函数（自定义事件传入的参数）&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//解绑自定义事件</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="title function_">off</span>(<span class="string">&quot;事件名称&quot;</span>)     <span class="comment">//解绑单个事件</span></span><br><span class="line"><span class="comment">//或</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="title function_">off</span>([事件名,...])  <span class="comment">//解绑多个事件</span></span><br><span class="line"><span class="comment">//或</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="title function_">off</span>()  <span class="comment">//解绑所有自定义事件</span></span><br></pre></td></tr></table></figure>
-
-自定义事件处理函数中的this指向触发该事件的组件。
-
-在组件上添加对于事件的监听处理默认的会当成自定义事件，如果要使用原生事件需要加上后缀.native
-
-例
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;组件标签 @click=<span class="string">&quot;fun&quot;</span>&gt;  <span class="comment">//会当成自定义事件</span></span><br><span class="line">&lt;组件标签 @click.<span class="property">native</span>=<span class="string">&quot;fun&quot;</span>&gt;  <span class="comment">//会当成原生事件</span></span><br></pre></td></tr></table></figure>
-
-### 组件插槽(solt)
-
-默认的组件的使用为：<组件名  />
-
-这样使用组件无法在组件内部再添加东西，可以使用组件插槽来可以使用以下写法：<组件名>…(各种组件)…</组件名>
-
-插槽有不同的种类：
-
-1. 默认插槽 
-
-   <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//被调用的文件</span><br><span class="line"><span class="tag">&lt;<span class="name">组件名</span>&gt;</span></span><br><span class="line">...</span><br><span class="line">添加若干dom</span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;/<span class="name">组件名</span>&gt;</span></span><br><span class="line"></span><br><span class="line">//组件文件</span><br><span class="line"><span class="tag">&lt;<span class="name">solt</span>&gt;</span>默认内容,当未向插槽填充内容时使用该默认内容<span class="tag">&lt;/<span class="name">solt</span>&gt;</span>   //没有名字的插槽</span><br><span class="line"></span><br><span class="line">//当出现多个无名插槽时，会将添加的若干dom重复放在两个插槽</span><br><span class="line"><span class="tag">&lt;<span class="name">solt</span>&gt;</span><span class="tag">&lt;/<span class="name">solt</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">solt</span>&gt;</span><span class="tag">&lt;/<span class="name">solt</span>&gt;</span>  </span><br></pre></td></tr></table></figure>
-
-2. 具名插槽
-
-   <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//被调用的文件</span><br><span class="line"><span class="tag">&lt;<span class="name">组件名</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">solt</span>=<span class="string">&quot;header&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">solt</span>=<span class="string">&quot;footer&quot;</span>&gt;</span></span><br><span class="line">//另外一种写法</span><br><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">v-solt:</span>&quot;<span class="attr">footer</span>&quot;&gt;</span> //仅用于template标签</span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;/<span class="name">组件名</span>&gt;</span></span><br><span class="line"></span><br><span class="line">//组件文件</span><br><span class="line"><span class="tag">&lt;<span class="name">solt</span> <span class="attr">name</span>=<span class="string">&quot;header&quot;</span>&gt;</span>默认内容,当未向插槽填充内容时使用该默认内容<span class="tag">&lt;/<span class="name">solt</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">solt</span> <span class="attr">name</span>=<span class="string">&quot;footer&quot;</span>&gt;</span>默认内容,当未向插槽填充内容时使用该默认内容<span class="tag">&lt;/<span class="name">solt</span>&gt;</span>   //vue会在对应名字的插槽中插入内容</span><br></pre></td></tr></table></figure>
-
-3. 作用域插槽
-
-   用于需要在父组件中向子组件传递一些样式，但样式中需要用到的数据在子组件中。
-
-   <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//被调用的文件</span><br><span class="line"><span class="tag">&lt;<span class="name">组件名</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">scope</span>=<span class="string">&quot;name&quot;</span>&gt;</span></span><br><span class="line">...</span><br><span class="line">一些内容,内部用的了vue语法，使用的变量和数据来自于子组件&#123;&#123;&#125;&#125;    </span><br><span class="line">如：&#123;&#123;value&#125;&#125;  //父组件未有value变量，而子组件有</span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span>   //必须包裹template且使用参数scope(不是scoped),不然会报错，vue会错误的把其中用的数据当成本组件中的，而不是子组件,scope=&quot;name&quot;中的name存储着从插槽传来的所有数据，包裹在了一个对象中</span><br><span class="line"></span><br><span class="line">//组件文件</span><br><span class="line"><span class="tag">&lt;<span class="name">solt</span> <span class="attr">:value</span>=<span class="string">value</span>  //<span class="attr">向插槽中传递数据</span>，<span class="attr">父组件使用时可以得到这部分数据</span>&gt;</span>默认内容,当未向插槽填充内容时使用该默认内容<span class="tag">&lt;/<span class="name">solt</span>&gt;</span>   //没有名字的插槽</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-   
-
-### 组件之间的通信
-
-1. 父子组件之间的通信
-
-   1. 父对子
-
-      + 在子组件中设置props,父组件通过在子组件的参数中传递对象实现通信
-      + 通过ref标识一个组件，完成对子组件的操纵
-
-   2. 子对父
-
-      + 通过props让父组件传递一个用于通信的函数实现与父组件的通信
-
-   3. 自定义事件通信
-
-      可以通过在组件上设置自定义事件完成组件之间的通信。
-
-      例:
-
-      <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//在组件上添加自定义事件</span></span><br><span class="line"><span class="comment">//通过触发html事件后调用函数，在函数内触发自定义事件</span></span><br><span class="line"><span class="title function_">method</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.$emit(<span class="string">&quot;自定义事件名称&quot;</span>,向调用自定义事件的处理函数传递的参数，...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//为自定义事件添加处理函数</span></span><br><span class="line"><span class="variable language_">this</span>.$on(<span class="string">&quot;自定义事件名&quot;</span>,<span class="string">&quot;处理函数&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//父组件监听在自定义事件</span></span><br><span class="line">&lt;组件 @自定义事件名=<span class="string">&quot;处理函数名&quot;</span>&gt;</span><br><span class="line">处理函数（自定义事件传入的参数）&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-2. 全局事件总线
-
-   使用全局事件总线相当于给所有组件的原型上添加一个组件用于组件之间的信息传递
-
-   例
-
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span>  <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&quot;#app&quot;</span>,</span><br><span class="line">    <span class="attr">render</span>:<span class="function"><span class="params">h</span>=&gt;</span><span class="title function_">h</span>(app),</span><br><span class="line">    <span class="title function_">beforeCreate</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.(通信组件名,如$bus)=<span class="variable language_">this</span>  <span class="comment">//安装全局事件总线</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-   通过各个组件向通信组件增删事件，监听，触发事件完成事件之间的通信。但要注意在组件创建时向通信组件添加事件，当组件销毁时要删除通信组件中的事件。
-
-3. 消息的订阅与分布
-
-   与事件总线类似，有一个发布者和几个定义者，发布者向订阅者传递信息。需要额外安装新的第三方库，或者自己实现它。
-
-## vue相关知识
-
-### 组件对于参数的解释
-
-组件内部所写的属性如果没有使用props设置接收会统一地进入vc对象的一个属性中($attrs)
-
-组件内部所用的插槽如果没有设置也会被vc对象的一个属性接收($slots)
-
-### template
-
-template不破坏结构,使用v-if
-
-例如：
-
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">执行前：</span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">执行后:</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-### transition(动画效果)
-
-vue定义的标签，可以在组件显示或隐藏时播放自定义动画，动画需要在css中设置特定的名称。
-
-### class&style等属性的改变
-
-vue可以使用以下语法简化html属性的改变
-
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">data:&#123;</span><br><span class="line">class:[&quot;d0&quot;,&quot;d1&quot;]</span><br><span class="line">style:&#123;</span><br><span class="line">font-size:10px,</span><br><span class="line">display:flex</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-blind:class</span>=<span class="string">&quot;class&quot;</span> <span class="attr">:style</span>=<span class="string">&quot;style&quot;</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-### scoped的使用
-
-在不同的组件中设置了不同的组件样式，这些样式之间可能会发生冲突，导致部分样式被覆盖，scoped可以避免这个问题。
-
-例：
-
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span>...<span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>...<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span>...<span class="tag">&lt;/<span class="name">style</span>&gt;</span>  //可以在此添加scoped来限制样式的作用域于本组件，不会影响其他组件。</span><br></pre></td></tr></table></figure>
-
-原理是通过向组件添加一个特定的独一无二的属性值来标识限制样式的使用
-
-### vue特有属性的使用
-
-#### ref
-
-ref是一个vue设置的标签属性，可以用于标识一个元素（和id类似),通过ref=value，标识后的元素会存储在该组件的vc中的$refs属性中的value中。当用ref标识一个组件时，不会标识一个真实的dom元素，而是一个vc对象。
-
-可以通过ref进行组件之间的通信
-
-### html表单
-
-使用v-model完成双向绑定，默认绑定value值。但有的组件不使用value值，vue有特定的解决方法
-
-1. text
-
-   使用value值
-
-2. radio
-
-   radio类型未有value值，可以自行配置
-
-   <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//使用name属性可以使其变成一组，一组中只能选择一个，不能多选</span><br><span class="line">男<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;value&quot;</span> <span class="attr">value</span>=<span class="string">&quot;male&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span><br><span class="line">女<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;value&quot;</span> <span class="attr">value</span>=<span class="string">&quot;female&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span><br><span class="line">//将value绑定到以上两个组件，选择哪个，value的值为对于组件的value值。相当于value值相同的组件显示，其他隐藏</span><br></pre></td></tr></table></figure>
-
-3. checkbox
-
-   checkbox类型未有value值，可以自行配置
-
-   <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//当未在组件添加value属性时，value使用组件的是否勾选的boolean值，并会影响到所有组件的勾选状态</span><br><span class="line">//当在组件添加value属性时，value使用组件的value，变成一个列表，会在列表中添加已勾选组件的value值</span><br><span class="line">男<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span>  <span class="attr">v-model</span>=<span class="string">&quot;value&quot;</span> <span class="attr">value</span>=<span class="string">&quot;male&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span><br><span class="line">女<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span>  <span class="attr">v-model</span>=<span class="string">&quot;value&quot;</span> <span class="attr">value</span>=<span class="string">&quot;female&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span><br><span class="line">//将value绑定到多个组件，value列表的初始值即为组件勾选的初始情况</span><br></pre></td></tr></table></figure>
-
-4. select
-
-   情况和radio类似，value使用当前选中的option组件的value值
-
-### 网页发送请求的方式
-
-1. xhr
-
-   最原始的方法
-
-2. jQuery的ajax
-
-   是对xhr的封装
-
-3. axios
-
-   对xhr的另一种封装
-
-4. fetch
-
-   另一种原生的请求方式
-
-5. vue-resource
-
-   vue插件，对xhr的封装,vue团队已不再维护
-
-### 解决跨域问题
-
-由于浏览器同源策略的限制，无法跨域请求。但是请求可以送达，只是浏览器拦截了反馈。
-
-解决方法：
-
-1. cors
-
-   让要请求的服务器返回的内容加上一些特殊的标识用于让浏览器识别通过。
-
-2. jsonp
-
-   利用了web通过<script>标签的scr引入数据不会被同源策略限制，但需要前后端之间的配合。
-
-3. 配置代理服务器
-
-   让前端界面先向自己的服务器发生请求，让自己（代理）的服务器向目标服务器发送请求，最后再借助代理服务器返回信息。（利用服务器之间通信没有同源限制）
-
-   可以通过vue脚手架配置代理服务器。
-
-## vuex
-
-一个vue中重要的插件，用于管理多个有状态依赖的组件的状态。
-
-思想:将数据统一保管在一个地方，使用时进行调用。需要对vuex进行一定的配置
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//用法示例</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Vuex</span> <span class="keyword">from</span> <span class="string">&quot;vuex&quot;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">Vuex</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//vuex的第一个流程，用于响应一些动作</span></span><br><span class="line"><span class="keyword">const</span> actions=&#123;</span><br><span class="line">    <span class="title function_">fun</span>(<span class="params">context,value,...</span>)&#123;</span><br><span class="line">        <span class="comment">//第一个参数context相当于上下文，一个简化版的vuex对象，有commit,value及后面的参数为用户传入的数据</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//vuex的第二个流程，用于完成对state中数据的操作</span></span><br><span class="line"><span class="keyword">const</span> mutations=&#123;</span><br><span class="line">    <span class="title function_">fun</span>(<span class="params">state,value,...</span>)&#123;</span><br><span class="line">        <span class="comment">//第一个参数state相当于vuex对象中state模块中存储的数据，value及后面的参数为用户传入的数据</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//vuex的第三个流程，用于存储数据的状态</span></span><br><span class="line">cont state=&#123;</span><br><span class="line">    <span class="attr">value1</span>:...,</span><br><span class="line">    <span class="attr">value2</span>:...,</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">//在此处放需要使用的数据</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//用于使用state中的属性</span></span><br><span class="line"><span class="keyword">const</span> getters=&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title class_">Store</span>(&#123;</span><br><span class="line">    actions,</span><br><span class="line">    mutations,</span><br><span class="line">    state,</span><br><span class="line">    getters</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
- ### VUEX模块化
-
-vuex模块化是将vuex的不同业务按照逻辑分别存储在不同的模块里
-
-## router(路由)
-
-通常使用在单页面应用中，用于刷新页面的部分内容
-
-### 使用
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//单独的配置文件</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">VueRouter</span> <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//导入组件</span></span><br><span class="line">impor <span class="title class_">About</span> <span class="keyword">from</span> ...</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123;</span><br><span class="line">    <span class="comment">//设置路由规则</span></span><br><span class="line">    <span class="attr">routes</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//路径和组件</span></span><br><span class="line">            <span class="attr">path</span>:<span class="string">&#x27;/about&#x27;</span></span><br><span class="line">            <span class="attr">component</span>:<span class="title class_">About</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">path</span>:...</span><br><span class="line">            ...</span><br><span class="line">        &#125;,</span><br><span class="line">        ...</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br><span class="line">        </span><br><span class="line"><span class="comment">//引入路由</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(vueRouter)</span><br><span class="line">        </span><br><span class="line"><span class="comment">//路由的使用</span></span><br><span class="line">&lt;router-link <span class="keyword">class</span>=<span class="string">&quot;...&quot;</span> active-<span class="keyword">class</span>=<span class="string">&quot;...&quot;</span> to=<span class="string">&quot;/...&quot;</span> &gt;&lt;...&gt;  <span class="comment">//使用router-link代替a标签，实现url的切换</span></span><br><span class="line">&lt;router-view&gt;&lt;...&gt;   <span class="comment">//指定组件的呈现位置</span></span><br></pre></td></tr></table></figure>
-
-### 嵌套路由
-
-多个路由的嵌套使用
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123;</span><br><span class="line">    <span class="comment">//设置路由规则</span></span><br><span class="line">    <span class="attr">routes</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//路径和组件</span></span><br><span class="line">            <span class="attr">path</span>:<span class="string">&#x27;/about&#x27;</span></span><br><span class="line">            <span class="attr">component</span>:<span class="title class_">About</span></span><br><span class="line">            <span class="attr">children</span>:[</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">path</span>:<span class="string">&#x27;a1&#x27;</span></span><br><span class="line">                <span class="attr">component</span>:...</span><br><span class="line">              &#125;,</span><br><span class="line">              &#123;&#125;,</span><br><span class="line">              ...</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">path</span>:...</span><br><span class="line">            ...</span><br><span class="line">        &#125;,</span><br><span class="line">        ...</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-### 路由的query参数
-
-当通过<router-link>标签跳转显示组件时，可以通过url向其传入参数，如
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//通过?后面的数据传入参数传入参数</span></span><br><span class="line"><span class="comment">//1.普通写法</span></span><br><span class="line">&lt;router-link to=<span class="string">&quot;/a1?a=1&amp;b=2&quot;</span> <span class="keyword">class</span>=<span class="string">&quot;link&quot;</span>&gt;a1&lt;/router-link&gt;</span><br><span class="line"><span class="comment">//2.对象写法</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">&quot;&#123;</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">path:&quot;</span>/<span class="attr">..</span>/<span class="attr">..</span>/<span class="attr">....</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml"><span class="attr">query:</span>&#123;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">a:..</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">...</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">&#125;&quot; <span class="attr">class</span>=<span class="string">&quot;link&quot;</span>&gt;</span>a1<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//组件可以通过以下方式获得传入的参数</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">$route</span>.<span class="property">query</span>.[...(参数名)]</span><br></pre></td></tr></table></figure>
-
-### 命名路由
-
-为每一个路由加上名字，方便使用
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//单独的配置文件</span><br><span class="line">export default new VueRouter(&#123;</span><br><span class="line">    //设置路由规则</span><br><span class="line">    routes:[</span><br><span class="line">        &#123;</span><br><span class="line">            //路径和组件以及名字</span><br><span class="line">            path:&#x27;/about&#x27;</span><br><span class="line">            component:About,</span><br><span class="line">            name:&quot;test&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            path:...</span><br><span class="line">            ...</span><br><span class="line">        &#125;,</span><br><span class="line">        ...</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">//使用文件</span><br><span class="line">&lt;router-link :to=&quot;&#123;</span><br><span class="line">name:&quot;test&quot;</span><br><span class="line">&#125;&quot; class=&quot;link&quot;&gt;a1&lt;/router-link&gt;</span><br></pre></td></tr></table></figure>
-
-### params参数
-
-与query参数作用类似，但通过另一种方式实现参数的传递。
-
-### replace属性
-
-router-link有一个属性replace用于设置是否替换历史记录，默认为不开启。开启后跳转后不可后退
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;router-link :replace=&quot;true&quot;&gt;&lt;/router-link&gt;</span><br></pre></td></tr></table></figure>
-
-## VUE3(与vue2的差异)
-
-### setup
-
-可以在此处设置变量和函数，之后再返回
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">setup()&#123;</span><br><span class="line">a=..</span><br><span class="line">...</span><br><span class="line">f=function()&#123;&#125;;</span><br><span class="line">//返回数据</span><br><span class="line">return &#123;</span><br><span class="line">a,</span><br><span class="line">b</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line">//返回渲染函数</span><br><span class="line">import h from &quot;vue&quot;</span><br><span class="line">return ()=&gt;&#123;</span><br><span class="line">return h(&quot;h1&quot;,&quot;h1内部的内容&quot;)&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-setup函数内部可以取代data,methods,computed的作用，但是这三个属性还可以使用，但是setup不可以读取到这三个属性的属性，但是这三个属性可以读取setup中的属性,如果setup和这三个属性有同名，setup内的属性会覆盖其他属性中的属性。
-
-setup函数的执行时机是在beforCreat生命周期前,在此时函数内的this指向未定义。
-
-setup函数执行时接收两个参数:props:包含组件外部传入的且组件内部声明过的props参数。
-
-context:上下文参数:
-
-                                            + attrs:包含组件外部传入的且未在组件内部声明过的props参数。
-                                            + slots:收到的插槽内容,相当于this.$slots。
-                                            + emit:分发自定义事件的函数,相当于vue2中的this.$emit。
-
-### reactive
-
-reactive函数的作用实际上实现了对象代理(Proxy),无法对于基本类型使用reactive,更多解释参见下一小节。
-
-### ref
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//使用方法</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import ref from &quot;vue&quot;</span><br><span class="line">    setup()&#123;</span><br><span class="line">        //对象默认不是响应式,通过对对象包裹ref实现对包裹对象的响应式</span><br><span class="line">        a=ref(1)</span><br><span class="line">        b=ref(...)</span><br><span class="line">        //通过以下方法响应式的更改数据</span><br><span class="line">        a.value=2</span><br><span class="line">        b.value=...</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-通过ref,vue3实现了对于对象的监听和响应。其中,对于对象本身的监听还是通过getter和setter实现的。但是对于对象内部的属性则是通过代理(Proxy)实现(通过vue3中的新函数:reactive)的。
-
-对于基本类型数据,使用ref会将值直接传入构造对象的value中。而对于对象数据，使用ref会将值作为参数先调用reactive函数，后将返回值直接传入构造对象的value中。
-
-reactive函数的作用实际上实现了对象代理(Proxy),无法对于基本类型使用reactive
-
-### vue3中的computed
-
-vue3中的computed可以使用vue2中的写法，也可以配置在setup函数中
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import &#123;computed&#125; from &quot;vue&quot;</span><br><span class="line">setup()&#123;</span><br><span class="line">p=&#123;a:1,b:2&#125;</span><br><span class="line">//computed的使用</span><br><span class="line">//简写形式</span><br><span class="line">c=computed(()=&gt;&#123;</span><br><span class="line">return p.a+p.b</span><br><span class="line">&#125;)</span><br><span class="line">//完整形式</span><br><span class="line">c=computed(&#123;</span><br><span class="line">get()&#123;...&#125;,</span><br><span class="line">set(value)&#123;&#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">return &#123;</span><br><span class="line">p,c</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-### vue3中的watch
-
-vue3中的watch可以使用vue2中的写法，也可以配置在setup函数中
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import &#123;watch,ref&#125; from &quot;vue&quot;</span><br><span class="line">setup()&#123;</span><br><span class="line">a=ref(1)</span><br><span class="line"></span><br><span class="line">//1.监视一个属性的变化</span><br><span class="line">watch(a,(new,old)=&#123;&#125;)</span><br><span class="line">//2.监视多个属性的变化,此时new,old为两个数组，内部存储多新旧值</span><br><span class="line">watch([a,...],(new,old)=&#123;&#125;)</span><br><span class="line">&#125;</span><br><span class="line">//3.完整配置写法</span><br><span class="line">watch(a,(new,old)=&#123;&#125;,&#123;</span><br><span class="line">immediate:true,   //初始化是否执行</span><br><span class="line">deep:true   //是否深层监视,但是vue3使用了代理,已经强制开启了深度监视,此配置项无用。但是当监视对象为某个对象内部的子对象时,需要使用deep配置才可以深度监视。当使用ref监视对象时,监视的是value属性而不会深入到value属性内部,需要使用deep才可以。当监视的是代理对象时直接可以深度监视,不必使用deep选项。</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">//当使用watch监视一个对象时,无法正确获取到旧值,新值和旧值均指向新值。(直接通过reactive配置的属性watch可以检测到对象属性的变化,通过ref间接调用reative的watch会监视value的变化而不会监视值的变化)</span><br><span class="line"></span><br><span class="line">//4.监视某个对象中的一个或一些属性</span><br><span class="line">a=&#123;a:1,b:2,c:3&#125;</span><br><span class="line">a=ref(a)</span><br><span class="line">watch([()=a.a,()=&gt;a.b,()=&gt;a.c)],(new,old)=&#123;&#125;,&#123;</span><br><span class="line">immediate:true</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-### watchEffect
-
-类似于watch，但是不需要显式的指定要监视的属性,会自动监视函数体中所用的属性变化,改变时调用函数。
-
-### 生命周期
-
-vue3中的生命周期相对于vue2更改了两个名字,分别为:beforeUnmount和unmount以取代原来的destroy的一对函数。vue3可以使用vue2的写法，使用选项式的写法。
-
-也可以使用组合式的写法配置,将其写入setup函数中,具体用法及名称如下
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">beforeCreate,created==&gt;setup()</span><br><span class="line">beforeMount==&gt;onBeforeMount</span><br><span class="line">mounted==&gt;onMounted</span><br><span class="line">beforeUpdate==&gt;onBeforeUpdate</span><br><span class="line">updated==&gt;onUpdated</span><br><span class="line">beforeUnmount==&gt;onBeforeUnmount</span><br><span class="line">unmounted==&gt;onUnmounted</span><br><span class="line"></span><br><span class="line">//通过向这些函数内传入执行函数即可实现使用</span><br><span class="line">import &#123;onBeforeMount,...&#125; from &quot;vue&quot;</span><br><span class="line">setup()&#123;</span><br><span class="line">onBeforeMount(()=&gt;&#123;...&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-### 自定义hook函数
-
-将组件setup函数中部分可以复用的代码单独写一个js文件，通过一个函数返回需要的数据。类似于vue2中的mixin
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//hook函数文件  useTest.js</span><br><span class="line">//引用各种函数</span><br><span class="line">import &#123;onMounted&#125; from &quot;vue&quot;</span><br><span class="line">export default function()&#123;</span><br><span class="line">a=&#123;a:1,b:2&#125;</span><br><span class="line">//添加事件</span><br><span class="line">...</span><br><span class="line">return a</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//vue组件</span><br><span class="line">import useTest from &quot;./useTest.js&quot;</span><br><span class="line">setup()&#123;</span><br><span class="line">a=useTest()</span><br><span class="line">return &#123;a&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-## Proxy(代理)
-
-代理是js原生的一种监听对象变化的强大属性
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">a=&#123;</span><br><span class="line">    <span class="attr">a</span>:<span class="number">1</span>,</span><br><span class="line">    <span class="attr">b</span>:..,</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">b=<span class="keyword">new</span> <span class="title class_">Proxy</span>(a,&#123;</span><br><span class="line">    <span class="comment">//获得属性时调用</span></span><br><span class="line">    <span class="title function_">get</span>(<span class="params">target,propname</span>)&#123;</span><br><span class="line">        <span class="comment">//target代表代理的原对象,propname代表获得的属性名</span></span><br><span class="line">        <span class="comment">//当获得对象属性和添加属性时，会调用该方法</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//修改属性时调用</span></span><br><span class="line">    <span class="title function_">set</span>(<span class="params">target,propname,value</span>)&#123;</span><br><span class="line">        <span class="comment">//target代表代理的原对象,propname代表获得的属性名,value代表要修改的值</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//删除属性时调用</span></span><br><span class="line">    <span class="title function_">deleteProperty</span>(<span class="params">target,propname</span>)&#123;</span><br><span class="line">        <span class="comment">//target代表代理的原对象,propname代表获得的属性名</span></span><br><span class="line">        <span class="comment">//执行相关操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-### Reflect
-
-许多Object中的方法被移植到了Reflect中，并进行了改进。
-
-
-]]></content>
-      <categories>
-        <category>前端框架</category>
-      </categories>
-      <tags>
-        <tag>默认</tag>
-        <tag>javascript</tag>
-        <tag>vue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>matplotlib学习记录</title>
     <url>/2023/09/24/matplotlib%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<h2 id="图表的创建方法"><a href="#图表的创建方法" class="headerlink" title="图表的创建方法"></a>图表的创建方法</h2><p>创建新图形的最简单方法是使用 pyplot：</p>
@@ -672,6 +23,342 @@ vue3中的生命周期相对于vue2更改了两个名字,分别为:beforeUnmount
         <tag>python</tag>
         <tag>机器学习</tag>
         <tag>数据分析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VUE学习记录</title>
+    <url>/2023/09/24/VUE%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<h1 id="VUE-LEARN"><a href="#VUE-LEARN" class="headerlink" title="VUE LEARN"></a>VUE LEARN</h1><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h3 id="v-bind"><a href="#v-bind" class="headerlink" title="v-bind"></a>v-bind</h3><p>用于单向绑定事件，数据变化时重新渲染，界面变化不引起数据变化</p>
+<p>:[v]&#x3D;“line”</p>
+<p>v-bind得到的是表达式而不是一个字符串，可以利用这一点向一个组件菜单非字符串参数</p>
+<span id="more"></span>
+<h3 id="v-model"><a href="#v-model" class="headerlink" title="v-model"></a>v-model</h3><p>用于双向绑定事件，数据变化时重新渲染，界面变化也引起数据变化</p>
+<p>v-model&#x3D;“line”</p>
+<p>.lazy是懒惰更新，在组件失去焦点时更新数据</p>
+<p>例：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">v-model.lazy</span>=<span class="string">&quot;value&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="v-on"><a href="#v-on" class="headerlink" title="v-on"></a>v-on</h3><p>用于绑定事件的监听函数</p>
+<p>@[even]&#x3D;value</p>
+<p>修饰符：.once (只触发一次)，……</p>
+<h3 id="v-show"><a href="#v-show" class="headerlink" title="v-show"></a>v-show</h3><p>用于便捷的设置dom是否显示，原理是设置display属性</p>
+<p>v-show&#x3D;“boolean”</p>
+<h3 id="v-if"><a href="#v-if" class="headerlink" title="v-if"></a>v-if</h3><p>条件判断命令，若干条逻辑相连的语句必须相邻</p>
+<p>v-if&#x3D;“boolean”</p>
+<p>v-else-if&#x3D;“boolean”</p>
+<p>v-else</p>
+<h3 id="v-for"><a href="#v-for" class="headerlink" title="v-for"></a>v-for</h3><p>循环语句</p>
+<p>借助js原生数组方法进行排序和过滤</p>
+<ul>
+<li><p>遍历数组</p>
+<p>v-for&#x3D;“(data,index) of value”</p>
+</li>
+<li><p>遍历字符串</p>
+<p>v-for&#x3D;“(data,index) of str”</p>
+</li>
+<li><p>遍历指定次数</p>
+<p>v-for&#x3D;“(data,index) of 5(num)”</p>
+</li>
+</ul>
+<h4 id="key-key-…"><a href="#key-key-…" class="headerlink" title="key(:key&#x3D;…)"></a>key(:key&#x3D;…)</h4><p>用于循环语句中</p>
+<p>用来标识每一个遍历对象。</p>
+<p>当遍历对象变化时，通过对比算法对比虚拟dom来覆盖原有的虚拟dom</p>
+<h3 id="v-text"><a href="#v-text" class="headerlink" title="v-text"></a>v-text</h3><p>设置组件中的文本</p>
+<p>例子</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//设置组件中的文本</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-text</span>=<span class="string">&quot;value&quot;</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="v-html"><a href="#v-html" class="headerlink" title="v-html"></a>v-html</h3><p>设置组件中的文本,可以将文本解析为dom节点</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//设置组件中的文本,可以将文本解析为dom节点</span><br><span class="line">value=&quot;<span class="tag">&lt;<span class="name">h1</span>&gt;</span>kk<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>&quot;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-html</span>=<span class="string">&quot;value&quot;</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="v-cloak"><a href="#v-cloak" class="headerlink" title="v-cloak"></a>v-cloak</h3><p>当vue开始执行时会删除该标签，配合css用于js加载前页面元素的隐藏</p>
+<h3 id="v-once"><a href="#v-once" class="headerlink" title="v-once"></a>v-once</h3><p>类似于v-bind,但是只在页面初始化时执行一次，之后数据变化也不再执行</p>
+<h3 id="v-pre"><a href="#v-pre" class="headerlink" title="v-pre"></a>v-pre</h3><p>跳过vue的解析，不解析其中的vue语法，加快页面的解析</p>
+<h3 id="value"><a href="#value" class="headerlink" title="value"></a>value</h3><p>显示变量的返回值</p>
+<h2 id="vue相关原理"><a href="#vue相关原理" class="headerlink" title="vue相关原理"></a>vue相关原理</h2><h3 id="vue开发者工具"><a href="#vue开发者工具" class="headerlink" title="vue开发者工具"></a>vue开发者工具</h3><h3 id="vue检测对象变化的原理"><a href="#vue检测对象变化的原理" class="headerlink" title="vue检测对象变化的原理"></a>vue检测对象变化的原理</h3><h4 id="vue2"><a href="#vue2" class="headerlink" title="vue2"></a>vue2</h4><p>以原对象为模板构造新对象，使用gette和setter达到目的</p>
+<p>setter无法检测一个数组和对象的属性的改变（在新对象和原对象上都不可以完成对整体的更改，也不可以检测到改变）</p>
+<p>在vue2(vue2使用setter,getter)中直接在原对象上增加属性不会在新对象中增加setter，不会检测到变化,可以使用Vue.set函数动态增加响应式的数据</p>
+<p>例如</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">a=&#123;<span class="attr">x</span>:[<span class="number">1</span>]&#125;</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(a,<span class="string">&quot;y&quot;</span>,&#123;</span><br><span class="line">    <span class="title function_">get</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> a.<span class="property">x</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">set</span>(<span class="params">v</span>)&#123;</span><br><span class="line">        a.<span class="property">x</span>=v</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//会触发setter</span></span><br><span class="line">a.<span class="property">y</span>=<span class="number">1</span></span><br><span class="line"><span class="comment">//向其中增加数组元素不会触发setter</span></span><br><span class="line">a.<span class="property">y</span>.<span class="title function_">push</span>(<span class="number">3</span>)</span><br><span class="line"><span class="comment">//增加属性不会触发setter</span></span><br><span class="line">a.<span class="property">y</span>.<span class="property">a</span>=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="vue3"><a href="#vue3" class="headerlink" title="vue3"></a>vue3</h4><p>以原对象为模板构造新对象，使用代理达到目的</p>
+<p>可以检测到对象和数组属性的变化（在新对象和原对象上都可以完成更改，但仅仅在新对象上可以检测到改变）。</p>
+<p>在vue3(vue3使用代理)中直接在原对象上增加属性，该操作vue3不会检测到变化,vue3中Vue.set函数(由于vue3使用了代理))被废弃，使用了新的函数。</p>
+<p>直接在原对象上增加属性会在新对象中增加属性,如果该属性是data数组中的一个对象上的某个属性，会在新对象中增加该属性。如果该属性是data数组中的一个不存在的对象，且如果在html中未使用该不存在的对象，也会在新对象中增加该属性，而如果在html中使用该不存在的对象，会给出警告，且不会在新对象中增加该属性。</p>
+<h3 id="对象代理"><a href="#对象代理" class="headerlink" title="对象代理"></a>对象代理</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">object.<span class="title function_">defineproperty</span>(object,name,&#123;</span><br><span class="line">    <span class="title function_">set</span>(<span class="params"></span>)&#123;&#125;,</span><br><span class="line">    <span class="title function_">get</span>(<span class="params"></span>)&#123;&#125;,</span><br><span class="line">    ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h3><h3 id="vue的不同使用方式"><a href="#vue的不同使用方式" class="headerlink" title="vue的不同使用方式"></a>vue的不同使用方式</h3><h4 id="通过script标签引入"><a href="#通过script标签引入" class="headerlink" title="通过script标签引入"></a>通过script标签引入</h4><p>使用简单，但是部分vue简化语法不可以如：</p>
+<ul>
+<li><p>自定义组件标签无法自闭合</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//正确</span><br><span class="line"><span class="tag">&lt;<span class="name">custom</span>&gt;</span><span class="tag">&lt;/<span class="name">custom</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">custom</span>&gt;</span><span class="tag">&lt;/<span class="name">custom</span>&gt;</span></span><br><span class="line">//这种方法下错误</span><br><span class="line"><span class="tag">&lt;<span class="name">custom</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">custom</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>组件的命名问题</p>
+<ol>
+<li>使用大小写会导致错误</li>
+<li>推荐使用“-”</li>
+</ol>
+</li>
+</ul>
+<h4 id="通过脚手架使用"><a href="#通过脚手架使用" class="headerlink" title="通过脚手架使用"></a>通过脚手架使用</h4><p>可以完整使用vue的功能</p>
+<h2 id="vue配置属性"><a href="#vue配置属性" class="headerlink" title="vue配置属性"></a>vue配置属性</h2><h3 id="data-数据属性"><a href="#data-数据属性" class="headerlink" title="data(数据属性)"></a>data(数据属性)</h3><p>相关属性</p>
+<h3 id="computed-计算属性"><a href="#computed-计算属性" class="headerlink" title="computed(计算属性)"></a>computed(计算属性)</h3><p>类似于data,但是在相关数据变化时才调用</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//demo</span></span><br><span class="line"><span class="attr">computed</span>:&#123;</span><br><span class="line">    <span class="attr">test</span>:&#123;</span><br><span class="line">        <span class="comment">//特殊语法,由vue解析</span></span><br><span class="line">        <span class="title function_">get</span>(<span class="params"></span>)&#123;</span><br><span class="line">            </span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="title function_">set</span>(<span class="params"></span>)&#123;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="watch-监视属性"><a href="#watch-监视属性" class="headerlink" title="watch(监视属性)"></a>watch(监视属性)</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="attr">watch</span>:&#123;</span><br><span class="line">    <span class="comment">//直接使用要监视的变量名</span></span><br><span class="line">    <span class="attr">value</span>:&#123;</span><br><span class="line">        <span class="comment">//是否深度监视value(如嵌套结构),默认false</span></span><br><span class="line">        <span class="attr">deep</span>:boolean</span><br><span class="line">        <span class="comment">//初始化时是否调用，默认false</span></span><br><span class="line">        <span class="attr">immediate</span>:boolean</span><br><span class="line">        <span class="comment">//value值变化时调用</span></span><br><span class="line">        <span class="title function_">handler</span>(<span class="params">changed,past</span>)&#123;<span class="comment">//可以看到修改后的值和修改前的值</span></span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//使用要监视的变量名的字符串(可以监视嵌套结构中某一个属性的变化)</span></span><br><span class="line">    <span class="string">&quot;value.a.b&quot;</span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="methods（方法属性）"><a href="#methods（方法属性）" class="headerlink" title="methods（方法属性）"></a>methods（方法属性）</h3><p>数据（无论是否相关）变化时就调用</p>
+<h3 id="filters-过滤器"><a href="#filters-过滤器" class="headerlink" title="filters(过滤器)"></a>filters(过滤器)</h3><p>例子：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">filters:&#123;</span><br><span class="line">fun()&#123;&#125;</span><br><span class="line">fun2()&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    &#123;&#123;value | fun | fun2 | ...&#125;&#125; //将value传入fun并将fun的返回值传入fun2继续调用下去直到结束后将返回值返回</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>全局过滤器</p>
+<p>Vue.fliter(“name”,()&#x3D;&gt;{})</p>
+<h3 id="directives-自定义指令设置"><a href="#directives-自定义指令设置" class="headerlink" title="directives(自定义指令设置)"></a>directives(自定义指令设置)</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//vue2中设置</span></span><br><span class="line"><span class="comment">//函数的this为windows</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//全局vue指令写法</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">directive</span>(<span class="string">&quot;name&quot;</span>,&#123;...&#125;)</span><br><span class="line">                      </span><br><span class="line"><span class="comment">//单个组件vue指令写法                      </span></span><br><span class="line"><span class="attr">directives</span>:&#123;</span><br><span class="line">    <span class="comment">//自定义指令为v-value</span></span><br><span class="line">    <span class="comment">//指令调用时机:1.组件初始化时.2.组件中数据变化导致组件更新时(类似于methods中的函数)</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//使用有两种方式，一种简化版，一种完整版</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//简化版</span></span><br><span class="line">    <span class="title function_">value</span>(<span class="params">element,binding</span>)&#123;<span class="comment">// element代表该指令绑定的dom元素,binding代表与该该指令相关的值，如binding.value代表v-value后赋的值</span></span><br><span class="line">        <span class="comment">//在这里操纵dom,完成操作</span></span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    <span class="comment">//完整版</span></span><br><span class="line">    <span class="attr">value</span>:&#123;</span><br><span class="line">        <span class="comment">//指令与元素绑定时</span></span><br><span class="line">        <span class="title function_">bind</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">        <span class="comment">//元素插入页面时</span></span><br><span class="line">        <span class="title function_">inserted</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">        <span class="comment">//组件更新时</span></span><br><span class="line">        <span class="title function_">update</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="template-模板"><a href="#template-模板" class="headerlink" title="template(模板)"></a>template(模板)</h3><p>当组件中未有任何元素是使用模板可以为其中添加元素。该模板会覆盖原有内容。</p>
+<h3 id="components-组件"><a href="#components-组件" class="headerlink" title="components(组件)"></a>components(组件)</h3><p>向当前组件中添加子组件。</p>
+<h3 id="name-组件名称"><a href="#name-组件名称" class="headerlink" title="name(组件名称)"></a>name(组件名称)</h3><p>指定组件在开发者工具中的名称</p>
+<h3 id="render-渲染器"><a href="#render-渲染器" class="headerlink" title="render(渲染器)"></a>render(渲染器)</h3><p>在vue的脚手架项目中，默认引入的是一个简化版的vue，这个简化版的vue不支持template，因为为了提供页面的渲染速度。可以通过修改导入方式引入完整版的vue或修改node_moudle&#x2F;vue中的导入配置文件。</p>
+<p>代替template的功能，向页面添加元素。</p>
+<h3 id="props-参数"><a href="#props-参数" class="headerlink" title="props(参数)"></a>props(参数)</h3><p>用于外部向组件内传递若干的数据参数，传入后变量使用类似于data。</p>
+<p>尽量不要修改外部传入的props参数，会有警告。</p>
+<p>不能使用若干vue使用的关键字作为参数名，如：ref,key等等</p>
+<p>例：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//通过以下方式构造</span><br><span class="line">//1.简单接收</span><br><span class="line">props:[&quot;re1&quot;,&quot;re2&quot;,&quot;re3&quot;]  // 相当于若干的变量</span><br><span class="line">//2.类型检查，当外部传入参数时会进行检查，当与期望类型不符合时会进行警告</span><br><span class="line">props:&#123;</span><br><span class="line">re1:String</span><br><span class="line">re2:Number</span><br><span class="line">&#125;</span><br><span class="line">//3.完整写法</span><br><span class="line">props:&#123;</span><br><span class="line">rel:&#123;</span><br><span class="line">type:String  //类型检测(可不写)</span><br><span class="line">required:true //设置该属性是否必须设置填写</span><br><span class="line">default:value //设置该属性默认值(当用户未填写该属性时使用)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//使用方式</span><br><span class="line"><span class="tag">&lt;<span class="name">自定义组件名称</span> <span class="attr">rel</span>=<span class="string">&quot;12&quot;</span> <span class="attr">re2</span>=<span class="string">&quot;good&quot;</span> <span class="attr">:re3</span>=<span class="string">&quot;4+7&quot;</span>&gt;</span>  //可在标签中向组件传递参数,并且可以结合v-bind实现传递非字符串值</span><br></pre></td></tr></table></figure>
+
+<h3 id="mixins-混合"><a href="#mixins-混合" class="headerlink" title="mixins(混合)"></a>mixins(混合)</h3><p>不同组件之间的功能有一定重叠时，可以将这部分代码分离为一个新的js文件，之后通过引入实现功能</p>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//js文件</span></span><br><span class="line"><span class="keyword">export</span> <span class="title function_">fun</span>(<span class="params"></span>)&#123;&#125;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment">//vue文件中</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">import</span> &#123;fun,...&#125; <span class="keyword">from</span> ./....</span><br><span class="line">...</span><br><span class="line"><span class="attr">mixins</span>:[fun,...]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>通过Vue.mixin(fun_name)可以进行全局混合，全局混合后所有的组件上都会有这个属性</p>
+<h2 id="vue生命周期函数"><a href="#vue生命周期函数" class="headerlink" title="vue生命周期函数"></a>vue生命周期函数</h2><h3 id="vue2-1"><a href="#vue2-1" class="headerlink" title="vue2"></a>vue2</h3><h4 id="beforeCreate"><a href="#beforeCreate" class="headerlink" title="beforeCreate"></a>beforeCreate</h4><p>组件初始化(生命周期，事件)，但此时data以及methods还未初始化，无法使用</p>
+<h4 id="created"><a href="#created" class="headerlink" title="created"></a>created</h4><p>组件初始化(数据监听，代理),可以使用data和methods</p>
+<h4 id="beforeMount"><a href="#beforeMount" class="headerlink" title="beforeMount"></a>beforeMount</h4><p>vue开始解析模板，并生成虚拟dom，但还未改变真实dom,此时对真实dom的操作会在下一个周期被覆盖</p>
+<h4 id="mounted"><a href="#mounted" class="headerlink" title="mounted"></a>mounted</h4><p>在组件被挂载到页面,虚拟dom被转化为真实dom。</p>
+<h4 id="beforeUpdata"><a href="#beforeUpdata" class="headerlink" title="beforeUpdata"></a>beforeUpdata</h4><p>在组件中的数据更新后，但数据的更新还未反映到dom(也未更新虚拟dom)前调用</p>
+<h4 id="updated"><a href="#updated" class="headerlink" title="updated"></a>updated</h4><p>组件的数据和页面都更新之后调用</p>
+<h4 id="beforeDestroy"><a href="#beforeDestroy" class="headerlink" title="beforeDestroy"></a>beforeDestroy</h4><p>组件销毁之前，此时组件中的一切都存在未被开始销毁，可以调用组件中存在的对象。可以更改组件的事件数据，但此时对于数据的更改不会反映到真实的dom上</p>
+<h4 id="destroy"><a href="#destroy" class="headerlink" title="destroy"></a>destroy</h4><p>可以通过vm(组件名).destroy()开始销毁。</p>
+<p>组件销毁后，在此之前组件中的自定义事件，vue指令，对数据的监听都已被销毁，与其他组件的连接也都已经断开,但是已经添加到页面上的html,js相关的事件不会被删除,如计时器不会被删除</p>
+<p>组件销毁会销毁掉和vue相关的对象，如不会再有数据的更新，自定义事件也会消失，<code>&#123;&#123;&#125;&#125;</code>语法中的变量不再随数据变化改变</p>
+<h2 id="vue插件（plugin）"><a href="#vue插件（plugin）" class="headerlink" title="vue插件（plugin）"></a>vue插件（plugin）</h2><p>用于增强vue的功能</p>
+<p>vue插件相当于一个对象，这个对象内部需要实现一个特定的方法install</p>
+<p>这个方法可以得到Vue（相当于vm的构造函数）作为参数，可以修改Vue的功能</p>
+<p>使用Vue.use(插件名称,参数1，参数2, …)来使用插件,该函数中的参数1-n再搭配Vue可以作为参数传入插件中的install函数</p>
+<p>此方法可以搭配Vue.filter,Vue.mixin,Vue.directive来向全局动态的增删过滤器，混入，自定义指令等等</p>
+<h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><ul>
+<li><p>单文件组件</p>
+<p>要使用脚手架或webpack才能使用，文件后缀为.vue</p>
+</li>
+<li><p>非单文件组件</p>
+<p>可以写原生的js代码</p>
+</li>
+</ul>
+<h3 id="vue2-2"><a href="#vue2-2" class="headerlink" title="vue2"></a>vue2</h3><h4 id="如何构造"><a href="#如何构造" class="headerlink" title="如何构造"></a>如何构造</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//使用以下方法构造</span></span><br><span class="line">a=<span class="title class_">Vue</span>.<span class="title function_">extend</span>(&#123;</span><br><span class="line">    <span class="comment">//与new Vue()和Vue.createApp的配置类似</span></span><br><span class="line">    <span class="comment">//但el不可以配置</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果未使用Vue.extend函数，而是单纯的写的如下所示，在注册组件时vue可以自动调用extend方法，不会报错</span></span><br><span class="line">a=&#123;</span><br><span class="line">    <span class="comment">//与new Vue()和Vue.createApp的配置类似</span></span><br><span class="line">    <span class="comment">//但el不可以配置</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用流程"><a href="#使用流程" class="headerlink" title="使用流程"></a>使用流程</h4><ol>
+<li><p>创建设计组件</p>
+</li>
+<li><p>注册组件（局部注册&amp;&amp;全局注册）</p>
+<ol>
+<li><p>局部注册</p>
+<p>在组件内部的components内直接注册</p>
+</li>
+<li><p>全局注册</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="string">&quot;name&quot;</span>,组件名)  </span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>编写组件标签</p>
+</li>
+</ol>
+<h3 id="组件原理"><a href="#组件原理" class="headerlink" title="组件原理"></a>组件原理</h3><ul>
+<li>通过调用Vue.extend返回了一个组件的构造函数，通过该组件的构造函数来实现生成组件</li>
+<li>VueComponent和Vue实例对象(通过new Vue()实现)不同，VC相当于组件类，VM相当于一个实例的调用。不过VC和VM中的属性差异不大</li>
+<li>vm可以写el，而vc不可以，只能依附在vm上</li>
+</ul>
+<h3 id="组件自定义事件"><a href="#组件自定义事件" class="headerlink" title="组件自定义事件"></a>组件自定义事件</h3><p>可以通过在组件上设置自定义事件完成组件之间的通信。</p>
+<p>例:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//在组件上添加自定义事件</span></span><br><span class="line"><span class="comment">//通过触发html事件后调用函数，在函数内触发自定义事件</span></span><br><span class="line"><span class="title function_">method</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.$emit(<span class="string">&quot;自定义事件名称&quot;</span>,向调用自定义事件的处理函数传递的参数，...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//为自定义事件添加处理函数</span></span><br><span class="line"><span class="variable language_">this</span>.$on(<span class="string">&quot;自定义事件名&quot;</span>,<span class="string">&quot;处理函数&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//父组件监听在自定义事件</span></span><br><span class="line">&lt;组件 @自定义事件名=<span class="string">&quot;处理函数名&quot;</span>&gt;</span><br><span class="line">处理函数（自定义事件传入的参数）&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//解绑自定义事件</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="title function_">off</span>(<span class="string">&quot;事件名称&quot;</span>)     <span class="comment">//解绑单个事件</span></span><br><span class="line"><span class="comment">//或</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="title function_">off</span>([事件名,...])  <span class="comment">//解绑多个事件</span></span><br><span class="line"><span class="comment">//或</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="title function_">off</span>()  <span class="comment">//解绑所有自定义事件</span></span><br></pre></td></tr></table></figure>
+
+<p>自定义事件处理函数中的this指向触发该事件的组件。</p>
+<p>在组件上添加对于事件的监听处理默认的会当成自定义事件，如果要使用原生事件需要加上后缀.native</p>
+<p>例</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;组件标签 @click=<span class="string">&quot;fun&quot;</span>&gt;  <span class="comment">//会当成自定义事件</span></span><br><span class="line">&lt;组件标签 @click.<span class="property">native</span>=<span class="string">&quot;fun&quot;</span>&gt;  <span class="comment">//会当成原生事件</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="组件插槽-solt"><a href="#组件插槽-solt" class="headerlink" title="组件插槽(solt)"></a>组件插槽(solt)</h3><p>默认的组件的使用为：&lt;组件名  &#x2F;&gt;</p>
+<p>这样使用组件无法在组件内部再添加东西，可以使用组件插槽来可以使用以下写法：&lt;组件名&gt;…(各种组件)…&lt;&#x2F;组件名&gt;</p>
+<p>插槽有不同的种类：</p>
+<ol>
+<li><p>默认插槽 </p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//被调用的文件</span><br><span class="line"><span class="tag">&lt;<span class="name">组件名</span>&gt;</span></span><br><span class="line">...</span><br><span class="line">添加若干dom</span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;/<span class="name">组件名</span>&gt;</span></span><br><span class="line"></span><br><span class="line">//组件文件</span><br><span class="line"><span class="tag">&lt;<span class="name">solt</span>&gt;</span>默认内容,当未向插槽填充内容时使用该默认内容<span class="tag">&lt;/<span class="name">solt</span>&gt;</span>   //没有名字的插槽</span><br><span class="line"></span><br><span class="line">//当出现多个无名插槽时，会将添加的若干dom重复放在两个插槽</span><br><span class="line"><span class="tag">&lt;<span class="name">solt</span>&gt;</span><span class="tag">&lt;/<span class="name">solt</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">solt</span>&gt;</span><span class="tag">&lt;/<span class="name">solt</span>&gt;</span>  </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>具名插槽</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//被调用的文件</span><br><span class="line"><span class="tag">&lt;<span class="name">组件名</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">solt</span>=<span class="string">&quot;header&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">solt</span>=<span class="string">&quot;footer&quot;</span>&gt;</span></span><br><span class="line">//另外一种写法</span><br><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">v-solt:</span>&quot;<span class="attr">footer</span>&quot;&gt;</span> //仅用于template标签</span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;/<span class="name">组件名</span>&gt;</span></span><br><span class="line"></span><br><span class="line">//组件文件</span><br><span class="line"><span class="tag">&lt;<span class="name">solt</span> <span class="attr">name</span>=<span class="string">&quot;header&quot;</span>&gt;</span>默认内容,当未向插槽填充内容时使用该默认内容<span class="tag">&lt;/<span class="name">solt</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">solt</span> <span class="attr">name</span>=<span class="string">&quot;footer&quot;</span>&gt;</span>默认内容,当未向插槽填充内容时使用该默认内容<span class="tag">&lt;/<span class="name">solt</span>&gt;</span>   //vue会在对应名字的插槽中插入内容</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>作用域插槽</p>
+<p>用于需要在父组件中向子组件传递一些样式，但样式中需要用到的数据在子组件中。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//被调用的文件</span><br><span class="line"><span class="tag">&lt;<span class="name">组件名</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">scope</span>=<span class="string">&quot;name&quot;</span>&gt;</span></span><br><span class="line">...</span><br><span class="line">一些内容,内部用的了vue语法，使用的变量和数据来自于子组件&#123;&#123;&#125;&#125;    </span><br><span class="line">如：&#123;&#123;value&#125;&#125;  //父组件未有value变量，而子组件有</span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span>   //必须包裹template且使用参数scope(不是scoped),不然会报错，vue会错误的把其中用的数据当成本组件中的，而不是子组件,scope=&quot;name&quot;中的name存储着从插槽传来的所有数据，包裹在了一个对象中</span><br><span class="line"></span><br><span class="line">//组件文件</span><br><span class="line"><span class="tag">&lt;<span class="name">solt</span> <span class="attr">:value</span>=<span class="string">value</span>  //<span class="attr">向插槽中传递数据</span>，<span class="attr">父组件使用时可以得到这部分数据</span>&gt;</span>默认内容,当未向插槽填充内容时使用该默认内容<span class="tag">&lt;/<span class="name">solt</span>&gt;</span>   //没有名字的插槽</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="组件之间的通信"><a href="#组件之间的通信" class="headerlink" title="组件之间的通信"></a>组件之间的通信</h3><ol>
+<li><p>父子组件之间的通信</p>
+<ol>
+<li><p>父对子</p>
+<ul>
+<li>在子组件中设置props,父组件通过在子组件的参数中传递对象实现通信</li>
+<li>通过ref标识一个组件，完成对子组件的操纵</li>
+</ul>
+</li>
+<li><p>子对父</p>
+<ul>
+<li>通过props让父组件传递一个用于通信的函数实现与父组件的通信</li>
+</ul>
+</li>
+<li><p>自定义事件通信</p>
+<p>可以通过在组件上设置自定义事件完成组件之间的通信。</p>
+<p>例:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//在组件上添加自定义事件</span></span><br><span class="line"><span class="comment">//通过触发html事件后调用函数，在函数内触发自定义事件</span></span><br><span class="line"><span class="title function_">method</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.$emit(<span class="string">&quot;自定义事件名称&quot;</span>,向调用自定义事件的处理函数传递的参数，...);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//为自定义事件添加处理函数</span></span><br><span class="line"><span class="variable language_">this</span>.$on(<span class="string">&quot;自定义事件名&quot;</span>,<span class="string">&quot;处理函数&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//父组件监听在自定义事件</span></span><br><span class="line">&lt;组件 @自定义事件名=<span class="string">&quot;处理函数名&quot;</span>&gt;</span><br><span class="line">处理函数（自定义事件传入的参数）&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>全局事件总线</p>
+<p>使用全局事件总线相当于给所有组件的原型上添加一个组件用于组件之间的信息传递</p>
+<p>例</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span>  <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&quot;#app&quot;</span>,</span><br><span class="line">    <span class="attr">render</span>:<span class="function"><span class="params">h</span>=&gt;</span><span class="title function_">h</span>(app),</span><br><span class="line">    <span class="title function_">beforeCreate</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.(通信组件名,如$bus)=<span class="variable language_">this</span>  <span class="comment">//安装全局事件总线</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>通过各个组件向通信组件增删事件，监听，触发事件完成事件之间的通信。但要注意在组件创建时向通信组件添加事件，当组件销毁时要删除通信组件中的事件。</p>
+</li>
+<li><p>消息的订阅与分布</p>
+<p>与事件总线类似，有一个发布者和几个定义者，发布者向订阅者传递信息。需要额外安装新的第三方库，或者自己实现它。</p>
+</li>
+</ol>
+<h2 id="vue相关知识"><a href="#vue相关知识" class="headerlink" title="vue相关知识"></a>vue相关知识</h2><h3 id="组件对于参数的解释"><a href="#组件对于参数的解释" class="headerlink" title="组件对于参数的解释"></a>组件对于参数的解释</h3><p>组件内部所写的属性如果没有使用props设置接收会统一地进入vc对象的一个属性中($attrs)</p>
+<p>组件内部所用的插槽如果没有设置也会被vc对象的一个属性接收($slots)</p>
+<h3 id="template"><a href="#template" class="headerlink" title="template"></a>template</h3><p>template不破坏结构,使用v-if</p>
+<p>例如：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">执行前：</span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">执行后:</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h3 id="transition-动画效果"><a href="#transition-动画效果" class="headerlink" title="transition(动画效果)"></a>transition(动画效果)</h3><p>vue定义的标签，可以在组件显示或隐藏时播放自定义动画，动画需要在css中设置特定的名称。</p>
+<h3 id="class-style等属性的改变"><a href="#class-style等属性的改变" class="headerlink" title="class&amp;style等属性的改变"></a>class&amp;style等属性的改变</h3><p>vue可以使用以下语法简化html属性的改变</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">data:&#123;</span><br><span class="line">class:[&quot;d0&quot;,&quot;d1&quot;]</span><br><span class="line">style:&#123;</span><br><span class="line">font-size:10px,</span><br><span class="line">display:flex</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-blind:class</span>=<span class="string">&quot;class&quot;</span> <span class="attr">:style</span>=<span class="string">&quot;style&quot;</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="scoped的使用"><a href="#scoped的使用" class="headerlink" title="scoped的使用"></a>scoped的使用</h3><p>在不同的组件中设置了不同的组件样式，这些样式之间可能会发生冲突，导致部分样式被覆盖，scoped可以避免这个问题。</p>
+<p>例：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span>...<span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>...<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span>...<span class="tag">&lt;/<span class="name">style</span>&gt;</span>  //可以在此添加scoped来限制样式的作用域于本组件，不会影响其他组件。</span><br></pre></td></tr></table></figure>
+
+<p>原理是通过向组件添加一个特定的独一无二的属性值来标识限制样式的使用</p>
+<h3 id="vue特有属性的使用"><a href="#vue特有属性的使用" class="headerlink" title="vue特有属性的使用"></a>vue特有属性的使用</h3><h4 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h4><p>ref是一个vue设置的标签属性，可以用于标识一个元素（和id类似),通过ref&#x3D;value，标识后的元素会存储在该组件的vc中的$refs属性中的value中。当用ref标识一个组件时，不会标识一个真实的dom元素，而是一个vc对象。</p>
+<p>可以通过ref进行组件之间的通信</p>
+<h3 id="html表单"><a href="#html表单" class="headerlink" title="html表单"></a>html表单</h3><p>使用v-model完成双向绑定，默认绑定value值。但有的组件不使用value值，vue有特定的解决方法</p>
+<ol>
+<li><p>text</p>
+<p>使用value值</p>
+</li>
+<li><p>radio</p>
+<p>radio类型未有value值，可以自行配置</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//使用name属性可以使其变成一组，一组中只能选择一个，不能多选</span><br><span class="line">男<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;value&quot;</span> <span class="attr">value</span>=<span class="string">&quot;male&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span><br><span class="line">女<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;value&quot;</span> <span class="attr">value</span>=<span class="string">&quot;female&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span><br><span class="line">//将value绑定到以上两个组件，选择哪个，value的值为对于组件的value值。相当于value值相同的组件显示，其他隐藏</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>checkbox</p>
+<p>checkbox类型未有value值，可以自行配置</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">//当未在组件添加value属性时，value使用组件的是否勾选的boolean值，并会影响到所有组件的勾选状态</span><br><span class="line">//当在组件添加value属性时，value使用组件的value，变成一个列表，会在列表中添加已勾选组件的value值</span><br><span class="line">男<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span>  <span class="attr">v-model</span>=<span class="string">&quot;value&quot;</span> <span class="attr">value</span>=<span class="string">&quot;male&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span><br><span class="line">女<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span>  <span class="attr">v-model</span>=<span class="string">&quot;value&quot;</span> <span class="attr">value</span>=<span class="string">&quot;female&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span><br><span class="line">//将value绑定到多个组件，value列表的初始值即为组件勾选的初始情况</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>select</p>
+<p>情况和radio类似，value使用当前选中的option组件的value值</p>
+</li>
+</ol>
+<h3 id="网页发送请求的方式"><a href="#网页发送请求的方式" class="headerlink" title="网页发送请求的方式"></a>网页发送请求的方式</h3><ol>
+<li><p>xhr</p>
+<p>最原始的方法</p>
+</li>
+<li><p>jQuery的ajax</p>
+<p>是对xhr的封装</p>
+</li>
+<li><p>axios</p>
+<p>对xhr的另一种封装</p>
+</li>
+<li><p>fetch</p>
+<p>另一种原生的请求方式</p>
+</li>
+<li><p>vue-resource</p>
+<p>vue插件，对xhr的封装,vue团队已不再维护</p>
+</li>
+</ol>
+<h3 id="解决跨域问题"><a href="#解决跨域问题" class="headerlink" title="解决跨域问题"></a>解决跨域问题</h3><p>由于浏览器同源策略的限制，无法跨域请求。但是请求可以送达，只是浏览器拦截了反馈。</p>
+<p>解决方法：</p>
+<ol>
+<li><p>cors</p>
+<p>让要请求的服务器返回的内容加上一些特殊的标识用于让浏览器识别通过。</p>
+</li>
+<li><p>jsonp</p>
+<p>利用了web通过<script>标签的scr引入数据不会被同源策略限制，但需要前后端之间的配合。</p>
+</li>
+<li><p>配置代理服务器</p>
+<p>让前端界面先向自己的服务器发生请求，让自己（代理）的服务器向目标服务器发送请求，最后再借助代理服务器返回信息。（利用服务器之间通信没有同源限制）</p>
+<p>可以通过vue脚手架配置代理服务器。</p>
+</li>
+</ol>
+<h2 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h2><p>一个vue中重要的插件，用于管理多个有状态依赖的组件的状态。</p>
+<p>思想:将数据统一保管在一个地方，使用时进行调用。需要对vuex进行一定的配置</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//用法示例</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Vuex</span> <span class="keyword">from</span> <span class="string">&quot;vuex&quot;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">Vuex</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//vuex的第一个流程，用于响应一些动作</span></span><br><span class="line"><span class="keyword">const</span> actions=&#123;</span><br><span class="line">    <span class="title function_">fun</span>(<span class="params">context,value,...</span>)&#123;</span><br><span class="line">        <span class="comment">//第一个参数context相当于上下文，一个简化版的vuex对象，有commit,value及后面的参数为用户传入的数据</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//vuex的第二个流程，用于完成对state中数据的操作</span></span><br><span class="line"><span class="keyword">const</span> mutations=&#123;</span><br><span class="line">    <span class="title function_">fun</span>(<span class="params">state,value,...</span>)&#123;</span><br><span class="line">        <span class="comment">//第一个参数state相当于vuex对象中state模块中存储的数据，value及后面的参数为用户传入的数据</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//vuex的第三个流程，用于存储数据的状态</span></span><br><span class="line">cont state=&#123;</span><br><span class="line">    <span class="attr">value1</span>:...,</span><br><span class="line">    <span class="attr">value2</span>:...,</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">//在此处放需要使用的数据</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//用于使用state中的属性</span></span><br><span class="line"><span class="keyword">const</span> getters=&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title class_">Store</span>(&#123;</span><br><span class="line">    actions,</span><br><span class="line">    mutations,</span><br><span class="line">    state,</span><br><span class="line">    getters</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="VUEX模块化"><a href="#VUEX模块化" class="headerlink" title="VUEX模块化"></a>VUEX模块化</h3><p>vuex模块化是将vuex的不同业务按照逻辑分别存储在不同的模块里</p>
+<h2 id="router-路由"><a href="#router-路由" class="headerlink" title="router(路由)"></a>router(路由)</h2><p>通常使用在单页面应用中，用于刷新页面的部分内容</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//单独的配置文件</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">VueRouter</span> <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//导入组件</span></span><br><span class="line">impor <span class="title class_">About</span> <span class="keyword">from</span> ...</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123;</span><br><span class="line">    <span class="comment">//设置路由规则</span></span><br><span class="line">    <span class="attr">routes</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//路径和组件</span></span><br><span class="line">            <span class="attr">path</span>:<span class="string">&#x27;/about&#x27;</span></span><br><span class="line">            <span class="attr">component</span>:<span class="title class_">About</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">path</span>:...</span><br><span class="line">            ...</span><br><span class="line">        &#125;,</span><br><span class="line">        ...</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br><span class="line">        </span><br><span class="line"><span class="comment">//引入路由</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(vueRouter)</span><br><span class="line">        </span><br><span class="line"><span class="comment">//路由的使用</span></span><br><span class="line">&lt;router-link <span class="keyword">class</span>=<span class="string">&quot;...&quot;</span> active-<span class="keyword">class</span>=<span class="string">&quot;...&quot;</span> to=<span class="string">&quot;/...&quot;</span> &gt;&lt;...&gt;  <span class="comment">//使用router-link代替a标签，实现url的切换</span></span><br><span class="line">&lt;router-view&gt;&lt;...&gt;   <span class="comment">//指定组件的呈现位置</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h3><p>多个路由的嵌套使用</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123;</span><br><span class="line">    <span class="comment">//设置路由规则</span></span><br><span class="line">    <span class="attr">routes</span>:[</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//路径和组件</span></span><br><span class="line">            <span class="attr">path</span>:<span class="string">&#x27;/about&#x27;</span></span><br><span class="line">            <span class="attr">component</span>:<span class="title class_">About</span></span><br><span class="line">            <span class="attr">children</span>:[</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="attr">path</span>:<span class="string">&#x27;a1&#x27;</span></span><br><span class="line">                <span class="attr">component</span>:...</span><br><span class="line">              &#125;,</span><br><span class="line">              &#123;&#125;,</span><br><span class="line">              ...</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">path</span>:...</span><br><span class="line">            ...</span><br><span class="line">        &#125;,</span><br><span class="line">        ...</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="路由的query参数"><a href="#路由的query参数" class="headerlink" title="路由的query参数"></a>路由的query参数</h3><p>当通过<router-link>标签跳转显示组件时，可以通过url向其传入参数，如</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//通过?后面的数据传入参数传入参数</span></span><br><span class="line"><span class="comment">//1.普通写法</span></span><br><span class="line">&lt;router-link to=<span class="string">&quot;/a1?a=1&amp;b=2&quot;</span> <span class="keyword">class</span>=<span class="string">&quot;link&quot;</span>&gt;a1&lt;/router-link&gt;</span><br><span class="line"><span class="comment">//2.对象写法</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">&quot;&#123;</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">path:&quot;</span>/<span class="attr">..</span>/<span class="attr">..</span>/<span class="attr">....</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml"><span class="attr">query:</span>&#123;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">a:..</span>,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">...</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">&#125;&quot; <span class="attr">class</span>=<span class="string">&quot;link&quot;</span>&gt;</span>a1<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//组件可以通过以下方式获得传入的参数</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">$route</span>.<span class="property">query</span>.[...(参数名)]</span><br></pre></td></tr></table></figure>
+
+<h3 id="命名路由"><a href="#命名路由" class="headerlink" title="命名路由"></a>命名路由</h3><p>为每一个路由加上名字，方便使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//单独的配置文件</span><br><span class="line">export default new VueRouter(&#123;</span><br><span class="line">    //设置路由规则</span><br><span class="line">    routes:[</span><br><span class="line">        &#123;</span><br><span class="line">            //路径和组件以及名字</span><br><span class="line">            path:&#x27;/about&#x27;</span><br><span class="line">            component:About,</span><br><span class="line">            name:&quot;test&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            path:...</span><br><span class="line">            ...</span><br><span class="line">        &#125;,</span><br><span class="line">        ...</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">//使用文件</span><br><span class="line">&lt;router-link :to=&quot;&#123;</span><br><span class="line">name:&quot;test&quot;</span><br><span class="line">&#125;&quot; class=&quot;link&quot;&gt;a1&lt;/router-link&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="params参数"><a href="#params参数" class="headerlink" title="params参数"></a>params参数</h3><p>与query参数作用类似，但通过另一种方式实现参数的传递。</p>
+<h3 id="replace属性"><a href="#replace属性" class="headerlink" title="replace属性"></a>replace属性</h3><p>router-link有一个属性replace用于设置是否替换历史记录，默认为不开启。开启后跳转后不可后退</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;router-link :replace=&quot;true&quot;&gt;&lt;/router-link&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="VUE3-与vue2的差异"><a href="#VUE3-与vue2的差异" class="headerlink" title="VUE3(与vue2的差异)"></a>VUE3(与vue2的差异)</h2><h3 id="setup"><a href="#setup" class="headerlink" title="setup"></a>setup</h3><p>可以在此处设置变量和函数，之后再返回</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">setup()&#123;</span><br><span class="line">a=..</span><br><span class="line">...</span><br><span class="line">f=function()&#123;&#125;;</span><br><span class="line">//返回数据</span><br><span class="line">return &#123;</span><br><span class="line">a,</span><br><span class="line">b</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line">//返回渲染函数</span><br><span class="line">import h from &quot;vue&quot;</span><br><span class="line">return ()=&gt;&#123;</span><br><span class="line">return h(&quot;h1&quot;,&quot;h1内部的内容&quot;)&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>setup函数内部可以取代data,methods,computed的作用，但是这三个属性还可以使用，但是setup不可以读取到这三个属性的属性，但是这三个属性可以读取setup中的属性,如果setup和这三个属性有同名，setup内的属性会覆盖其他属性中的属性。</p>
+<p>setup函数的执行时机是在beforCreat生命周期前,在此时函数内的this指向未定义。</p>
+<p>setup函数执行时接收两个参数:props:包含组件外部传入的且组件内部声明过的props参数。</p>
+<p>context:上下文参数:</p>
+<pre><code>                                        + attrs:包含组件外部传入的且未在组件内部声明过的props参数。
+                                        + slots:收到的插槽内容,相当于this.$slots。
+                                        + emit:分发自定义事件的函数,相当于vue2中的this.$emit。
+</code></pre>
+<h3 id="reactive"><a href="#reactive" class="headerlink" title="reactive"></a>reactive</h3><p>reactive函数的作用实际上实现了对象代理(Proxy),无法对于基本类型使用reactive,更多解释参见下一小节。</p>
+<h3 id="ref-1"><a href="#ref-1" class="headerlink" title="ref"></a>ref</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//使用方法</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import ref from &quot;vue&quot;</span><br><span class="line">    setup()&#123;</span><br><span class="line">        //对象默认不是响应式,通过对对象包裹ref实现对包裹对象的响应式</span><br><span class="line">        a=ref(1)</span><br><span class="line">        b=ref(...)</span><br><span class="line">        //通过以下方法响应式的更改数据</span><br><span class="line">        a.value=2</span><br><span class="line">        b.value=...</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>通过ref,vue3实现了对于对象的监听和响应。其中,对于对象本身的监听还是通过getter和setter实现的。但是对于对象内部的属性则是通过代理(Proxy)实现(通过vue3中的新函数:reactive)的。</p>
+<p>对于基本类型数据,使用ref会将值直接传入构造对象的value中。而对于对象数据，使用ref会将值作为参数先调用reactive函数，后将返回值直接传入构造对象的value中。</p>
+<p>reactive函数的作用实际上实现了对象代理(Proxy),无法对于基本类型使用reactive</p>
+<h3 id="vue3中的computed"><a href="#vue3中的computed" class="headerlink" title="vue3中的computed"></a>vue3中的computed</h3><p>vue3中的computed可以使用vue2中的写法，也可以配置在setup函数中</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import &#123;computed&#125; from &quot;vue&quot;</span><br><span class="line">setup()&#123;</span><br><span class="line">p=&#123;a:1,b:2&#125;</span><br><span class="line">//computed的使用</span><br><span class="line">//简写形式</span><br><span class="line">c=computed(()=&gt;&#123;</span><br><span class="line">return p.a+p.b</span><br><span class="line">&#125;)</span><br><span class="line">//完整形式</span><br><span class="line">c=computed(&#123;</span><br><span class="line">get()&#123;...&#125;,</span><br><span class="line">set(value)&#123;&#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">return &#123;</span><br><span class="line">p,c</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="vue3中的watch"><a href="#vue3中的watch" class="headerlink" title="vue3中的watch"></a>vue3中的watch</h3><p>vue3中的watch可以使用vue2中的写法，也可以配置在setup函数中</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import &#123;watch,ref&#125; from &quot;vue&quot;</span><br><span class="line">setup()&#123;</span><br><span class="line">a=ref(1)</span><br><span class="line"></span><br><span class="line">//1.监视一个属性的变化</span><br><span class="line">watch(a,(new,old)=&#123;&#125;)</span><br><span class="line">//2.监视多个属性的变化,此时new,old为两个数组，内部存储多新旧值</span><br><span class="line">watch([a,...],(new,old)=&#123;&#125;)</span><br><span class="line">&#125;</span><br><span class="line">//3.完整配置写法</span><br><span class="line">watch(a,(new,old)=&#123;&#125;,&#123;</span><br><span class="line">immediate:true,   //初始化是否执行</span><br><span class="line">deep:true   //是否深层监视,但是vue3使用了代理,已经强制开启了深度监视,此配置项无用。但是当监视对象为某个对象内部的子对象时,需要使用deep配置才可以深度监视。当使用ref监视对象时,监视的是value属性而不会深入到value属性内部,需要使用deep才可以。当监视的是代理对象时直接可以深度监视,不必使用deep选项。</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">//当使用watch监视一个对象时,无法正确获取到旧值,新值和旧值均指向新值。(直接通过reactive配置的属性watch可以检测到对象属性的变化,通过ref间接调用reative的watch会监视value的变化而不会监视值的变化)</span><br><span class="line"></span><br><span class="line">//4.监视某个对象中的一个或一些属性</span><br><span class="line">a=&#123;a:1,b:2,c:3&#125;</span><br><span class="line">a=ref(a)</span><br><span class="line">watch([()=a.a,()=&gt;a.b,()=&gt;a.c)],(new,old)=&#123;&#125;,&#123;</span><br><span class="line">immediate:true</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="watchEffect"><a href="#watchEffect" class="headerlink" title="watchEffect"></a>watchEffect</h3><p>类似于watch，但是不需要显式的指定要监视的属性,会自动监视函数体中所用的属性变化,改变时调用函数。</p>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p>vue3中的生命周期相对于vue2更改了两个名字,分别为:beforeUnmount和unmount以取代原来的destroy的一对函数。vue3可以使用vue2的写法，使用选项式的写法。</p>
+<p>也可以使用组合式的写法配置,将其写入setup函数中,具体用法及名称如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">beforeCreate,created==&gt;setup()</span><br><span class="line">beforeMount==&gt;onBeforeMount</span><br><span class="line">mounted==&gt;onMounted</span><br><span class="line">beforeUpdate==&gt;onBeforeUpdate</span><br><span class="line">updated==&gt;onUpdated</span><br><span class="line">beforeUnmount==&gt;onBeforeUnmount</span><br><span class="line">unmounted==&gt;onUnmounted</span><br><span class="line"></span><br><span class="line">//通过向这些函数内传入执行函数即可实现使用</span><br><span class="line">import &#123;onBeforeMount,...&#125; from &quot;vue&quot;</span><br><span class="line">setup()&#123;</span><br><span class="line">onBeforeMount(()=&gt;&#123;...&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义hook函数"><a href="#自定义hook函数" class="headerlink" title="自定义hook函数"></a>自定义hook函数</h3><p>将组件setup函数中部分可以复用的代码单独写一个js文件，通过一个函数返回需要的数据。类似于vue2中的mixin</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//hook函数文件  useTest.js</span><br><span class="line">//引用各种函数</span><br><span class="line">import &#123;onMounted&#125; from &quot;vue&quot;</span><br><span class="line">export default function()&#123;</span><br><span class="line">a=&#123;a:1,b:2&#125;</span><br><span class="line">//添加事件</span><br><span class="line">...</span><br><span class="line">return a</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//vue组件</span><br><span class="line">import useTest from &quot;./useTest.js&quot;</span><br><span class="line">setup()&#123;</span><br><span class="line">a=useTest()</span><br><span class="line">return &#123;a&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Proxy-代理"><a href="#Proxy-代理" class="headerlink" title="Proxy(代理)"></a>Proxy(代理)</h2><p>代理是js原生的一种监听对象变化的强大属性</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">a=&#123;</span><br><span class="line">    <span class="attr">a</span>:<span class="number">1</span>,</span><br><span class="line">    <span class="attr">b</span>:..,</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">b=<span class="keyword">new</span> <span class="title class_">Proxy</span>(a,&#123;</span><br><span class="line">    <span class="comment">//获得属性时调用</span></span><br><span class="line">    <span class="title function_">get</span>(<span class="params">target,propname</span>)&#123;</span><br><span class="line">        <span class="comment">//target代表代理的原对象,propname代表获得的属性名</span></span><br><span class="line">        <span class="comment">//当获得对象属性和添加属性时，会调用该方法</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//修改属性时调用</span></span><br><span class="line">    <span class="title function_">set</span>(<span class="params">target,propname,value</span>)&#123;</span><br><span class="line">        <span class="comment">//target代表代理的原对象,propname代表获得的属性名,value代表要修改的值</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//删除属性时调用</span></span><br><span class="line">    <span class="title function_">deleteProperty</span>(<span class="params">target,propname</span>)&#123;</span><br><span class="line">        <span class="comment">//target代表代理的原对象,propname代表获得的属性名</span></span><br><span class="line">        <span class="comment">//执行相关操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h3><p>许多Object中的方法被移植到了Reflect中，并进行了改进。</p>
+]]></content>
+      <categories>
+        <category>前端框架</category>
+      </categories>
+      <tags>
+        <tag>默认</tag>
+        <tag>javascript</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -909,14 +596,34 @@ vue3中的生命周期相对于vue2更改了两个名字,分别为:beforeUnmount
   <entry>
     <title>文章功能测试</title>
     <url>/2023/09/24/%E6%96%87%E7%AB%A0%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95/</url>
-    <content><![CDATA[<p>美图<br><img src="/%E6%96%87%E7%AB%A0%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95/001.jpg" alt="005"></p>
+    <content><![CDATA[<p>美图<br><img src="/001.jpg" alt="005"></p>
 <span id="more"></span>
 
-<div align="center"><img width="200" height="150" src="./文章功能测试/001.jpg"/></div>
+<p>$s^2*s$</p>
+<blockquote>
+<p>一个小测试项目</p>
+</blockquote>
+<div align="center"><img width="200" height="150" src="./001.jpg"/></div>
 
-<script> alert("你们好") </script>
+<script> alert("李潇好") </script>
 
 <p><button type="button">Click Me!</button></p>
+<div style="text-align: center">
+    <p style="color: red;font-size: 40pt">一个html的测试</p>
+</div>
+
+<div>
+    <script>
+        xx=1
+        te1=function () {
+            alert(xx++);
+        }
+    </script>
+    <button onclick="te1">
+        点我
+    </button>
+</div>
+
 ]]></content>
       <categories>
         <category>默认</category>
