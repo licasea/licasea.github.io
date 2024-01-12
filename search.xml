@@ -1,251 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Enzyme-Free Nucleic Acid Logic Circuits学习记录</title>
-    <url>/2023/09/24/Enzyme-Free-Nucleic-Acid-Logic-Circuits%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
-    <content><![CDATA[<h1 id="Enzyme-Free-Nucleic-Acid-Logic-Circuits"><a href="#Enzyme-Free-Nucleic-Acid-Logic-Circuits" class="headerlink" title="Enzyme-Free Nucleic Acid Logic Circuits"></a>Enzyme-Free Nucleic Acid Logic Circuits</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>生物使用生化电路来表征信息，处理任务，它们非常高效</p>
-<p>电子器件基于<strong>数字逻辑</strong>使用硅基的门电路来表征处理信息。</p>
-<p>文章实现了基于DNA的数字逻辑电路:<code>demonstrate AND, OR, and NOT gates, signal restoration,amplification,feedback,and cascading. Gate design and circuit construction is modular</code></p>
-<span id="more"></span>
-<p>DNA电路的输入:<code>singlestranded nucleic acids</code></p>
-<p>DNA电路的输出:<code>singlestranded nucleic acids</code>或<code>microRNAs</code></p>
-<h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><p>现在<code>man-made chemical circuits</code>无法与硅基电路的可靠复杂相比，但是在这一领域一旦建立起可靠的规则，可以有很多的用途（常规的应用）：</p>
-<ul>
-<li>体外控制纳米级装置</li>
-<li>分析复杂化学样品</li>
-<li>与生物体现存的电路接口</li>
-</ul>
-<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><p>DNA电路原理:<code>WatsonCrick base pairing</code></p>
-<p>几种电路实现方法</p>
-<ol>
-<li><p><code>Allosteric ribozymes</code>(一种核糖酶)</p>
-<p><code>perform logical functions</code></p>
-<p>优点:<code>Allosteric ribozymes that take small molecules as input have been shown to perform logical functions </code></p>
-<p>缺点:<code>their output (a cleaved or ligated oligonucleotide) is of a different form than the input</code>因为输入输出形式的不同，导致级联是困难的，很难构建复杂电路</p>
-</li>
-<li><p><code>using deoxyribozymes controlled by input oligonucleotides</code>(另一种受控制的酶(被输入寡核苷酸控制))</p>
-<p>可以构建:<code>Automata performing multiple logical operations in parallel (4), single-step signaling cascades (5), and a feedback cycle that acts as an exponential chain reaction (6) were built</code></p>
-</li>
-<li><p><code>uses sequence recognition to control enzyme catalysis of covalent bond formation and breakage (8–10).</code>(利用序列识别控制共价键形成和断裂的酶催化)</p>
-</li>
-<li><p><code>nucleic acid reactions can be driven without enzyme or (deoxy)ribozyme catalysis</code>(在没有酶的情况下反应)</p>
-<p><code>this principle has been exploited to construct DNA-based logic gates and signaling cascades (13, 14).</code></p>
-</li>
-<li><p><code>hybridization and conformational changes</code>(杂化和构象变化)</p>
-<p><code>Recently, engineered nucleic acid logic switches based on hybridization and conformational changes have been successfully demonstrated in vivo (15, 16).</code></p>
-</li>
-</ol>
-<p>挑战:设计化学门电路构建大型复杂的电路</p>
-<p>关键:<code>digital design principles </code></p>
-<h2 id="3"><a href="#3" class="headerlink" title="3"></a>3</h2><p>电路总体设计的一些要点:</p>
-<ul>
-<li><p>构建DNA电路，体现了<code>digital design principles</code>：<code> logic, cascading, restoration, fan-out, and modularity</code></p>
-</li>
-<li><p>使用<code>short oligonucleotides</code>（短寡核苷酸）作为输入和输出（因为输入输出形式相同，可以方便的构建复杂电路，进行级联）</p>
-</li>
-<li><p>使用浓度的高低代表逻辑值1和0</p>
-</li>
-<li><p><code> Signal restoration is performed by threshold and amplifier gates that protect against noise, signal loss, and leaky reactions.</code>(信号恢复是由阈值和放大器门执行，防止噪声，信号损失和泄漏反应)</p>
-</li>
-<li><p><code>Amplifier gates can also be used to ensure that a logic gate generates sufficient signal to drive multiple downstream targets.</code>(放大器门也可以用来确保逻辑门产生足够的信号来驱动多个下游目标)</p>
-</li>
-</ul>
-<p>一些特点：</p>
-<ul>
-<li><code>Gate function is entirely determined by base pairing and breaking</code></li>
-<li><code>Every gate consists of one or more gate strands and one output strand</code></li>
-<li>一个门电路的输出链可以作为另一个门电路的输入链或者为外界通过一个输出<code>provide a readout in a fluorescence experiment</code>(类似于电脑的显示屏等输出设备)</li>
-<li><code> Both ends of the output strand (Fig. 1A), or only one end (translator gates in Fig. 2), can be attached to the gate complex</code></li>
-<li><code>Each gate strand contains a recognition region that is complementary to its input.</code>(每个门链包含一个与其输入互补的识别区域)</li>
-<li>在刚开始反应时<code> the recognition regions of all gate strands are doublestranded and therefore inert, except for the toehold farthest from the output strand (strand G in Fig. 1A)</code>（所有栅链的识别区域都是双链的，因此是惰性的，除了距离输出链最远的支点）</li>
-<li><code>When the first input binds this toehold, it displaces the first gate strand by three-way branch migration (18, 19), exposing the toehold for the subsequent input and releasing an inert double-stranded waste product.</code>(当第一个输入结合该支点时，它通过三向分支迁移取代第一门链(18,19)，为后续输入暴露支点并释放惰性双链废物。)，另一个输入的过程也是类似的</li>
-<li><code>The output strand is released if and only if both inputs are present</code>(当且仅当两个输入都存在时才释放输出链)</li>
-<li><code>DNA sequences (tables S1 to S3) were selected to ensure correct complementarity while minimizing spurious interactions (20)</code>(选择DNA序列(表S1至S3)以确保正确的互补，同时最大限度地减少虚假相互作用(20))</li>
-</ul>
-<p>门电路触发的过程:</p>
-<p><img src="/2023/09/24/Enzyme-Free-Nucleic-Acid-Logic-Circuits%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/f1_a.png" alt="image-20230917201028638"></p>
-<p>构造的电路的真值表为:</p>
-<p><img src="/2023/09/24/Enzyme-Free-Nucleic-Acid-Logic-Circuits%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/f1_b.png" alt="image-20230917200654098"></p>
-<h2 id="4"><a href="#4" class="headerlink" title="4"></a>4</h2><p>在构建多级门电路时<code> It is essential that the output strand not interact with downstream gates before release.</code></p>
-<p>方法:<code>Protecting the toehold binding region of output strands in upstream gates prevents such interactions.</code></p>
-<p><code>built a circuit composed of one AND gate and two translator gates that demonstrates this principle</code></p>
-<hr>
-<p><em>translator</em> :<code>A translator gate converts the signal encoded in the input strand to the signal encoded in the output strand and is implemented as a single-input AND gate.</code></p>
-<p>translator的例子:<code>The translator gates JK and LM translate two biological microRNA sequences (mouse let7c and miR-124a) into outputs with recognition regions identical to strands Gin and Fin.</code></p>
-<p>translator使用的条件:<code>The input to a translator gate and the recognition region of its output strand need only share sequence in the toehold region.</code></p>
-<p><em>full translator</em> :<code>If two translators are cascaded, then there is no sequence restriction between the initial input strand and the final output strand. This is called a full translator;</code></p>
-<h2 id="5"><a href="#5" class="headerlink" title="5"></a>5</h2><p>文章构建了另一个相似的实验，验证可靠性</p>
-<p>一些发现:</p>
-<ul>
-<li><p><code> the circuit functions well in the presence of potentially interfering biological RNA (mouse brain total RNA) at a concentration in excess of gate complexes and input strands</code></p>
-</li>
-<li><p><code>Increasing the temperature to 37°C does not degrade circuit performance</code></p>
-</li>
-</ul>
-<h2 id="6"><a href="#6" class="headerlink" title="6"></a>6</h2><p>使用一些少数的门电路就可以构建完整的逻辑函数</p>
-<p><strong>Logical OR:</strong><code> functionality is obtained by using two gates that produce the same output</code></p>
-<p><code>If Boolean values are represented by the presence of either one strand (“0”) or another strand (“1”)—the so-called “dual-rail” representation (21)—then AND and OR are themselves sufficient to compute any Boolean function</code></p>
-<p><code>If a Boolean value is represented by the presence or absence of a single input strand, a NOT gate may be necessary</code></p>
-<p><strong>NOT gate:</strong><code>The NOT gate makes use of an additional “inverter” strand that triggers the gate unless the input strand is present to act as a competitive inhibitor</code></p>
-<h2 id="7"><a href="#7" class="headerlink" title="7"></a>7</h2><p>A gate may fail in two ways: </p>
-<ul>
-<li>It may fail to produce enough output when triggered, </li>
-<li>or it may “leak” by spontaneously releasing the output strand.</li>
-</ul>
-<p>解决方法:</p>
-<p><code>Both types of error require signal restoration; the former requires increasing a moderate output amount to the full activation level, and the latter requires decreasing a small output amount to a negligible level.</code></p>
-<h2 id="8"><a href="#8" class="headerlink" title="8"></a>8</h2><p>As increasingly larger circuits are constructed, speed becomes a limiting factor</p>
-<p>解决方法:</p>
-<p><code>Speeding up the responses of individual gates (e.g., by shortening recognition domains) or changing other reaction conditions may improve overall circuit performance.</code></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>Our success in creating large circuits can be attributed to adherence to the tenets of digital logic, toehold sequestering combined with branch migration and strand displacement, reduction of leak reactions by purification, and modularity of design. The logic gates developed here and the principles on which they are based can also be used to construct analog or hybrid circuits (24) and are likely to prove compatible with other approaches to building molecular automata in vitro and in vivo</code>（我们在制造大型电路方面的成功可归功于坚持数字逻辑的原则，结合分支迁移和链位移的支点隔离，通过净化减少泄漏反应，以及设计的模块化。这里开发的逻辑门及其所基于的原理也可用于构建模拟或混合电路(24)，并且可能被证明与体外和体内构建分子自动机的其他方法兼容）</p>
-]]></content>
-      <categories>
-        <category>生物&amp;计算机</category>
-      </categories>
-      <tags>
-        <tag>默认</tag>
-        <tag>DNA电路</tag>
-        <tag>生物</tag>
-        <tag>编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>DNA-based programmable gate arrays for general-purpose DNA computing学习记录</title>
-    <url>/2023/09/24/DNA-based-programmable-gate-arrays-for-general-purpose-DNA-computing%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
-    <content><![CDATA[<h1 id="DNA-based-programmable-gate-arrays-for-general-purpose-DNA-computing"><a href="#DNA-based-programmable-gate-arrays-for-general-purpose-DNA-computing" class="headerlink" title="DNA-based programmable gate arrays for general-purpose DNA computing"></a>DNA-based programmable gate arrays for general-purpose DNA computing</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><p>趋势:<code>application specific to programmable</code></p>
-<p>文章构建内容:<code>demonstrate a DIC system by integration of multilayer  DNA-based programmable gate arrays (DPGAs).</code></p>
-<span id="more"></span>
-<p><code> uniform transmission signal</code>(DNA-UTS):<code>single-stranded oligonucleotides as a uniform transmission signal can reliably integrate large-scale DICs with minimal leakage and high fidelity for general-purpose computing.</code></p>
-<p><code>DNA origami</code>:<code>To control the intrinsically random collision of molecules. DNA origami registers to provide the directionality for asynchronous execution of cascaded DPGAs.</code></p>
-<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><p><code>General-purpose electronic integrated circuits </code>:<code>allow software programming rather than application-specific custom hardware fabrication to perform a certain function, providing a higher-level platform for prototyping computational machines without the requirement of previous knowledge of the underlying physics.</code></p>
-<p>计算机走向了从执行特殊功能到通用编程的趋势</p>
-<p>液相dna计算机在并行和很多方面有巨大的优势</p>
-<p>dna集成电路受限于分子的碰撞和溶液的扩散</p>
-<h2 id="3"><a href="#3" class="headerlink" title="3"></a>3</h2><p>文章开头介绍了dna电路领域已经取得的成就,集成电路的发展有着从特殊应用电路走向通用电路的趋势。</p>
-<p><code>Programmability and scalability </code>是两个很重要的方面，通用性允许软件上的编程而不是硬件上的更改</p>
-<p>dna电路在这两个方面的探索受限于：</p>
-<ul>
-<li><code> biomolecular components in DNA integrated circuits (DICs) diffuse and mix in solution</code></li>
-<li><code>controlling the intrinsically random collision of molecules</code></li>
-<li><code> the general lack of directionality for the integration of these liquid-phase systems</code></li>
-</ul>
-<p><code> spatial compartmentation</code>的引入有限的缓解了问题</p>
-<p>文章受电子电路的启发<code>employing generic single-stranded DNA oligonucleotides as a uniform transmission signal</code></p>
-<h2 id="4-Scalable-DPGA-architecture"><a href="#4-Scalable-DPGA-architecture" class="headerlink" title="4.Scalable DPGA architecture"></a>4.Scalable DPGA architecture</h2><h3 id="1-1"><a href="#1-1" class="headerlink" title="1"></a>1</h3><p>文章构建DPGA使用<strong>DNA-UTS（DNA-uniform transmission signal）</strong>当作通用的传递信号</p>
-<p>同时构建了一个<code>molecular instruction set</code>指令集定义所有合法的布线</p>
-<p><code>Twenty-four addressable logic gates of four types (AND, OR, NOT and XOR) were designed as computing units</code></p>
-<p>为了防止<code>inter-DPGA crosstalk</code>,设计了<code>DNA origami register to direct asynchronous computing processing of cascade DPGAs</code></p>
-<p>所有的门的输入输出端口都是通用的，便于扩展</p>
-<p>所有门是<code> dual-rail gate</code>,同时允许两个DNA链的输入输出</p>
-<p>整个门电路的运算过程如下:<code>the input of DNA strands triggered strand displacement reactions (SDRs)30 to realize logic functions (Extended Data Fig. 4)</code></p>
-<p>文章通过分析优化发现一个结构可以减少泄露和提高速度</p>
-<h3 id="2测试单个门电路"><a href="#2测试单个门电路" class="headerlink" title="2测试单个门电路"></a>2测试单个门电路</h3><p>测试结果:<code>the dual-rail results of the AND gate under all four input combinations fell within the correct ON and OFF state regions</code></p>
-<p>在没有任何纯化的条件下电路也表现出一个很好的结果，展现了电路的鲁棒性</p>
-<h3 id="3使用DNA–UTS集成门电路"><a href="#3使用DNA–UTS集成门电路" class="headerlink" title="3使用DNA–UTS集成门电路"></a>3使用DNA–UTS集成门电路</h3><p>有三种类型的布线:<code>input port-to-gate, gate-to-gate and gate-to-output port</code></p>
-<p>这些布线可以通过分子指令来实现:</p>
-<ul>
-<li><code>type 1 instruction (WIR1) conducts an input to a gate</code></li>
-<li><code>type 2 instruction (WIR2) conducts an output signal from an upstream gate to an input port of a downstream gate;</code></li>
-<li><code>type 3 instruction (WIR3) conducts an output signal from a gate to an output port of DPGAs</code></li>
-<li><code>For inter-DPGA wiring we adopted a fourth type of wiring instructions (WIR4s) to realize inter-DPGA DNA–UTS transmission—that is, output signals from upstream DPGA1 were transmitted to downstream DPGA2.</code></li>
-</ul>
-<p>我们使用了<code>noise thresholds and signal amplifiers </code>来减少布线指令在反应过程中的信号衰减</p>
-<p>WIR1,WIR2,WIR3使用DNA链构成，使用了SDR。</p>
-<p>通过测试发现前三个指令之间的配合良好，<code>Low- and high-output signals for all input combinations went to the correct states</code></p>
-<p>WIR4通过使用<strong>DNA origami register</strong>来实现DPGA间信号的传递:<code>In a typical WIR4 the DNA origami register temporally stores the outputs from DPGA1, then a downstream WIR2 transmits the output to the entry gate of DPGA2, providing the directionality for asynchronous execution of cascaded DPGAs</code></p>
-<p>同时发现:<code>the use of DNA origami registers for physical separation of DPGAs restricts transient binding between unmatched DNA strands</code></p>
-<h2 id="5-Multitask-reconfiguration"><a href="#5-Multitask-reconfiguration" class="headerlink" title="5.Multitask reconfiguration"></a>5.Multitask reconfiguration</h2><p>我们实现了一个编译器，可以将自然语言或数学逻辑表达式编译为布线指令。</p>
-<p>实现构建了一个乘法电路测试，发现输出的高低信号的对比度很高</p>
-<p>为了评估电路执行多重任务的通用性和鲁棒性，<code>implemented various basic circuit structures including single gates, cascaded gates, fan-in and fan-out of gates and complex functional circuits.</code>,最后得到了一个很好的结果</p>
-<p>为了测试电路的无差错计算能力，又设计了实验，结果表明了电路又有很高的噪声容忍度</p>
-<h2 id="6-Parallel-and-serial-integration-of-DPGAs"><a href="#6-Parallel-and-serial-integration-of-DPGAs" class="headerlink" title="6.Parallel and serial integration of DPGAs"></a>6.Parallel and serial integration of DPGAs</h2><p>为了实验是否可以将DPGA集成到更大规模的电路，以及它的并行能力，设计了一个平方根计算电路和二次方程的求解电路，得到了一个很好的结果（<code>suggesting that the scalability of DPGA is intrinsic and also independent of the solution transfer methodology. </code>）</p>
-<h2 id="7-DPGA-based-nonlinear-classifier"><a href="#7-DPGA-based-nonlinear-classifier" class="headerlink" title="7.DPGA-based nonlinear classifier"></a>7.DPGA-based nonlinear classifier</h2><p>为了测试电路在医学方面的应用，使用了DPGA电路和模数转换器（<code>analog-to-digital converters (ADCs)</code>）构造了一个非线性的分类器对于疾病的标志物进行分类，得到了一个好的结果。</p>
-<h2 id="8-讨论和总结"><a href="#8-讨论和总结" class="headerlink" title="8.讨论和总结"></a>8.讨论和总结</h2><ul>
-<li><code>DPGA circuits can be programmably generated to execute various functions (Extended Data Fig. 2). The programmability of DPGAs is enabled by the use of dual-rail gates featuring uniform input/output interfaces, which allows each gate to be addressed, analogous to that in FPGA</code></li>
-<li><code>DNA origami registers that mediate signal transmission between spatiotemporally separated circuits are the key to DPGA-level integration.</code></li>
-<li><code>The use of DNA origami registers greatly suppresses both the transient binding that limits circuit size and the signal decay that limits circuit depth, thereby facilitating higher-ordered integration of multilayer DPGAs and increasing the programme complexity that can be realized.</code></li>
-</ul>
-]]></content>
-      <categories>
-        <category>生物&amp;计算机</category>
-      </categories>
-      <tags>
-        <tag>默认</tag>
-        <tag>DNA电路</tag>
-        <tag>生物</tag>
-        <tag>编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo使用笔记</title>
-    <url>/2023/09/24/hexo%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="关于hexo的使用说明"><a href="#关于hexo的使用说明" class="headerlink" title="关于hexo的使用说明"></a>关于hexo的使用说明</h1><h2 id="网站"><a href="#网站" class="headerlink" title="网站"></a>网站</h2><p><a href="https://hexo.io/zh-cn/">Hexo</a></p>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><ol>
-<li><p>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</p>
-<p>hexo clean:用于清除public文件中所有已经生成的文件，便于后续生成新文件时不必引起冲突</p>
-</li>
-</ol>
-<span id="more"></span>
-<p>   hexo g:用于将source文件夹中写好的md文件生成为html文件</p>
-<p>   hexo d:用于将已经生成好的网站推送到远程服务器上</p>
-<ol start="2">
-<li><p>hexo new [type] {文件名}</p>
-<p>用于在source文件夹中生成一个指定名称的带有预设格式的md文档</p>
-<p>type用于指定格式，默认为post</p>
-</li>
-<li><p>hexo s</p>
-<p>用于在本地启动一个服务器用于测试</p>
-</li>
-</ol>
-<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><h3 id="主题-六角形-hexo-io"><a href="#主题-六角形-hexo-io" class="headerlink" title="主题 |六角形 (hexo.io)"></a><a href="https://hexo.io/themes/">主题 |六角形 (hexo.io)</a></h3><h3 id="hexo-theme-ayer"><a href="#hexo-theme-ayer" class="headerlink" title="hexo-theme-ayer"></a><strong><a href="https://github.com/shen-yu/hexo-theme-ayer">hexo-theme-ayer</a></strong></h3><h3 id="三钻-Benny-X-Guo-三钻-Benny-X-Guo-tridiamond-tech"><a href="#三钻-Benny-X-Guo-三钻-Benny-X-Guo-tridiamond-tech" class="headerlink" title="三钻 Benny X Guo | 三钻 Benny X Guo (tridiamond.tech)"></a><a href="https://tridiamond.tech/">三钻 Benny X Guo | 三钻 Benny X Guo (tridiamond.tech)</a></h3><h3 id="Theme-Yuzu-专注文字-cerallin-github-io"><a href="#Theme-Yuzu-专注文字-cerallin-github-io" class="headerlink" title="Theme Yuzu - 专注文字 (cerallin.github.io)"></a><a href="https://cerallin.github.io/">Theme Yuzu - 专注文字 (cerallin.github.io)</a></h3><p> <a href="https://github.com/cerallin/hexo-theme-yuzu">Cerallin&#x2F;hexo-theme-yuzu: A simple black&#x2F;white hexo theme for novel reading. (github.com)</a></p>
-<h3 id="君の名は-iloveu-xyz"><a href="#君の名は-iloveu-xyz" class="headerlink" title="君の名は (iloveu.xyz)"></a><a href="https://iloveu.xyz/">君の名は (iloveu.xyz)</a></h3><p><a href="https://github.com/JackZong/hexo-theme-burgerking">JackZong&#x2F;hexo-theme-burgerking: A simple hexo theme. (github.com)</a></p>
-<h3 id="海风博客-分享代码与创意-hinpc-github-io"><a href="#海风博客-分享代码与创意-hinpc-github-io" class="headerlink" title="海风博客 - 分享代码与创意 (hinpc.github.io)"></a><a href="https://hinpc.github.io/Daily/">海风博客 - 分享代码与创意 (hinpc.github.io)</a></h3><p><a href="https://github.com/GallenHu/hexo-theme-Daily">GallenHu&#x2F;hexo-theme-Daily: A simple theme for Hexo (github.com)</a></p>
-<h3 id="本博客，已开源，关于itsNeko开源博客食用方法-itsNeko「生活日志」-dyfa-top"><a href="#本博客，已开源，关于itsNeko开源博客食用方法-itsNeko「生活日志」-dyfa-top" class="headerlink" title="本博客，已开源，关于itsNeko开源博客食用方法 | itsNeko「生活日志」 (dyfa.top)"></a><a href="https://blog.dyfa.top/posts/itsneko-opensource-blog.html">本博客，已开源，关于itsNeko开源博客食用方法 | itsNeko「生活日志」 (dyfa.top)</a></h3>]]></content>
-      <categories>
-        <category>默认</category>
-      </categories>
-      <tags>
-        <tag>默认</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>文章功能测试</title>
-    <url>/2023/09/24/%E6%96%87%E7%AB%A0%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95/</url>
-    <content><![CDATA[<p>美图<br><img src="/2023/09/24/%E6%96%87%E7%AB%A0%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95/001.jpg" alt="005"></p>
-<span id="more"></span>
-
-<blockquote>
-<p>一个小测试项目</p>
-</blockquote>
-<div align="center"><img width="200" height="150" src="./001.jpg"/></div>
-
-<script> alert("大家好") </script>
-
-<p><button type="button">Click Me!</button></p>
-<div style="text-align: center">
-    <p style="color: red;font-size: 40pt">一个html的测试</p>
-</div>
-
-<div>
-    <script>
-        xx=1
-        te1=function () {
-            alert(xx++);
-        }
-    </script>
-    <button onclick="te1">
-        点我
-    </button>
-</div>
-]]></content>
-      <categories>
-        <category>默认</category>
-      </categories>
-      <tags>
-        <tag>默认</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>VUE学习记录</title>
     <url>/2023/09/24/VUE%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<h1 id="VUE-LEARN"><a href="#VUE-LEARN" class="headerlink" title="VUE LEARN"></a>VUE LEARN</h1><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h3 id="v-bind"><a href="#v-bind" class="headerlink" title="v-bind"></a>v-bind</h3><p>用于单向绑定事件，数据变化时重新渲染，界面变化不引起数据变化</p>
@@ -582,6 +337,38 @@
       </tags>
   </entry>
   <entry>
+    <title>hexo使用笔记</title>
+    <url>/2023/09/24/hexo%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="关于hexo的使用说明"><a href="#关于hexo的使用说明" class="headerlink" title="关于hexo的使用说明"></a>关于hexo的使用说明</h1><h2 id="网站"><a href="#网站" class="headerlink" title="网站"></a>网站</h2><p><a href="https://hexo.io/zh-cn/">Hexo</a></p>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><ol>
+<li><p>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</p>
+<p>hexo clean:用于清除public文件中所有已经生成的文件，便于后续生成新文件时不必引起冲突</p>
+</li>
+</ol>
+<span id="more"></span>
+<p>   hexo g:用于将source文件夹中写好的md文件生成为html文件</p>
+<p>   hexo d:用于将已经生成好的网站推送到远程服务器上</p>
+<ol start="2">
+<li><p>hexo new [type] {文件名}</p>
+<p>用于在source文件夹中生成一个指定名称的带有预设格式的md文档</p>
+<p>type用于指定格式，默认为post</p>
+</li>
+<li><p>hexo s</p>
+<p>用于在本地启动一个服务器用于测试</p>
+</li>
+</ol>
+<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><h3 id="主题-六角形-hexo-io"><a href="#主题-六角形-hexo-io" class="headerlink" title="主题 |六角形 (hexo.io)"></a><a href="https://hexo.io/themes/">主题 |六角形 (hexo.io)</a></h3><h3 id="hexo-theme-ayer"><a href="#hexo-theme-ayer" class="headerlink" title="hexo-theme-ayer"></a><strong><a href="https://github.com/shen-yu/hexo-theme-ayer">hexo-theme-ayer</a></strong></h3><h3 id="三钻-Benny-X-Guo-三钻-Benny-X-Guo-tridiamond-tech"><a href="#三钻-Benny-X-Guo-三钻-Benny-X-Guo-tridiamond-tech" class="headerlink" title="三钻 Benny X Guo | 三钻 Benny X Guo (tridiamond.tech)"></a><a href="https://tridiamond.tech/">三钻 Benny X Guo | 三钻 Benny X Guo (tridiamond.tech)</a></h3><h3 id="Theme-Yuzu-专注文字-cerallin-github-io"><a href="#Theme-Yuzu-专注文字-cerallin-github-io" class="headerlink" title="Theme Yuzu - 专注文字 (cerallin.github.io)"></a><a href="https://cerallin.github.io/">Theme Yuzu - 专注文字 (cerallin.github.io)</a></h3><p> <a href="https://github.com/cerallin/hexo-theme-yuzu">Cerallin&#x2F;hexo-theme-yuzu: A simple black&#x2F;white hexo theme for novel reading. (github.com)</a></p>
+<h3 id="君の名は-iloveu-xyz"><a href="#君の名は-iloveu-xyz" class="headerlink" title="君の名は (iloveu.xyz)"></a><a href="https://iloveu.xyz/">君の名は (iloveu.xyz)</a></h3><p><a href="https://github.com/JackZong/hexo-theme-burgerking">JackZong&#x2F;hexo-theme-burgerking: A simple hexo theme. (github.com)</a></p>
+<h3 id="海风博客-分享代码与创意-hinpc-github-io"><a href="#海风博客-分享代码与创意-hinpc-github-io" class="headerlink" title="海风博客 - 分享代码与创意 (hinpc.github.io)"></a><a href="https://hinpc.github.io/Daily/">海风博客 - 分享代码与创意 (hinpc.github.io)</a></h3><p><a href="https://github.com/GallenHu/hexo-theme-Daily">GallenHu&#x2F;hexo-theme-Daily: A simple theme for Hexo (github.com)</a></p>
+<h3 id="本博客，已开源，关于itsNeko开源博客食用方法-itsNeko「生活日志」-dyfa-top"><a href="#本博客，已开源，关于itsNeko开源博客食用方法-itsNeko「生活日志」-dyfa-top" class="headerlink" title="本博客，已开源，关于itsNeko开源博客食用方法 | itsNeko「生活日志」 (dyfa.top)"></a><a href="https://blog.dyfa.top/posts/itsneko-opensource-blog.html">本博客，已开源，关于itsNeko开源博客食用方法 | itsNeko「生活日志」 (dyfa.top)</a></h3>]]></content>
+      <categories>
+        <category>默认</category>
+      </categories>
+      <tags>
+        <tag>默认</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>matplotlib学习记录</title>
     <url>/2023/09/24/matplotlib%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<h2 id="图表的创建方法"><a href="#图表的创建方法" class="headerlink" title="图表的创建方法"></a>图表的创建方法</h2><p>创建新图形的最简单方法是使用 pyplot：</p>
@@ -836,6 +623,60 @@
         <tag>python</tag>
         <tag>机器学习</tag>
         <tag>数据分析</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>李君生辰贺</title>
+    <url>/2024/01/12/%E6%9D%8E%E5%90%9B%E7%94%9F%E8%BE%B0%E8%B4%BA/</url>
+    <content><![CDATA[<p><img src="/2024/01/12/%E6%9D%8E%E5%90%9B%E7%94%9F%E8%BE%B0%E8%B4%BA/brithday.jpg" alt="brithday"></p>
+<p>贺君之寿，诞生之辰，瑞气洋溢。谨赞江山壮丽，而今弄潮兮大三，少年翱翔于海南大学，学海无涯。</p>
+<p>良宵之光，曙光将临，年方弱冠，志在人工智能。专攻学府，匡时弦歌，研究深沉于技艺之道，悦心灵之源泉。</p>
+<p>开源之心，犹如明月之光，照亮黑夜，将知识之花开放。爱技术，好探究，彷彿江水悠悠，不息追求。喜得Linux之奇迹，操纵指尖之间，自在遨游于数据之海。</p>
+<p>青春年华，翩然风华。愿君学海无涯，前程万里，步步高升。披荆斩棘，勇攀科技之峰，成就梦想之巅。</p>
+<p>甲辰之岁，祝君心想事成，生辰快乐！</p>
+<span id="more"></span>]]></content>
+      <categories>
+        <category>杂记</category>
+      </categories>
+      <tags>
+        <tag>默认</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文章功能测试</title>
+    <url>/2023/09/24/%E6%96%87%E7%AB%A0%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[<p>美图<br><img src="/2023/09/24/%E6%96%87%E7%AB%A0%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95/001.jpg" alt="005"></p>
+<span id="more"></span>
+
+<blockquote>
+<p>一个小测试项目</p>
+</blockquote>
+<div align="center"><img width="200" height="150" src="./001.jpg"/></div>
+
+<script> alert("大家好") </script>
+
+<p><button type="button">Click Me!</button></p>
+<div style="text-align: center">
+    <p style="color: red;font-size: 40pt">一个html的测试</p>
+</div>
+
+<div>
+    <script>
+        xx=1
+        te1=function () {
+            alert(xx++);
+        }
+    </script>
+    <button onclick="te1">
+        点我
+    </button>
+</div>
+]]></content>
+      <categories>
+        <category>默认</category>
+      </categories>
+      <tags>
+        <tag>默认</tag>
       </tags>
   </entry>
 </search>
